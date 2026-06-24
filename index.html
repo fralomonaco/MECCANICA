@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meccanica — Tracker &amp; Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Spline+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f4efe4;--paper2:#faf7ef;--card:#fffdf8;--ink:#241f18;--ink-soft:#6b6255;
+  --line:#e4dccb;--line2:#d8cfba;
+  --d-low:#2f9e63;--d-mid:#e0992a;--d-high:#cf3a2c;--d-none:#aeb7c4;--todo:#ddd4c2;
+  --cine:#2257c4;--stat:#0d8a6a;--dina:#7b4ad1;--tras:#c2410c;--vett:#5a6577;--mecc:#a8551b;
+  --shadow:0 1px 2px rgba(50,40,20,.05),0 12px 28px -14px rgba(70,55,25,.22);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Spline Sans',system-ui,sans-serif;background:var(--paper);color:var(--ink);
+  line-height:1.5;padding:clamp(16px,4vw,48px);
+  background-image:radial-gradient(circle at 12% 18%,rgba(194,65,12,.04),transparent 38%),radial-gradient(circle at 88% 8%,rgba(34,87,196,.045),transparent 42%);
+  min-height:100vh}
+.wrap{max-width:1080px;margin:0 auto}
+header{margin-bottom:clamp(22px,4vw,40px)}
+.kicker{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px}
+h1{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(34px,8vw,62px);line-height:.96;letter-spacing:-.02em}
+h1 em{font-style:italic;font-weight:400;color:var(--tras)}
+.sub{color:var(--ink-soft);margin-top:12px;max-width:52ch;font-size:15px}
+.grid-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:28px 0}
+@media(max-width:720px){.grid-stats{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
+.stat{padding:20px;display:flex;align-items:center;gap:18px}
+.stat .meta{flex:1;min-width:0}
+.stat .t{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+.stat .big{font-family:'Fraunces',serif;font-weight:600;font-size:30px;line-height:1.1;margin-top:2px}
+.dot{width:9px;height:9px;border-radius:3px;flex:none;display:inline-block}
+.section-h{font-family:'Fraunces',serif;font-weight:600;font-size:22px;margin:36px 0 16px;display:flex;align-items:baseline;gap:12px}
+.section-h .n{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);letter-spacing:.1em}
+
+/* TOPIC CARDS */
+.grid-topics{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.topic{padding:16px;cursor:pointer;transition:transform .12s,box-shadow .15s;border-left:4px solid var(--tc,var(--cine))}
+.topic:hover{transform:translateY(-2px);box-shadow:var(--shadow),0 4px 16px -8px rgba(0,0,0,.15)}
+.topic .name{font-weight:600;font-size:14.5px}
+.topic .desc{font-size:12.5px;color:var(--ink-soft);margin-top:4px}
+.topic .guide-hint{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-top:8px}
+
+/* GUIDE PANEL */
+.gpanel{display:none;grid-column:1/-1;border-radius:18px;overflow:hidden;margin-bottom:10px}
+.gpanel.open{display:block;animation:gslide .22s ease}
+@keyframes gslide{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.gpanel-inner{padding:22px 24px}
+.gpanel-close{position:absolute;top:16px;right:18px;background:none;border:1px solid var(--line2);
+  color:var(--ink-soft);border-radius:8px;padding:5px 11px;cursor:pointer;font-size:11.5px;
+  font-family:'IBM Plex Mono',monospace;letter-spacing:.08em;text-transform:uppercase}
+.gpanel-close:hover{border-color:var(--d-high);color:var(--d-high)}
+.ghead{display:flex;align-items:center;gap:12px;margin-bottom:18px;position:relative}
+.ghead h2{font-family:'Fraunces',serif;font-weight:700;font-size:22px}
+.gtabs{display:flex;gap:7px;margin-bottom:20px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:12px}
+.gtab{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+  padding:5px 12px;border-radius:20px;border:1px solid var(--line2);background:var(--paper2);
+  color:var(--ink-soft);cursor:pointer;transition:all .15s}
+.gtab:hover{border-color:var(--ink-soft)}
+.gtab.active{color:#fff;border-color:transparent}
+.gsection{display:none}.gsection.active{display:block}
+.gsteps{counter-reset:gs;margin:12px 0}
+.gstep{display:flex;gap:14px;margin-bottom:18px;align-items:flex-start}
+.gstep-n{counter-increment:gs;width:28px;height:28px;border-radius:9px;flex:none;margin-top:1px;
+  display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:900;font-size:14px;color:#fff}
+.gstep-n::before{content:counter(gs)}
+.gstep-b{flex:1}
+.gstep-b strong{display:block;font-size:14.5px;font-weight:600;margin-bottom:4px}
+.gstep-b p{font-size:13.5px;color:var(--ink-soft);margin:0;line-height:1.6}
+.gstep-b p b{color:var(--ink)}
+.gbox{border-radius:10px;padding:13px 15px;margin:10px 0;font-size:13.5px;line-height:1.6}
+.gbox.ex{background:rgba(47,158,99,.07);border:1px solid rgba(47,158,99,.22)}
+.gbox.warn{background:rgba(224,153,42,.07);border:1px solid rgba(224,153,42,.22)}
+.gbox.info{background:rgba(34,87,196,.06);border:1px solid rgba(34,87,196,.2)}
+.gbox.danger{background:rgba(207,58,44,.06);border:1px solid rgba(207,58,44,.2)}
+.gbox-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-bottom:7px}
+.gbox.ex .gbox-label{color:var(--d-low)}.gbox.warn .gbox-label{color:var(--d-mid)}
+.gbox.info .gbox-label{color:var(--conc,var(--cine))}.gbox.danger .gbox-label{color:var(--d-high)}
+.gbox p{margin:0;color:var(--ink-soft)}.gbox p b{color:var(--ink)}
+.gbox ul{padding-left:18px;color:var(--ink-soft)}.gbox ul li{margin-bottom:4px}
+.gformula{font-family:'IBM Plex Mono',monospace;font-size:12.5px;background:var(--paper2);border:1px solid var(--line);
+  border-radius:9px;padding:12px 14px;margin:10px 0;color:var(--d-high);line-height:1.7}
+h3.gsub{font-family:'Fraunces',serif;font-weight:600;font-size:16px;margin:18px 0 8px;color:var(--ink)}
+.gdivider{border:none;border-top:1px solid var(--line);margin:18px 0}
+
+/* TDE / ESE TRACKER */
+.tde{margin-bottom:12px;overflow:hidden}
+.tde-head{padding:15px 18px;display:flex;align-items:center;gap:14px;cursor:pointer;user-select:none}
+.tde-head .date{font-family:'Fraunces',serif;font-weight:600;font-size:17px}
+.tde-head .pill{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);background:var(--paper);border:1px solid var(--line);padding:2px 9px;border-radius:20px}
+.tde-head .spacer{flex:1}
+.bar{width:96px;height:7px;border-radius:6px;background:var(--todo);overflow:hidden;flex:none;display:flex}
+.bar i{display:block;height:100%;transition:width .4s cubic-bezier(.2,.8,.2,1)}
+.chev{transition:transform .25s;color:var(--ink-soft);font-size:13px}
+.tde.open .chev{transform:rotate(90deg)}
+.ex-list{display:none;border-top:1px solid var(--line);padding:6px 10px 12px}
+.tde.open .ex-list{display:block}
+.ex{display:flex;align-items:center;gap:10px;padding:9px 8px;border-radius:12px;flex-wrap:wrap}
+.ex:hover{background:var(--paper2)}
+.ex .lt{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);width:18px;flex:none}
+.ex .ty{flex:1 1 130px;font-size:14px;display:flex;align-items:center;gap:8px;min-width:0}
+.ex .ty .tag{font-family:'IBM Plex Mono',monospace;font-size:10px;padding:2px 7px;border-radius:10px;color:#fff;white-space:nowrap}
+.cb{appearance:none;-webkit-appearance:none;width:20px;height:20px;border:2px solid var(--line2);border-radius:6px;
+  cursor:pointer;flex:none;display:grid;place-content:center;transition:all .15s}
+.cb:checked{background:var(--d-low);border-color:var(--d-low)}
+.cb:checked::after{content:'';width:6px;height:10px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg);margin-top:-2px}
+.diff{font-family:'IBM Plex Mono',monospace;font-size:10px;padding:2px 8px;border-radius:8px;border:1px solid var(--line2);
+  background:var(--paper2);color:var(--ink-soft);cursor:pointer;min-width:50px;text-align:center}
+.diff option{font-family:'IBM Plex Mono',monospace}
+.note{font-size:12px;border:1px solid var(--line);border-radius:8px;padding:4px 8px;background:var(--paper2);
+  color:var(--ink);flex:1 1 120px;min-width:80px;font-family:'Spline Sans',sans-serif}
+.note::placeholder{color:var(--d-none)}
+.sol-badge{font-family:'IBM Plex Mono',monospace;font-size:9px;padding:2px 6px;border-radius:6px;background:var(--d-low);color:#fff;letter-spacing:.05em}
+
+svg text{font-family:'Spline Sans',sans-serif}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="kicker">Polimi &mdash; A.A. 2025-2026</div>
+  <h1>Meccanica <em>Tracker</em></h1>
+  <p class="sub">Guida completa per l'esame di Meccanica per Ingegneria Informatica. Guide passo-passo, tracker TDE ed esercitazioni.</p>
+</header>
+
+<!-- STATS -->
+<div class="grid-stats">
+  <div class="card stat">
+    <div class="meta">
+      <div class="t">Temi d'esame</div>
+      <div class="big" id="st-tde">0 / 20</div>
+    </div>
+    <div class="bar"><i id="bar-tde" style="width:0%;background:var(--d-low)"></i></div>
+  </div>
+  <div class="card stat">
+    <div class="meta">
+      <div class="t">Esercitazioni</div>
+      <div class="big" id="st-ese">0 / 13</div>
+    </div>
+    <div class="bar"><i id="bar-ese" style="width:0%;background:var(--cine)"></i></div>
+  </div>
+  <div class="card stat">
+    <div class="meta">
+      <div class="t">Guide</div>
+      <div class="big">8 argomenti</div>
+    </div>
+  </div>
+</div>
+
+<!-- TOPIC GUIDES -->
+<div class="section-h">Guide per argomento <span class="n">8 TOPIC</span></div>
+<div class="grid-topics" id="topics-grid">
+
+<div class="card topic" style="--tc:var(--vett)" onclick="toggleGuide('vett')">
+  <div class="name">Calcolo Vettoriale</div>
+  <div class="desc">Notazioni, prodotto scalare e vettoriale, somma</div>
+  <div class="guide-hint">Apri guida &rarr;</div>
+</div>
+
+<div class="card topic" style="--tc:var(--cine)" onclick="toggleGuide('cine-punto')">
+  <div class="name">Cinematica del Punto</div>
+  <div class="desc">Coordinate polari, leggi di moto, traiettorie</div>
+  <div class="guide-hint">Apri guida &rarr;</div>
+</div>
+
+<div class="card topic" style="--tc:var(--cine)" onclick="toggleGuide('cine-corpo')">
+  <div class="name">Cinematica Corpo Rigido</div>
+  <div class="desc">Rivals, puro rotolamento, CIR, moti relativi</div>
+  <div class="guide-hint">Apri guida &rarr;</div>
+</div>
+
+<div class="card topic" style="--tc:var(--mecc)" onclick="toggleGuide('mecc')">
+  <div class="name">Meccanismi</div>
+  <div class="desc">Glifi, quadrilateri, chiusura cinematica</div>
+  <div class="guide-hint">Apri guida &rarr;</div>
+</div>
+
+<div class="card topic" style="--tc:var(--stat)" onclick="toggleGuide('stat')">
+  <div class="name">Statica &mdash; Reazioni Vincolari</div>
+  <div class="desc">GdL, equilibrio, vincoli, molle</div>
+  <div class="guide-hint">Apri guida &rarr;</div>
+</div>
+
+<div class="card topic" style="--tc:var(--stat)" onclick="toggleGuide('ai')">
+  <div class="name">Azioni Interne</div>
+  <div class="desc">N, T, M &mdash; diagrammi e convenzioni</div>
+  <div class="guide-hint">Apri guida &rarr;</div>
+</div>
+
+<div class="card topic" style="--tc:var(--dina)" onclick="toggleGuide('dina')">
+  <div class="name">Dinamica</div>
+  <div class="desc">Eq. cardinali, bilancio potenze, energia cinetica</div>
+  <div class="guide-hint">Apri guida &rarr;</div>
+</div>
+
+<div class="card topic" style="--tc:var(--tras)" onclick="toggleGuide('tras')">
+  <div class="name">Trasmissioni</div>
+  <div class="desc">Motori, rendimenti, veicoli, aderenza</div>
+  <div class="guide-hint">Apri guida &rarr;</div>
+</div>
+
+</div><!-- grid -->
+
+<!-- GUIDE PANELS (inserted after grid) -->
+<div id="guide-container"></div>
+
+<!-- TDE TRACKER -->
+<div class="section-h">Temi d'esame <span class="n">20 TDE</span></div>
+<div id="tde-list"></div>
+
+<!-- ESERCITAZIONI TRACKER -->
+<div class="section-h">Esercitazioni <span class="n">ESE 00&ndash;12</span></div>
+<div id="ese-list"></div>
+
+</div><!-- wrap -->
+
+<script>
+// ─── DATA ───
+const TDE=[
+  {id:'20220629',date:'29/06/2022',appello:'P1',sol:false},
+  {id:'20220718',date:'18/07/2022',appello:'P2',sol:false},
+  {id:'20220902',date:'02/09/2022',appello:'P3',sol:false},
+  {id:'20230119',date:'19/01/2023',appello:'P4',sol:false},
+  {id:'20230219',date:'19/02/2023',appello:'P5',sol:false},
+  {id:'20230620',date:'20/06/2023',appello:'P1',sol:false},
+  {id:'20230706',date:'06/07/2023',appello:'P2',sol:false},
+  {id:'20230906',date:'06/09/2023',appello:'P3',sol:false},
+  {id:'20240112',date:'12/01/2024',appello:'P4',sol:false},
+  {id:'20240214',date:'14/02/2024',appello:'P5',sol:false},
+  {id:'20240608',date:'08/06/2024',appello:'P1',sol:false},
+  {id:'20240708',date:'08/07/2024',appello:'P2',sol:false},
+  {id:'20240829',date:'29/08/2024',appello:'P3',sol:false},
+  {id:'20250118',date:'18/01/2025',appello:'P4',sol:false},
+  {id:'20250204',date:'04/02/2025',appello:'P5',sol:false},
+  {id:'20250612',date:'12/06/2025',appello:'P1',sol:true},
+  {id:'20250707',date:'07/07/2025',appello:'P2',sol:true},
+  {id:'20250829',date:'29/08/2025',appello:'P3',sol:true},
+  {id:'20260126',date:'26/01/2026',appello:'P4',sol:true},
+  {id:'20260209',date:'09/02/2026',appello:'P5',sol:true},
+];
+
+const PROBLEMS=['Problema 1 — Cinematica + Dinamica','Problema 2 — Statica + Azioni Interne','Problema 3 — Trasmissioni'];
+const PROB_TAGS=[{label:'CIN+DIN',bg:'var(--dina)'},{label:'STATICA',bg:'var(--stat)'},{label:'TRASM',bg:'var(--tras)'}];
+
+const ESE=[
+  {id:'ese00',title:'ESE 00 — Calcolo Vettoriale',items:['Es.1 Calcolo vettoriale','Es.2 Esempi applicativi (aereo, forze, momenti)','Es.3 Legge di moto del punto']},
+  {id:'ese01',title:'ESE 01 — Cinematica del Punto',items:['Es.1 Gru da cantiere (coord. polari)','Es.2 Disco che rotola (MATLAB)']},
+  {id:'ese02',title:'ESE 02 — Cinematica Corpo Rigido',items:['Es.1 Scala che cade (Rivals, moti relativi, chiusura)','Aggiuntivo 1 — Disco con pistone']},
+  {id:'ese03',title:'ESE 03 — Meccanismi',items:['Es.1 Stepper (glifo oscillante)','Aggiuntivo 2 — Velocita angolare asta 2','Aggiuntivo 3 — Glifo con asta OP']},
+  {id:'ese04',title:'ESE 04 — Chiusura Cinematica',items:['Es.1 Tema 06-09-2023 (cinematica+dinamica)','Aggiuntivo 4 — Quadrilatero articolato']},
+  {id:'ese05',title:'ESE 05 — Statica: Reazioni Vincolari',items:['Es.1 Corpo con coppia C=3FL','Es.2 Sistema a L con cerniere','Es.3 Sistema con asta inclinata 45°','Es.4 Tema 22-07-2021','Es.5 Tema 08-07-2024','Aggiuntivo 5']},
+  {id:'ese06',title:'ESE 06 — Azioni Interne',items:['Es.1 Asta con coppia e forze','Es.2 Sistema a L','Es.3 Sistema con asta 45°','Es.4 Tema 22-07-2021 (azioni interne)','Es.5 Tema 08-07-2024 (azioni interne)','Aggiuntivo 6']},
+  {id:'ese07',title:'ESE 07 — Dinamica: Eq. Cardinali',items:['Es.1 Cancello automatico','Es.2 Leg-press','Aggiuntivo 7 — Disco con manovella']},
+  {id:'ese08',title:'ESE 08 — Bilancio delle Potenze',items:['Es.1 Cancello (bilancio potenze)','Es.2 Leg-press (bilancio potenze)','Es.3 Meccanismo 4 aste','Aggiuntivo 8 — Disco con manovella (potenze)']},
+  {id:'ese09',title:'ESE 09 — Attrito e Rotolamento',items:['Es.1 Trattore elettrico giocattolo (3 casi)','Aggiuntivo 9 — Tema 06-09-2023 (eq. cardinali)']},
+  {id:'ese10',title:'ESE 10 — Trasmissioni: Ascensore',items:['Punto 1: Partenza in salita','Punto 2: Salita a regime pieno carico','Punto 3: Salita a regime cabina vuota','Punto 4: Frenata in discesa']},
+  {id:'ese11',title:'ESE 11 — Veicoli',items:['Es.1 Veicolo in salita (4 punti)','Es.2 Veicolo in discesa (2 punti)']},
+  {id:'ese12',title:'ESE 12 — Tema 18-01-2025',items:['Problema 1 — Cinematica+Dinamica (asta+massa)','Problema 2 — Statica (3 aste + incastro)','Problema 3 — Trasmissioni (impianto sollevamento)']},
+];
+
+// ─── GUIDE CONTENT ───
+const GUIDES={
+vett:`<div class="ghead"><div class="dot" style="background:var(--vett)"></div><h2>Calcolo Vettoriale</h2></div>
+<h3 class="gsub">Tre notazioni per un vettore</h3>
+<div class="gformula">
+Per componenti: a&#x20D7; = (a<sub>x</sub>, a<sub>y</sub>, a<sub>z</sub>)<br>
+Piano complesso: a&#x20D7; = a<sub>x</sub> + j&middot;a<sub>y</sub><br>
+Forma polare: a&#x20D7; = |a| &ang; &theta;
+</div>
+<div class="gsteps">
+<div class="gstep"><div class="gstep-n" style="background:var(--vett)"></div><div class="gstep-b"><strong>Modulo</strong><p>|a&#x20D7;| = &radic;(a<sub>x</sub>&sup2; + a<sub>y</sub>&sup2;). Il modulo e sempre &ge; 0.</p></div></div>
+<div class="gstep"><div class="gstep-n" style="background:var(--vett)"></div><div class="gstep-b"><strong>Direzione e verso</strong><p>&theta; = atan2(a<sub>y</sub>, a<sub>x</sub>). Usa <b>atan2</b> (non atan) per ottenere il quadrante corretto.</p></div></div>
+<div class="gstep"><div class="gstep-n" style="background:var(--vett)"></div><div class="gstep-b"><strong>Prodotto scalare</strong><p>a&#x20D7; &middot; b&#x20D7; = a<sub>x</sub>b<sub>x</sub> + a<sub>y</sub>b<sub>y</sub> = |a||b|cos&theta;. Risultato: <b>uno scalare</b>. Se = 0, i vettori sono perpendicolari.</p></div></div>
+<div class="gstep"><div class="gstep-n" style="background:var(--vett)"></div><div class="gstep-b"><strong>Prodotto vettoriale</strong><p>a&#x20D7; &times; b&#x20D7; = (a<sub>x</sub>b<sub>y</sub> &minus; a<sub>y</sub>b<sub>x</sub>) k&#x302;. Risultato: <b>un vettore</b> perpendicolare al piano. Il modulo e |a||b|sin&theta;.</p></div></div>
+</div>
+<svg viewBox="0 0 400 200" style="max-width:400px;margin:10px auto;display:block">
+  <defs><marker id="ah" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#5a6577"/></marker></defs>
+  <line x1="50" y1="150" x2="200" y2="150" stroke="#5a6577" stroke-width="2" marker-end="url(#ah)"/>
+  <line x1="50" y1="150" x2="150" y2="70" stroke="#2257c4" stroke-width="2" marker-end="url(#ah)"/>
+  <line x1="200" y1="150" x2="300" y2="70" stroke="#2257c4" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#ah)"/>
+  <line x1="50" y1="150" x2="300" y2="70" stroke="#cf3a2c" stroke-width="2.5" marker-end="url(#ah)"/>
+  <line x1="150" y1="70" x2="300" y2="70" stroke="#5a6577" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="120" y="168" font-size="13" fill="#5a6577" font-weight="600">a&#x20D7;</text>
+  <text x="85" y="100" font-size="13" fill="#2257c4" font-weight="600">b&#x20D7;</text>
+  <text x="160" y="95" font-size="13" fill="#cf3a2c" font-weight="600">a+b</text>
+  <text x="200" y="30" font-size="11" fill="#6b6255">Regola del parallelogramma</text>
+</svg>
+<div class="gbox warn"><div class="gbox-label">Attenzione</div><p>Il prodotto vettoriale <b>NON e commutativo</b>: a&times;b = &minus;(b&times;a). Attenzione all'ordine!</p></div>
+<div class="gbox ex"><div class="gbox-label">Consiglio</div><p>Per la somma vettoriale, lavora sempre <b>per componenti</b>. La forma polare e utile solo per modulo e direzione del risultato finale.</p></div>`,
+
+'cine-punto':`<div class="ghead"><div class="dot" style="background:var(--cine)"></div><h2>Cinematica del Punto</h2></div>
+<h3 class="gsub">Coordinate Cartesiane</h3>
+<div class="gformula">
+P(t) = x(t) i&#x302; + y(t) j&#x302;<br>
+v&#x20D7; = x&#x0307; i&#x302; + y&#x0307; j&#x302;<br>
+a&#x20D7; = x&#x0308; i&#x302; + y&#x0308; j&#x302;
+</div>
+<h3 class="gsub">Coordinate Polari</h3>
+<div class="gformula">
+P = &rho; e&#x0302;<sub>&rho;</sub><br>
+v&#x20D7; = &rho;&#x0307; e&#x0302;<sub>&rho;</sub> + &rho;&theta;&#x0307; e&#x0302;<sub>&theta;</sub><br>
+a&#x20D7; = (&rho;&#x0308; &minus; &rho;&theta;&#x0307;&sup2;) e&#x0302;<sub>&rho;</sub> + (&rho;&theta;&#x0308; + 2&rho;&#x0307;&theta;&#x0307;) e&#x0302;<sub>&theta;</sub>
+</div>
+<div class="gsteps">
+<div class="gstep"><div class="gstep-n" style="background:var(--cine)"></div><div class="gstep-b"><strong>Identifica il sistema di coordinate</strong><p>Se il punto si muove lungo un raggio che ruota (es. gru), usa <b>coordinate polari</b>. Se il moto e rettilineo o parabolico, usa cartesiane.</p></div></div>
+<div class="gstep"><div class="gstep-n" style="background:var(--cine)"></div><div class="gstep-b"><strong>Scrivi posizione, velocita, accelerazione</strong><p>Deriva la posizione per ottenere la velocita, e la velocita per l'accelerazione. In polari ricorda i <b>termini centripeto</b> (&minus;&rho;&theta;&#x0307;&sup2;) e di <b>Coriolis</b> (2&rho;&#x0307;&theta;&#x0307;).</p></div></div>
+<div class="gstep"><div class="gstep-n" style="background:var(--cine)"></div><div class="gstep-b"><strong>Traiettoria</strong><p>Elimina il parametro t dalle equazioni x(t) e y(t) per ottenere y = f(x). Esempio: se x=2t e y=4t&sup2; &rArr; y = x&sup2;, parabola.</p></div></div>
+</div>
+<svg viewBox="0 0 350 250" style="max-width:350px;margin:10px auto;display:block">
+  <defs><marker id="ah2" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#2257c4"/></marker></defs>
+  <line x1="30" y1="220" x2="320" y2="220" stroke="#d8cfba" stroke-width="1"/>
+  <line x1="30" y1="220" x2="30" y2="20" stroke="#d8cfba" stroke-width="1"/>
+  <line x1="30" y1="220" x2="230" y2="80" stroke="#241f18" stroke-width="2" stroke-dasharray="5 3"/>
+  <circle cx="230" cy="80" r="5" fill="#cf3a2c"/>
+  <line x1="230" y1="80" x2="300" y2="60" stroke="#2257c4" stroke-width="2" marker-end="url(#ah2)"/>
+  <line x1="230" y1="80" x2="210" y2="20" stroke="#0d8a6a" stroke-width="2" marker-end="url(#ah2)"/>
+  <text x="255" y="55" font-size="12" fill="#2257c4" font-weight="600">e&#x0302;<tspan baseline-shift="sub" font-size="9">&rho;</tspan></text>
+  <text x="188" y="25" font-size="12" fill="#0d8a6a" font-weight="600">e&#x0302;<tspan baseline-shift="sub" font-size="9">&theta;</tspan></text>
+  <text x="120" y="165" font-size="13" fill="#241f18">&rho;</text>
+  <text x="235" y="95" font-size="12" fill="#cf3a2c" font-weight="600">P</text>
+  <text x="25" y="235" font-size="11" fill="#6b6255">O</text>
+  <path d="M 70 210 A 50 50 0 0 0 60 195" stroke="#e0992a" stroke-width="1.5" fill="none"/>
+  <text x="75" y="205" font-size="11" fill="#e0992a">&theta;</text>
+</svg>
+<div class="gbox warn"><div class="gbox-label">Attenzione</div><p>I versori e&#x0302;<sub>&rho;</sub> e e&#x0302;<sub>&theta;</sub> <b>cambiano nel tempo</b> (ruotano con &theta;). Per questo la derivata di &rho;e&#x0302;<sub>&rho;</sub> genera il termine &rho;&theta;&#x0307;e&#x0302;<sub>&theta;</sub>.</p></div>
+<div class="gbox ex"><div class="gbox-label">Esempio tipico: Gru</div><p>Il braccio ruota (&theta;, &omega;=&theta;&#x0307;, &omega;&#x0307;=&theta;&#x0308;) e il carico scorre lungo il braccio (&rho;, &rho;&#x0307;, &rho;&#x0308;). Basta sostituire nelle formule polari.</p></div>`,
+
+'cine-corpo':`<div class="ghead"><div class="dot" style="background:var(--cine)"></div><h2>Cinematica del Corpo Rigido</h2></div>
+<h3 class="gsub">Gradi di liberta (GdL)</h3>
+<div class="gformula">GdL = 3&middot;N<sub>corpi</sub> &minus; &sum; vincoli<br>
+Cerniera: 2 vincoli | Carrello: 1 | Incastro: 3 | Manicotto: 2 | Pattino: 2</div>
+<h3 class="gsub">Teorema di Rivals</h3>
+<div class="gformula">
+v&#x20D7;<sub>B</sub> = v&#x20D7;<sub>A</sub> + &omega;&#x20D7; &times; (B&minus;A)<br>
+a&#x20D7;<sub>B</sub> = a&#x20D7;<sub>A</sub> + &omega;&#x0307;&#x20D7; &times; (B&minus;A) + &omega;&#x20D7; &times; (&omega;&#x20D7; &times; (B&minus;A))
+</div>
+<div class="gsteps">
+<div class="gstep"><div class="gstep-n" style="background:var(--cine)"></div><div class="gstep-b"><strong>Individua i corpi e i vincoli</strong><p>Disegna lo schema cinematico, numera i corpi, identifica i vincoli e calcola i GdL.</p></div></div>
+<div class="gstep"><div class="gstep-n" style="background:var(--cine)"></div><div class="gstep-b"><strong>Applica Rivals asta per asta</strong><p>Parti dal punto di cui conosci la velocita. Usa Rivals per propagare v e a lungo la catena cinematica. Proietta su x e y per ottenere equazioni scalari.</p></div></div>
+<div class="gstep"><div class="gstep-n" style="background:var(--cine)"></div><div class="gstep-b"><strong>Puro rotolamento</strong><p>Il punto di contatto C ha <b>v<sub>C</sub> = 0</b>. Quindi v<sub>centro</sub> = &omega;&middot;R (orizzontale). Il CIR e il punto di contatto stesso.</p></div></div>
+<div class="gstep"><div class="gstep-n" style="background:var(--cine)"></div><div class="gstep-b"><strong>Moti relativi</strong><p>v&#x20D7;<sub>ass</sub> = v&#x20D7;<sub>rel</sub> + v&#x20D7;<sub>tras</sub>, e per l'accelerazione: a&#x20D7;<sub>ass</sub> = a&#x20D7;<sub>rel</sub> + a&#x20D7;<sub>tras</sub> + a&#x20D7;<sub>Cor</sub>, dove a<sub>Cor</sub> = 2&omega;&#x20D7; &times; v&#x20D7;<sub>rel</sub></p></div></div>
+</div>
+<div class="gbox warn"><div class="gbox-label">Attenzione</div><p>Il termine <b>&omega; &times; (&omega; &times; r)</b> nell'accelerazione e diretto verso il centro (centripeto) e il suo modulo e &omega;&sup2;&middot;r. Non dimenticarlo!</p></div>
+<div class="gbox ex"><div class="gbox-label">Consiglio</div><p>Per la <b>scala che cade</b> (esercizio classico), il metodo piu rapido e la <b>chiusura cinematica</b>: scrivi il vettore posizione come loop chiuso, deriva una volta per v e due volte per a.</p></div>`,
+
+mecc:`<div class="ghead"><div class="dot" style="background:var(--mecc)"></div><h2>Meccanismi</h2></div>
+<h3 class="gsub">Chiusura Cinematica</h3>
+<div class="gsteps">
+<div class="gstep"><div class="gstep-n" style="background:var(--mecc)"></div><div class="gstep-b"><strong>Disegna lo schema e identifica il loop</strong><p>Ogni meccanismo ha un circuito chiuso. Scegli un percorso che torni al punto di partenza.</p></div></div>
+<div class="gstep"><div class="gstep-n" style="background:var(--mecc)"></div><div class="gstep-b"><strong>Scrivi l'equazione vettoriale di chiusura</strong><p>Somma dei vettori posizione lungo il loop = 0. Es: OA + AB + BO' + O'O = 0</p></div></div>
+<div class="gstep"><div class="gstep-n" style="background:var(--mecc)"></div><div class="gstep-b"><strong>Proietta su x e y</strong><p>Ottieni 2 equazioni scalari. Ogni asta di lunghezza L e angolo &alpha; contribuisce con L&middot;cos&alpha; (x) e L&middot;sin&alpha; (y).</p></div></div>
+<div class="gstep"><div class="gstep-n" style="background:var(--mecc)"></div><div class="gstep-b"><strong>Deriva per velocita e accelerazione</strong><p>Deriva l'equazione di chiusura: ottieni le velocita angolari incognite. Deriva ancora: ottieni le accelerazioni angolari.</p></div></div>
+</div>
+<h3 class="gsub">Glifo Oscillante</h3>
+<p style="font-size:13.5px;color:var(--ink-soft)">Un'asta scorre dentro una guida rotante. Il punto che scorre ha una <b>velocita relativa</b> lungo la guida. Si usano i <b>moti relativi</b>: il sistema di trascinamento e la guida che ruota.</p>
+<div class="gbox info"><div class="gbox-label">Procedura per il glifo</div>
+<ul><li>Identifica il punto che appartiene sia all'asta che alla guida</li>
+<li>v<sub>ass</sub> (nota) = v<sub>rel</sub> (lungo la guida) + v<sub>tras</sub> (&omega; &times; r)</li>
+<li>Proietta e risolvi per &omega;<sub>guida</sub> e v<sub>rel</sub></li></ul></div>
+<div class="gbox warn"><div class="gbox-label">Attenzione</div><p>Nel quadrilatero articolato, l'equazione di chiusura ha <b>2 incognite</b> (due angoli). Servono le 2 proiezioni x,y per risolverle.</p></div>`,
+
+stat:`<div class="ghead"><div class="dot" style="background:var(--stat)"></div><h2>Statica &mdash; Reazioni Vincolari</h2></div>
+<h3 class="gsub">Vincoli e reazioni</h3>
+<div class="gformula">
+Cerniera a terra: H<sub>x</sub>, H<sub>y</sub> (2 incognite)<br>
+Carrello: N perpendicolare al piano (1 incognita)<br>
+Incastro: H<sub>x</sub>, H<sub>y</sub>, M (3 incognite)<br>
+Manicotto: N, M (2 incognite, forza &perp; guida + momento)<br>
+Pendolo/biella: F lungo l'asta (1 incognita)
+</div>
+<div class="gsteps">
+<div class="gstep"><div class="gstep-n" style="background:var(--stat)"></div><div class="gstep-b"><strong>Disegna il diagramma di corpo libero (DCL)</strong><p>Separa ogni corpo, sostituisci i vincoli con le reazioni incognite. Disegna tutte le forze esterne e le reazioni.</p></div></div>
+<div class="gstep"><div class="gstep-n" style="background:var(--stat)"></div><div class="gstep-b"><strong>Verifica isostaticita</strong><p>N&deg; incognite = N&deg; equazioni? Nel piano: 3 equazioni per corpo. Se isostatico, il sistema e risolvibile.</p></div></div>
+<div class="gstep"><div class="gstep-n" style="background:var(--stat)"></div><div class="gstep-b"><strong>Scrivi le equazioni di equilibrio</strong><p>&sum;F<sub>x</sub> = 0, &sum;F<sub>y</sub> = 0, &sum;M<sub>polo</sub> = 0. <b>Scegli il polo</b> in modo da eliminare piu incognite possibili (es. nel punto dove ci sono 2 reazioni incognite).</p></div></div>
+<div class="gstep"><div class="gstep-n" style="background:var(--stat)"></div><div class="gstep-b"><strong>Risolvi e verifica</strong><p>Risolvi il sistema lineare. Verifica con un'equazione extra (es. equilibrio dei momenti rispetto a un altro polo).</p></div></div>
+</div>
+<svg viewBox="0 0 450 150" style="max-width:450px;margin:10px auto;display:block">
+  <text x="10" y="20" font-size="11" fill="#0d8a6a" font-weight="600">Vincoli tipici:</text>
+  <!-- Cerniera -->
+  <circle cx="60" cy="80" r="8" fill="none" stroke="#0d8a6a" stroke-width="2"/>
+  <line x1="52" y1="92" x2="68" y2="92" stroke="#0d8a6a" stroke-width="2"/>
+  <line x1="48" y1="96" x2="72" y2="96" stroke="#0d8a6a" stroke-width="2"/>
+  <text x="38" y="120" font-size="10" fill="#6b6255">Cerniera</text>
+  <text x="42" y="132" font-size="9" fill="#0d8a6a">(2 reaz.)</text>
+  <!-- Carrello -->
+  <circle cx="170" cy="82" r="6" fill="none" stroke="#0d8a6a" stroke-width="2"/>
+  <circle cx="185" cy="82" r="6" fill="none" stroke="#0d8a6a" stroke-width="2"/>
+  <line x1="162" y1="72" x2="193" y2="72" stroke="#0d8a6a" stroke-width="2"/>
+  <line x1="158" y1="92" x2="197" y2="92" stroke="#0d8a6a" stroke-width="2"/>
+  <text x="150" y="120" font-size="10" fill="#6b6255">Carrello</text>
+  <text x="152" y="132" font-size="9" fill="#0d8a6a">(1 reaz.)</text>
+  <!-- Incastro -->
+  <line x1="270" y1="60" x2="270" y2="100" stroke="#0d8a6a" stroke-width="3"/>
+  <line x1="265" y1="62" x2="258" y2="55" stroke="#0d8a6a" stroke-width="1.5"/>
+  <line x1="265" y1="72" x2="258" y2="65" stroke="#0d8a6a" stroke-width="1.5"/>
+  <line x1="265" y1="82" x2="258" y2="75" stroke="#0d8a6a" stroke-width="1.5"/>
+  <line x1="265" y1="92" x2="258" y2="85" stroke="#0d8a6a" stroke-width="1.5"/>
+  <text x="256" y="120" font-size="10" fill="#6b6255">Incastro</text>
+  <text x="256" y="132" font-size="9" fill="#0d8a6a">(3 reaz.)</text>
+  <!-- Manicotto -->
+  <rect x="355" y="65" width="30" height="30" fill="none" stroke="#0d8a6a" stroke-width="2" rx="3"/>
+  <line x1="370" y1="65" x2="370" y2="55" stroke="#0d8a6a" stroke-width="2"/>
+  <line x1="370" y1="95" x2="370" y2="105" stroke="#0d8a6a" stroke-width="2"/>
+  <text x="347" y="120" font-size="10" fill="#6b6255">Manicotto</text>
+  <text x="349" y="132" font-size="9" fill="#0d8a6a">(2 reaz.)</text>
+</svg>
+<div class="gbox ex"><div class="gbox-label">Consiglio</div><p>Per la <b>molla</b>: la forza e F = k&middot;(l &minus; l<sub>0</sub>), dove l e la lunghezza attuale e l<sub>0</sub> quella a riposo. Se l > l<sub>0</sub>, la molla e in trazione. Ricava l<sub>0</sub> dalla geometria.</p></div>
+<div class="gbox danger"><div class="gbox-label">Errore comune</div><p>Dimenticare di separare i corpi nelle cerniere interne. Ogni cerniera tra due corpi genera <b>2 reazioni interne</b> (azione e reazione).</p></div>`,
+
+ai:`<div class="ghead"><div class="dot" style="background:var(--stat)"></div><h2>Azioni Interne</h2></div>
+<h3 class="gsub">Definizioni</h3>
+<div class="gformula">
+N = Sforzo Normale (trazione +, compressione &minus;)<br>
+T = Taglio (convenzione destrorsa)<br>
+M = Momento flettente (fibre inferiori tese = +)
+</div>
+<div class="gsteps">
+<div class="gstep"><div class="gstep-n" style="background:var(--stat)"></div><div class="gstep-b"><strong>Prima calcola le reazioni vincolari</strong><p>Senza le reazioni non puoi procedere. Usa la statica (vedi guida precedente).</p></div></div>
+<div class="gstep"><div class="gstep-n" style="background:var(--stat)"></div><div class="gstep-b"><strong>Scegli una sezione e taglia</strong><p>Seziona l'asta nel punto desiderato. Scegli la parte piu semplice (meno forze). Introduci N, T, M sulla sezione.</p></div></div>
+<div class="gstep"><div class="gstep-n" style="background:var(--stat)"></div><div class="gstep-b"><strong>Equilibrio della parte sezionata</strong><p>&sum;F<sub>x</sub>=0 &rarr; N, &sum;F<sub>y</sub>=0 &rarr; T, &sum;M<sub>sezione</sub>=0 &rarr; M. Usa una coordinata curvilinea s lungo l'asta.</p></div></div>
+<div class="gstep"><div class="gstep-n" style="background:var(--stat)"></div><div class="gstep-b"><strong>Traccia i diagrammi</strong><p>N(s), T(s), M(s). Tra due forze concentrate i diagrammi sono lineari. In corrispondenza di forze: <b>salto in T</b>. In corrispondenza di coppie: <b>salto in M</b>.</p></div></div>
+</div>
+<div class="gbox info"><div class="gbox-label">Regole rapide</div>
+<ul><li>dT/ds = carico distribuito q</li><li>dM/ds = T (il momento e l'integrale del taglio)</li><li>Dove T = 0, M ha un estremo (max o min)</li><li>Le bielle (aste incernierate a entrambi gli estremi e senza carichi): hanno <b>solo N</b> (T=0, M=0)</li></ul></div>
+<div class="gbox warn"><div class="gbox-label">Attenzione</div><p>La <b>convenzione dei segni</b> cambia tra libri. In questo corso: N positivo = trazione, e per M si usa la convenzione che mette le fibre tese in basso come positive.</p></div>`,
+
+dina:`<div class="ghead"><div class="dot" style="background:var(--dina)"></div><h2>Dinamica</h2></div>
+<h3 class="gsub">Equazioni Cardinali della Dinamica</h3>
+<div class="gformula">
+&sum;F&#x20D7;<sub>ext</sub> = m&middot;a&#x20D7;<sub>G</sub><br>
+&sum;M&#x20D7;<sub>O</sub> = J<sub>O</sub>&middot;&omega;&#x0307; (se O e fisso o il baricentro)<br>
+&sum;M&#x20D7;<sub>G</sub> = J<sub>G</sub>&middot;&omega;&#x0307; (se il polo e il baricentro)
+</div>
+<h3 class="gsub">Bilancio delle Potenze</h3>
+<div class="gformula">
+&sum;P<sub>esterne</sub> = dT/dt<br>
+dove T = &frac12;mv<sub>G</sub>&sup2; + &frac12;J<sub>G</sub>&omega;&sup2;<br>
+dT/dt = m&middot;a&#x20D7;<sub>G</sub>&middot;v&#x20D7;<sub>G</sub> + J<sub>G</sub>&middot;&omega;&#x0307;&middot;&omega;
+</div>
+<div class="gsteps">
+<div class="gstep"><div class="gstep-n" style="background:var(--dina)"></div><div class="gstep-b"><strong>Quando usare quale metodo?</strong><p><b>Bilancio potenze</b>: quando cerchi UNA sola incognita (coppia o forza motrice). <b>Eq. cardinali</b>: quando servono reazioni vincolari o piu incognite.</p></div></div>
+<div class="gstep"><div class="gstep-n" style="background:var(--dina)"></div><div class="gstep-b"><strong>Eq. cardinali: procedura</strong><p>1) Cinematica completa (v, a di tutti i punti). 2) DCL di ogni corpo. 3) Scrivi le 3 equazioni per corpo. 4) Risolvi il sistema.</p></div></div>
+<div class="gstep"><div class="gstep-n" style="background:var(--dina)"></div><div class="gstep-b"><strong>Bilancio potenze: procedura</strong><p>1) Cinematica (v di tutti i punti di applicazione delle forze). 2) Calcola P = F&middot;v per ogni forza e P = C&middot;&omega; per ogni coppia. 3) Calcola dT/dt. 4) Equazione: &sum;P = dT/dt.</p></div></div>
+</div>
+<div class="gbox ex"><div class="gbox-label">Vantaggio del bilancio potenze</div><p>Le reazioni vincolari di cerniere e carrelli <b>non lavorano</b> (potenza = 0) perche v&middot;F = 0 o il punto e fisso. Quindi non servono e hai meno incognite!</p></div>
+<div class="gbox danger"><div class="gbox-label">Errore comune</div><p>Usare J<sub>O</sub> nel bilancio potenze al posto di J<sub>G</sub>. L'energia cinetica e <b>sempre</b> &frac12;mv<sub>G</sub>&sup2; + &frac12;J<sub>G</sub>&omega;&sup2;, oppure &frac12;J<sub>O</sub>&omega;&sup2; <b>solo</b> se O e un punto fisso (cerniera a terra).</p></div>`,
+
+tras:`<div class="ghead"><div class="dot" style="background:var(--tras)"></div><h2>Trasmissioni</h2></div>
+<h3 class="gsub">Concetti fondamentali</h3>
+<div class="gformula">
+Rapporto di trasmissione: &tau; = &omega;<sub>out</sub> / &omega;<sub>in</sub><br>
+Rendimento diretto: &eta;<sub>D</sub> | Rendimento retrogrado: &eta;<sub>R</sub><br>
+Inerzia equivalente ridotta al motore: J<sub>eq</sub> = J<sub>m</sub> + &tau;&sup2;&middot;J<sub>carico</sub>
+</div>
+<h3 class="gsub">Bilancio delle potenze con trasmissione</h3>
+<div class="gformula">
+Moto diretto (carico si oppone):<br>
+C<sub>m</sub>&middot;&omega;<sub>m</sub> = J<sub>eq</sub>&middot;&omega;&#x0307;<sub>m</sub>&middot;&omega;<sub>m</sub> + C<sub>res</sub>&middot;&omega;<sub>res</sub> / &eta;<sub>D</sub><br><br>
+Moto retrogrado (carico aiuta il moto):<br>
+C<sub>m</sub>&middot;&omega;<sub>m</sub> = J<sub>eq</sub>&middot;&omega;&#x0307;<sub>m</sub>&middot;&omega;<sub>m</sub> + C<sub>res</sub>&middot;&omega;<sub>res</sub>&middot;&eta;<sub>R</sub>
+</div>
+<div class="gsteps">
+<div class="gstep"><div class="gstep-n" style="background:var(--tras)"></div><div class="gstep-b"><strong>Determina il verso del flusso di potenza</strong><p>Se il carico <b>si oppone</b> al moto (es. salita, sollevamento) &rarr; <b>moto diretto</b>, usa &eta;<sub>D</sub>. Se il carico <b>aiuta</b> il moto (es. discesa) &rarr; <b>moto retrogrado</b>, usa &eta;<sub>R</sub>.</p></div></div>
+<div class="gstep"><div class="gstep-n" style="background:var(--tras)"></div><div class="gstep-b"><strong>Riduci tutto al motore</strong><p>Usa &tau; per convertire velocita e accelerazioni: &omega;<sub>m</sub> = &omega;<sub>carico</sub>/&tau;. Per le inerzie: J<sub>eq</sub> = J<sub>m</sub> + &tau;&sup2;&middot;(J<sub>puleggia</sub> + ...).</p></div></div>
+<div class="gstep"><div class="gstep-n" style="background:var(--tras)"></div><div class="gstep-b"><strong>A regime: accelerazione = 0</strong><p>Se il sistema e a regime, &omega;&#x0307; = 0. Il bilancio diventa: C<sub>m</sub>&middot;&omega;<sub>m</sub> = P<sub>resistente</sub>/&eta;. Risolvi per C<sub>m</sub>.</p></div></div>
+<div class="gstep"><div class="gstep-n" style="background:var(--tras)"></div><div class="gstep-b"><strong>Verifica aderenza</strong><p>Per le ruote: |F<sub>tangenziale</sub>| &le; f<sub>s</sub>&middot;N. Se non verificata, la ruota slitta e devi usare f<sub>d</sub>.</p></div></div>
+</div>
+<div class="gbox info"><div class="gbox-label">Curva caratteristica del motore</div><p>C<sub>m</sub> = C<sub>m0</sub> + S&middot;(&omega;<sub>m</sub> &minus; &omega;<sub>s</sub>), dove S e la pendenza (negativa), C<sub>m0</sub> e la coppia allo spunto e &omega;<sub>s</sub> e la velocita di sincronismo.</p></div>
+<div class="gbox warn"><div class="gbox-label">Resistenza al rotolamento</div><p>La resistenza al rotolamento genera un <b>momento</b> M<sub>v</sub> = f<sub>v</sub>&middot;N che si oppone alla rotazione. Equivale a una forza F<sub>v</sub> = f<sub>v</sub>&middot;N/R applicata al centro della ruota.</p></div>
+<div class="gbox danger"><div class="gbox-label">Errore comune</div><p>Confondere &eta;<sub>D</sub> e &eta;<sub>R</sub>. Ricorda: &eta; va sempre a <b>sfavore</b>. Moto diretto: dividi per &eta;. Moto retrogrado: moltiplica per &eta;. Il rendimento <b>dissipa</b> sempre energia.</p></div>`
+};
+
+// ─── RENDER ───
+function renderTDE(){
+  const el=document.getElementById('tde-list');
+  el.innerHTML=TDE.map(t=>{
+    const rows=PROBLEMS.map((p,i)=>{
+      const key=`tde_${t.id}_p${i}`;
+      const done=ls(key+'_done')==='1';
+      const diff=ls(key+'_diff')||'';
+      const note=ls(key+'_note')||'';
+      return `<div class="ex">
+        <input type="checkbox" class="cb" data-key="${key}_done" ${done?'checked':''} onchange="saveCB(this)">
+        <span class="lt">${i+1}</span>
+        <span class="ty"><span class="tag" style="background:${PROB_TAGS[i].bg}">${PROB_TAGS[i].label}</span>${p}</span>
+        <select class="diff" data-key="${key}_diff" onchange="saveSel(this)">
+          <option value="">--</option><option value="facile" ${diff==='facile'?'selected':''}>Facile</option>
+          <option value="medio" ${diff==='medio'?'selected':''}>Medio</option><option value="hard" ${diff==='hard'?'selected':''}>Difficile</option>
+        </select>
+        <input class="note" placeholder="Note..." value="${esc(note)}" data-key="${key}_note" onchange="saveNote(this)">
+      </div>`;
+    }).join('');
+    const doneCount=PROBLEMS.reduce((s,_,i)=>s+(ls(`tde_${t.id}_p${i}_done`)==='1'?1:0),0);
+    const pct=Math.round(doneCount/3*100);
+    return `<div class="card tde" onclick="togTDE(this,event)">
+      <div class="tde-head">
+        <span class="date">${t.date}</span>
+        <span class="pill">${t.appello}</span>
+        ${t.sol?'<span class="sol-badge">SOL</span>':''}
+        <span class="spacer"></span>
+        <div class="bar"><i style="width:${pct}%;background:var(--d-low)"></i></div>
+        <span class="chev">&#9654;</span>
+      </div>
+      <div class="ex-list">${rows}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderESE(){
+  const el=document.getElementById('ese-list');
+  el.innerHTML=ESE.map(e=>{
+    const rows=e.items.map((item,i)=>{
+      const key=`ese_${e.id}_${i}`;
+      const done=ls(key+'_done')==='1';
+      const diff=ls(key+'_diff')||'';
+      const note=ls(key+'_note')||'';
+      return `<div class="ex">
+        <input type="checkbox" class="cb" data-key="${key}_done" ${done?'checked':''} onchange="saveCB(this)">
+        <span class="lt">${i+1}</span>
+        <span class="ty">${item}</span>
+        <select class="diff" data-key="${key}_diff" onchange="saveSel(this)">
+          <option value="">--</option><option value="facile" ${diff==='facile'?'selected':''}>Facile</option>
+          <option value="medio" ${diff==='medio'?'selected':''}>Medio</option><option value="hard" ${diff==='hard'?'selected':''}>Difficile</option>
+        </select>
+        <input class="note" placeholder="Note..." value="${esc(note)}" data-key="${key}_note" onchange="saveNote(this)">
+      </div>`;
+    }).join('');
+    const doneCount=e.items.reduce((s,_,i)=>s+(ls(`ese_${e.id}_${i}_done`)==='1'?1:0),0);
+    const pct=Math.round(doneCount/e.items.length*100);
+    return `<div class="card tde" onclick="togTDE(this,event)">
+      <div class="tde-head">
+        <span class="date">${e.title}</span>
+        <span class="spacer"></span>
+        <div class="bar"><i style="width:${pct}%;background:var(--cine)"></i></div>
+        <span class="chev">&#9654;</span>
+      </div>
+      <div class="ex-list">${rows}</div>
+    </div>`;
+  }).join('');
+}
+
+// ─── INTERACTIONS ───
+function togTDE(el,ev){
+  if(ev.target.closest('.cb,.diff,.note'))return;
+  el.classList.toggle('open');
+}
+function saveCB(el){localStorage.setItem(el.dataset.key,el.checked?'1':'0');updateStats();}
+function saveSel(el){localStorage.setItem(el.dataset.key,el.value);}
+function saveNote(el){localStorage.setItem(el.dataset.key,el.value);}
+function ls(k){return localStorage.getItem(k);}
+function esc(s){return s.replace(/"/g,'&quot;').replace(/</g,'&lt;');}
+
+function updateStats(){
+  let tdeD=0,tdeT=TDE.length*3;
+  TDE.forEach(t=>PROBLEMS.forEach((_,i)=>{if(ls(`tde_${t.id}_p${i}_done`)==='1')tdeD++;}));
+  document.getElementById('st-tde').textContent=`${tdeD} / ${tdeT}`;
+  document.getElementById('bar-tde').style.width=Math.round(tdeD/tdeT*100)+'%';
+
+  let eseD=0,eseT=0;
+  ESE.forEach(e=>{eseT+=e.items.length;e.items.forEach((_,i)=>{if(ls(`ese_${e.id}_${i}_done`)==='1')eseD++;});});
+  document.getElementById('st-ese').textContent=`${eseD} / ${eseT}`;
+  document.getElementById('bar-ese').style.width=Math.round(eseD/eseT*100)+'%';
+}
+
+// ─── GUIDE PANELS ───
+let openGuide=null;
+function toggleGuide(id){
+  const container=document.getElementById('guide-container');
+  if(openGuide===id){container.innerHTML='';openGuide=null;return;}
+  openGuide=id;
+  container.innerHTML=`<div class="card gpanel open"><div class="gpanel-inner" style="position:relative">
+    <button class="gpanel-close" onclick="toggleGuide('${id}')">Chiudi</button>
+    ${GUIDES[id]||'<p>Guida in arrivo...</p>'}
+  </div></div>`;
+  container.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ─── INIT ───
+renderTDE();
+renderESE();
+updateStats();
+</script>
+</body>
+</html>
