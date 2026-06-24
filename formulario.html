@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Formulario Completo — Meccanica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Spline+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f4efe4;--paper2:#faf7ef;--card:#fffdf8;--ink:#241f18;--ink-soft:#6b6255;--line:#e4dccb;--line2:#d8cfba;--d-low:#2f9e63;--d-mid:#e0992a;--d-high:#cf3a2c;--shadow:0 1px 2px rgba(50,40,20,.05),0 12px 28px -14px rgba(70,55,25,.22);
+  --cine:#2257c4;--stat:#0d8a6a;--dina:#7b4ad1;--tras:#c2410c;--vett:#5a6577;--mecc:#a8551b}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Spline Sans',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;padding:clamp(16px,4vw,48px);min-height:100vh;
+  background-image:radial-gradient(circle at 50% 10%,rgba(34,87,196,.04),transparent 40%)}
+.wrap{max-width:900px;margin:0 auto}
+a.back{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;display:inline-block;margin-bottom:20px}
+a.back:hover{color:var(--cine)}
+h1{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(28px,6vw,48px);line-height:1;margin-bottom:8px}
+.sub{color:var(--ink-soft);margin-bottom:28px;font-size:15px}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
+.toc a{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border-radius:10px;border:1px solid var(--line2);background:var(--card);color:var(--ink-soft);text-decoration:none;transition:all .15s}
+.toc a:hover{border-color:var(--cine);color:var(--cine)}
+
+.section{margin-bottom:36px;background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
+.section-head{padding:16px 22px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line);cursor:pointer;user-select:none}
+.section-head:hover{background:var(--paper2)}
+.section-head .dot{width:12px;height:12px;border-radius:4px;flex:none}
+.section-head h2{font-family:'Fraunces',serif;font-weight:700;font-size:19px;flex:1}
+.section-head .chev{transition:transform .25s;color:var(--ink-soft);font-size:13px}
+.section.open .chev{transform:rotate(90deg)}
+.section-body{display:none;padding:18px 22px}
+.section.open .section-body{display:block}
+
+.f{font-family:'IBM Plex Mono',monospace;font-size:13px;background:var(--paper2);border:1px solid var(--line);border-radius:9px;padding:10px 14px;margin:8px 0;line-height:1.85;color:var(--d-high)}
+.f.big{font-size:14.5px;padding:12px 16px}
+h3{font-family:'Fraunces',serif;font-weight:600;font-size:15.5px;margin:18px 0 8px;color:var(--ink)}
+h3:first-child{margin-top:0}
+p{font-size:13.5px;color:var(--ink-soft);margin:0 0 8px;line-height:1.6}
+p b{color:var(--ink)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:600px){.grid2{grid-template-columns:1fr}}
+.note{font-size:12px;color:var(--ink-soft);font-style:italic;margin:4px 0 12px}
+hr{border:none;border-top:1px solid var(--line);margin:16px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a href="index.html" class="back">&larr; Torna alla home</a>
+<h1>Formulario Completo</h1>
+<p class="sub">Tutte le formule di Meccanica organizzate per argomento. Clicca su una sezione per espanderla.</p>
+
+<div class="toc">
+<a href="#vett">Vettori</a>
+<a href="#cin-pt">Cin. Punto</a>
+<a href="#cin-cr">Cin. Corpo Rigido</a>
+<a href="#mecc">Meccanismi</a>
+<a href="#stat">Statica</a>
+<a href="#ai">Azioni Interne</a>
+<a href="#dina">Dinamica</a>
+<a href="#pot">Bilancio Potenze</a>
+<a href="#attr">Attrito</a>
+<a href="#tras">Trasmissioni</a>
+</div>
+
+<!-- ════════ VETTORI ════════ -->
+<div class="section open" id="vett">
+<div class="section-head" onclick="this.parentElement.classList.toggle('open')">
+  <div class="dot" style="background:var(--vett)"></div><h2>Calcolo Vettoriale</h2><span class="chev">&#9654;</span>
+</div>
+<div class="section-body">
+
+<h3>Notazioni</h3>
+<div class="f">
+Componenti: a&#x20D7; = (a<sub>x</sub>, a<sub>y</sub>, a<sub>z</sub>)<br>
+Complesso: a&#x20D7; = a<sub>x</sub> + j&middot;a<sub>y</sub><br>
+Polare: a&#x20D7; = |a| &ang; &theta;
+</div>
+
+<h3>Modulo e direzione</h3>
+<div class="f">
+|a&#x20D7;| = &radic;(a<sub>x</sub>&sup2; + a<sub>y</sub>&sup2;)<br>
+&theta; = atan2(a<sub>y</sub>, a<sub>x</sub>)
+</div>
+
+<h3>Conversione polare &harr; componenti</h3>
+<div class="f">
+a<sub>x</sub> = |a|&middot;cos&theta; &nbsp;&nbsp;&nbsp; a<sub>y</sub> = |a|&middot;sin&theta;
+</div>
+
+<h3>Somma</h3>
+<div class="f">
+a&#x20D7; + b&#x20D7; = (a<sub>x</sub>+b<sub>x</sub>, &nbsp;a<sub>y</sub>+b<sub>y</sub>)
+</div>
+
+<h3>Prodotto scalare</h3>
+<div class="f">
+a&#x20D7; &middot; b&#x20D7; = a<sub>x</sub>b<sub>x</sub> + a<sub>y</sub>b<sub>y</sub> = |a||b|cos&theta;<br>
+<span style="color:var(--ink-soft)">Risultato: scalare. Se = 0 &rArr; a &perp; b</span>
+</div>
+
+<h3>Prodotto vettoriale (nel piano)</h3>
+<div class="f">
+a&#x20D7; &times; b&#x20D7; = (a<sub>x</sub>b<sub>y</sub> &minus; a<sub>y</sub>b<sub>x</sub>) k&#x302;<br>
+|a&#x20D7; &times; b&#x20D7;| = |a||b|sin&theta;<br>
+<span style="color:var(--ink-soft)">Risultato: vettore &perp; al piano. NON commutativo: a&times;b = &minus;(b&times;a)</span>
+</div>
+
+</div></div>
+
+<!-- ════════ CINEMATICA PUNTO ════════ -->
+<div class="section" id="cin-pt">
+<div class="section-head" onclick="this.parentElement.classList.toggle('open')">
+  <div class="dot" style="background:var(--cine)"></div><h2>Cinematica del Punto</h2><span class="chev">&#9654;</span>
+</div>
+<div class="section-body">
+
+<h3>Coordinate cartesiane</h3>
+<div class="f">
+P&#x20D7;(t) = x(t) i&#x302; + y(t) j&#x302;<br>
+v&#x20D7; = x&#x0307; i&#x302; + y&#x0307; j&#x302;<br>
+a&#x20D7; = x&#x0308; i&#x302; + y&#x0308; j&#x302;
+</div>
+
+<h3>Coordinate polari</h3>
+<div class="f big">
+P&#x20D7; = &rho; &middot; e&#x0302;<sub>&rho;</sub><br><br>
+v&#x20D7; = &rho;&#x0307; e&#x0302;<sub>&rho;</sub> + &rho;&theta;&#x0307; e&#x0302;<sub>&theta;</sub><br><br>
+a&#x20D7; = (&rho;&#x0308; &minus; &rho;&theta;&#x0307;&sup2;) e&#x0302;<sub>&rho;</sub> + (&rho;&theta;&#x0308; + 2&rho;&#x0307;&theta;&#x0307;) e&#x0302;<sub>&theta;</sub>
+</div>
+
+<h3>Significato dei termini dell'accelerazione</h3>
+<div class="grid2">
+<div class="f" style="color:var(--ink)"><b>&rho;&#x0308;</b><br><span style="color:var(--ink-soft)">Radiale propria</span></div>
+<div class="f" style="color:var(--ink)"><b>&minus;&rho;&theta;&#x0307;&sup2;</b><br><span style="color:var(--ink-soft)">Centripeta (verso O)</span></div>
+<div class="f" style="color:var(--ink)"><b>&rho;&theta;&#x0308;</b><br><span style="color:var(--ink-soft)">Angolare</span></div>
+<div class="f" style="color:var(--ink)"><b>2&rho;&#x0307;&theta;&#x0307;</b><br><span style="color:var(--ink-soft)">Coriolis</span></div>
+</div>
+
+<h3>Derivata dei versori polari</h3>
+<div class="f">
+de&#x0302;<sub>&rho;</sub>/dt = &theta;&#x0307; &middot; e&#x0302;<sub>&theta;</sub><br>
+de&#x0302;<sub>&theta;</sub>/dt = &minus;&theta;&#x0307; &middot; e&#x0302;<sub>&rho;</sub>
+</div>
+
+<h3>Moto angolare uniformemente accelerato</h3>
+<div class="f">
+&omega;(t) = &omega;<sub>0</sub> + &omega;&#x0307;&middot;t<br>
+&theta;(t) = &theta;<sub>0</sub> + &omega;<sub>0</sub>t + &frac12;&omega;&#x0307;t&sup2;
+</div>
+
+</div></div>
+
+<!-- ════════ CINEMATICA CORPO RIGIDO ════════ -->
+<div class="section" id="cin-cr">
+<div class="section-head" onclick="this.parentElement.classList.toggle('open')">
+  <div class="dot" style="background:var(--cine)"></div><h2>Cinematica del Corpo Rigido</h2><span class="chev">&#9654;</span>
+</div>
+<div class="section-body">
+
+<h3>Gradi di liberta</h3>
+<div class="f">
+GdL = 3 &times; N<sub>corpi</sub> &minus; &sum;(vincoli rimossi)<br><br>
+Cerniera terra: &minus;2 &nbsp;|&nbsp; Cerniera int.: &minus;2 &nbsp;|&nbsp; Carrello: &minus;1<br>
+Incastro: &minus;3 &nbsp;|&nbsp; Manicotto: &minus;2 &nbsp;|&nbsp; Pattino: &minus;2
+</div>
+
+<h3>Teorema di Rivals</h3>
+<div class="f big">
+v&#x20D7;<sub>B</sub> = v&#x20D7;<sub>A</sub> + &omega;&#x20D7; &times; (B &minus; A)<br><br>
+a&#x20D7;<sub>B</sub> = a&#x20D7;<sub>A</sub> + &omega;&#x0307;&#x20D7; &times; (B&minus;A) + &omega;&#x20D7; &times; (&omega;&#x20D7; &times; (B&minus;A))
+</div>
+<p><b>&omega; &times; (B&minus;A)</b>: &perp; all'asta, modulo &omega;|BA|</p>
+<p><b>&omega;&#x0307; &times; (B&minus;A)</b>: tangenziale, &perp; all'asta, modulo &omega;&#x0307;|BA|</p>
+<p><b>&omega; &times; (&omega; &times; (B&minus;A))</b>: centripeta, da B verso A, modulo &omega;&sup2;|BA|</p>
+
+<h3>Prodotto vettoriale nel piano</h3>
+<div class="f">
+&omega;&#x20D7; &times; r&#x20D7; = &omega; k&#x302; &times; (r<sub>x</sub> i&#x302; + r<sub>y</sub> j&#x302;) = (&minus;&omega; r<sub>y</sub>, &nbsp;&omega; r<sub>x</sub>)<br>
+<span style="color:var(--ink-soft)">Ruota r di 90&deg; antiorario e moltiplica per &omega;</span>
+</div>
+
+<h3>Puro rotolamento</h3>
+<div class="f">
+v<sub>contatto</sub> = 0<br>
+v<sub>centro</sub> = &omega; &times; R &nbsp;&nbsp;(modulo &omega;R, orizzontale)<br>
+v<sub>cima</sub> = 2&omega;R<br>
+a<sub>centro</sub> = &omega;&#x0307; R &nbsp;&nbsp;(orizzontale)
+</div>
+
+<h3>Moti relativi</h3>
+<div class="f big">
+v&#x20D7;<sub>ass</sub> = v&#x20D7;<sub>rel</sub> + v&#x20D7;<sub>tras</sub><br><br>
+a&#x20D7;<sub>ass</sub> = a&#x20D7;<sub>rel</sub> + a&#x20D7;<sub>tras</sub> + 2&omega;&#x20D7; &times; v&#x20D7;<sub>rel</sub>
+</div>
+<p class="note">Il termine 2&omega; &times; v<sub>rel</sub> e l'accelerazione di Coriolis.</p>
+
+</div></div>
+
+<!-- ════════ MECCANISMI ════════ -->
+<div class="section" id="mecc">
+<div class="section-head" onclick="this.parentElement.classList.toggle('open')">
+  <div class="dot" style="background:var(--mecc)"></div><h2>Meccanismi</h2><span class="chev">&#9654;</span>
+</div>
+<div class="section-body">
+
+<h3>Chiusura cinematica</h3>
+<div class="f">
+Loop: OA&#x20D7; + AB&#x20D7; + BO&#x20D7; = 0&#x20D7;<br><br>
+Ogni asta: L cos(&alpha;) i&#x302; + L sin(&alpha;) j&#x302;
+</div>
+
+<h3>Derivata per velocita</h3>
+<div class="f">
+d/dt [L cos(&alpha;)] = &minus;L sin(&alpha;) &middot; &alpha;&#x0307;<br>
+d/dt [L sin(&alpha;)] = L cos(&alpha;) &middot; &alpha;&#x0307;<br>
+<span style="color:var(--ink-soft)">Le lunghezze L sono costanti!</span>
+</div>
+
+<h3>Derivata per accelerazione</h3>
+<div class="f">
+d&sup2;/dt&sup2; [L cos(&alpha;)] = &minus;L cos(&alpha;)&middot;&alpha;&#x0307;&sup2; &minus; L sin(&alpha;)&middot;&alpha;&#x0308;<br>
+d&sup2;/dt&sup2; [L sin(&alpha;)] = &minus;L sin(&alpha;)&middot;&alpha;&#x0307;&sup2; + L cos(&alpha;)&middot;&alpha;&#x0308;
+</div>
+
+<h3>Glifo oscillante</h3>
+<div class="f">
+v&#x20D7;<sub>ass</sub> = v&#x20D7;<sub>rel</sub> (lungo guida) + v&#x20D7;<sub>tras</sub> (&omega; &times; r, &perp; raggio)<br><br>
+a&#x20D7;<sub>ass</sub> = a&#x20D7;<sub>rel</sub> + a&#x20D7;<sub>tras</sub> + 2&omega;&#x20D7; &times; v&#x20D7;<sub>rel</sub>
+</div>
+
+</div></div>
+
+<!-- ════════ STATICA ════════ -->
+<div class="section" id="stat">
+<div class="section-head" onclick="this.parentElement.classList.toggle('open')">
+  <div class="dot" style="background:var(--stat)"></div><h2>Statica — Reazioni Vincolari</h2><span class="chev">&#9654;</span>
+</div>
+<div class="section-body">
+
+<h3>Equilibrio</h3>
+<div class="f big">
+&sum;F<sub>x</sub> = 0 &nbsp;&nbsp;&nbsp; &sum;F<sub>y</sub> = 0 &nbsp;&nbsp;&nbsp; &sum;M<sub>polo</sub> = 0
+</div>
+<p class="note">3 equazioni scalari per corpo nel piano.</p>
+
+<h3>Reazioni vincolari</h3>
+<div class="f">
+Cerniera a terra: H<sub>x</sub>, H<sub>y</sub> &nbsp;(2 incognite)<br>
+Carrello: N &perp; piano &nbsp;(1 incognita)<br>
+Incastro: H<sub>x</sub>, H<sub>y</sub>, M &nbsp;(3 incognite)<br>
+Manicotto: N, M &nbsp;(2 incognite)<br>
+Pendolo/biella: F lungo l'asta &nbsp;(1 incognita)
+</div>
+
+<h3>Isostaticita</h3>
+<div class="f">
+N&deg; incognite = N&deg; equazioni &rArr; isostatico (risolvibile)<br>
+N&deg; incognite &gt; N&deg; equazioni &rArr; iperstatico<br>
+N&deg; incognite &lt; N&deg; equazioni &rArr; labile
+</div>
+
+<h3>Molla</h3>
+<div class="f">
+F<sub>molla</sub> = k &middot; (l &minus; l<sub>0</sub>)<br>
+<span style="color:var(--ink-soft)">l = lunghezza attuale, l<sub>0</sub> = lunghezza indeformata</span>
+</div>
+
+</div></div>
+
+<!-- ════════ AZIONI INTERNE ════════ -->
+<div class="section" id="ai">
+<div class="section-head" onclick="this.parentElement.classList.toggle('open')">
+  <div class="dot" style="background:var(--stat)"></div><h2>Azioni Interne</h2><span class="chev">&#9654;</span>
+</div>
+<div class="section-body">
+
+<h3>Definizioni</h3>
+<div class="f">
+N = Sforzo Normale (trazione +, compressione &minus;)<br>
+T = Taglio<br>
+M = Momento flettente
+</div>
+
+<h3>Relazioni differenziali</h3>
+<div class="f big">
+dT/ds = q &nbsp;&nbsp;(carico distribuito)<br>
+dM/ds = T &nbsp;&nbsp;(il momento e l'integrale del taglio)
+</div>
+
+<h3>Regole per i diagrammi</h3>
+<div class="f">
+Tra forze concentrate: T costante, M lineare<br>
+Forza concentrata: salto in T<br>
+Coppia concentrata: salto in M<br>
+Dove T = 0: M ha max o min<br>
+Bielle (2 cerniere, no carichi): solo N, T=0, M=0
+</div>
+
+</div></div>
+
+<!-- ════════ DINAMICA ════════ -->
+<div class="section" id="dina">
+<div class="section-head" onclick="this.parentElement.classList.toggle('open')">
+  <div class="dot" style="background:var(--dina)"></div><h2>Dinamica — Equazioni Cardinali</h2><span class="chev">&#9654;</span>
+</div>
+<div class="section-body">
+
+<h3>Prima equazione cardinale (forze)</h3>
+<div class="f big">
+&sum;F&#x20D7;<sub>ext</sub> = m &middot; a&#x20D7;<sub>G</sub>
+</div>
+
+<h3>Seconda equazione cardinale (momenti)</h3>
+<div class="f big">
+Polo in G (baricentro): &sum;M<sub>G</sub> = J<sub>G</sub> &middot; &omega;&#x0307;<br><br>
+Polo in O (punto fisso): &sum;M<sub>O</sub> = J<sub>O</sub> &middot; &omega;&#x0307;
+</div>
+
+<h3>Teorema assi paralleli (Huygens-Steiner)</h3>
+<div class="f">
+J<sub>O</sub> = J<sub>G</sub> + m &middot; d&sup2; &nbsp;&nbsp;(d = distanza G&minus;O)
+</div>
+
+<h3>Energia cinetica</h3>
+<div class="f big">
+T = &frac12; m v<sub>G</sub>&sup2; + &frac12; J<sub>G</sub> &omega;&sup2;<br><br>
+Se ruota attorno a punto fisso O: T = &frac12; J<sub>O</sub> &omega;&sup2;
+</div>
+
+</div></div>
+
+<!-- ════════ BILANCIO POTENZE ════════ -->
+<div class="section" id="pot">
+<div class="section-head" onclick="this.parentElement.classList.toggle('open')">
+  <div class="dot" style="background:var(--dina)"></div><h2>Bilancio delle Potenze</h2><span class="chev">&#9654;</span>
+</div>
+<div class="section-body">
+
+<h3>Principio</h3>
+<div class="f big">
+&sum;P<sub>esterne</sub> = dT/dt
+</div>
+
+<h3>Potenze</h3>
+<div class="f">
+Forza: P = F&#x20D7; &middot; v&#x20D7; = |F|&middot;|v|&middot;cos&theta;<br>
+Coppia: P = C &middot; &omega;<br>
+Peso: P = &minus;m g v<sub>y</sub>
+</div>
+
+<h3>Derivata energia cinetica</h3>
+<div class="f">
+dT/dt = m &middot; a&#x20D7;<sub>G</sub> &middot; v&#x20D7;<sub>G</sub> + J<sub>G</sub> &middot; &omega;&#x0307; &middot; &omega;
+</div>
+
+<h3>Potenze nulle (non compaiono!)</h3>
+<div class="f" style="color:var(--ink)">
+Cerniera a terra: v = 0 &rArr; P = 0<br>
+Carrello: F &perp; v &rArr; P = 0<br>
+Cerniera interna: azione-reazione si cancellano
+</div>
+
+</div></div>
+
+<!-- ════════ ATTRITO ════════ -->
+<div class="section" id="attr">
+<div class="section-head" onclick="this.parentElement.classList.toggle('open')">
+  <div class="dot" style="background:var(--d-mid)"></div><h2>Attrito e Rotolamento</h2><span class="chev">&#9654;</span>
+</div>
+<div class="section-body">
+
+<h3>Attrito</h3>
+<div class="f big">
+Statico: |F<sub>attr</sub>| &le; f<sub>s</sub> &middot; N &nbsp;&nbsp;(disequazione!)<br><br>
+Dinamico: F<sub>attr</sub> = f<sub>d</sub> &middot; N &nbsp;&nbsp;(equazione, opposta a v)<br><br>
+f<sub>s</sub> &gt; f<sub>d</sub> &nbsp;sempre
+</div>
+
+<h3>Verifica aderenza</h3>
+<div class="f">
+1. Ipotesi: puro rotolamento (F<sub>t</sub> incognita)<br>
+2. Calcola F<sub>t</sub> e N<br>
+3. Verifica: |F<sub>t</sub>| &le; f<sub>s</sub> &middot; N ?<br>
+<span style="color:var(--d-low)">Si &rArr; OK, non slitta</span><br>
+<span style="color:var(--d-high)">No &rArr; slitta, usa f<sub>d</sub></span>
+</div>
+
+<h3>Resistenza al rotolamento</h3>
+<div class="f">
+Momento resistente: M<sub>v</sub> = f<sub>v</sub> &middot; N<br>
+Forza equivalente: F<sub>v</sub> = f<sub>v</sub> &middot; N / R<br>
+<span style="color:var(--ink-soft)">Si oppone alla rotazione</span>
+</div>
+
+</div></div>
+
+<!-- ════════ TRASMISSIONI ════════ -->
+<div class="section" id="tras">
+<div class="section-head" onclick="this.parentElement.classList.toggle('open')">
+  <div class="dot" style="background:var(--tras)"></div><h2>Trasmissioni</h2><span class="chev">&#9654;</span>
+</div>
+<div class="section-body">
+
+<h3>Rapporto di trasmissione</h3>
+<div class="f">
+&tau; = &omega;<sub>uscita</sub> / &omega;<sub>ingresso</sub><br>
+Pulegge con fune: &tau; = R<sub>in</sub> / R<sub>out</sub><br>
+Ingranaggi: &tau; = z<sub>in</sub> / z<sub>out</sub>
+</div>
+
+<h3>Rendimento</h3>
+<div class="f big">
+Moto diretto (carico resiste):<br>
+P<sub>motore</sub> &middot; &eta;<sub>D</sub> = P<sub>utile</sub> &nbsp;&rArr;&nbsp; <b>dividi per &eta;</b><br><br>
+Moto retrogrado (carico aiuta):<br>
+P<sub>carico</sub> &middot; &eta;<sub>R</sub> = P<sub>motore</sub> &nbsp;&rArr;&nbsp; <b>moltiplica per &eta;</b>
+</div>
+<p class="note">Diretto = "se spengo il motore, il sistema si ferma". Retrogrado = "se spengo il motore, il sistema si muove da solo".</p>
+
+<h3>Inerzia equivalente ridotta al motore</h3>
+<div class="f">
+J<sub>eq</sub> = J<sub>m</sub> + &tau;&sup2; &middot; J<sub>carico</sub><br>
+Per masse traslanti: J<sub>eq,m</sub> = m &middot; (v / &omega;<sub>m</sub>)&sup2; = m &middot; (&tau;R)&sup2;
+</div>
+
+<h3>Bilancio completo con trasmissione</h3>
+<div class="f big">
+C<sub>m</sub>&middot;&omega;<sub>m</sub> = J<sub>eq</sub>&middot;&omega;&#x0307;<sub>m</sub>&middot;&omega;<sub>m</sub> + P<sub>res</sub> / &eta;<sub>D</sub><br><br>
+A regime (&omega;&#x0307; = 0):<br>
+C<sub>m</sub>&middot;&omega;<sub>m</sub> = P<sub>res</sub> / &eta;<sub>D</sub>
+</div>
+
+<h3>Curva caratteristica del motore</h3>
+<div class="f">
+C<sub>m</sub> = C<sub>m0</sub> + S &middot; (&omega;<sub>m</sub> &minus; &omega;<sub>s</sub>)<br><br>
+C<sub>m0</sub> = coppia allo spunto (&omega;=0)<br>
+&omega;<sub>s</sub> = velocita di sincronismo<br>
+S = pendenza (negativa)
+</div>
+
+</div></div>
+
+</div>
+</body>
+</html>
