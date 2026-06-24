@@ -156,58 +156,55 @@ svg text{font-family:'Spline Sans',sans-serif}
 <div class="section-h">Guide per argomento <span class="n">8 TOPIC</span></div>
 <div class="grid-topics" id="topics-grid">
 
-<div class="card topic" style="--tc:var(--vett)" onclick="toggleGuide('vett')">
+<a class="card topic" style="--tc:var(--vett);text-decoration:none;color:inherit" href="guide_vettoriale.html">
   <div class="name">Calcolo Vettoriale</div>
   <div class="desc">Notazioni, prodotto scalare e vettoriale, somma</div>
   <div class="guide-hint">Apri guida &rarr;</div>
-</div>
+</a>
 
-<div class="card topic" style="--tc:var(--cine)" onclick="toggleGuide('cine-punto')">
+<a class="card topic" style="--tc:var(--cine);text-decoration:none;color:inherit" href="guide_cinematica_punto.html">
   <div class="name">Cinematica del Punto</div>
   <div class="desc">Coordinate polari, leggi di moto, traiettorie</div>
   <div class="guide-hint">Apri guida &rarr;</div>
-</div>
+</a>
 
-<div class="card topic" style="--tc:var(--cine)" onclick="toggleGuide('cine-corpo')">
+<a class="card topic" style="--tc:var(--cine);text-decoration:none;color:inherit" href="guide_cinematica_corpo.html">
   <div class="name">Cinematica Corpo Rigido</div>
   <div class="desc">Rivals, puro rotolamento, CIR, moti relativi</div>
   <div class="guide-hint">Apri guida &rarr;</div>
-</div>
+</a>
 
-<div class="card topic" style="--tc:var(--mecc)" onclick="toggleGuide('mecc')">
+<a class="card topic" style="--tc:var(--mecc);text-decoration:none;color:inherit" href="guide_meccanismi.html">
   <div class="name">Meccanismi</div>
   <div class="desc">Glifi, quadrilateri, chiusura cinematica</div>
   <div class="guide-hint">Apri guida &rarr;</div>
-</div>
+</a>
 
-<div class="card topic" style="--tc:var(--stat)" onclick="toggleGuide('stat')">
+<a class="card topic" style="--tc:var(--stat);text-decoration:none;color:inherit" href="guide_statica.html">
   <div class="name">Statica &mdash; Reazioni Vincolari</div>
   <div class="desc">GdL, equilibrio, vincoli, molle</div>
   <div class="guide-hint">Apri guida &rarr;</div>
-</div>
+</a>
 
-<div class="card topic" style="--tc:var(--stat)" onclick="toggleGuide('ai')">
+<a class="card topic" style="--tc:var(--stat);text-decoration:none;color:inherit" href="guide_statica.html#azioni-interne">
   <div class="name">Azioni Interne</div>
   <div class="desc">N, T, M &mdash; diagrammi e convenzioni</div>
   <div class="guide-hint">Apri guida &rarr;</div>
-</div>
+</a>
 
-<div class="card topic" style="--tc:var(--dina)" onclick="toggleGuide('dina')">
+<a class="card topic" style="--tc:var(--dina);text-decoration:none;color:inherit" href="guide_dinamica.html">
   <div class="name">Dinamica</div>
   <div class="desc">Eq. cardinali, bilancio potenze, energia cinetica</div>
   <div class="guide-hint">Apri guida &rarr;</div>
-</div>
+</a>
 
-<div class="card topic" style="--tc:var(--tras)" onclick="toggleGuide('tras')">
+<a class="card topic" style="--tc:var(--tras);text-decoration:none;color:inherit" href="guide_dinamica.html#trasmissioni">
   <div class="name">Trasmissioni</div>
   <div class="desc">Motori, rendimenti, veicoli, aderenza</div>
   <div class="guide-hint">Apri guida &rarr;</div>
-</div>
+</a>
 
 </div><!-- grid -->
-
-<!-- GUIDE PANELS (inserted after grid) -->
-<div id="guide-container"></div>
 
 <!-- TDE TRACKER -->
 <div class="section-h">Temi d'esame <span class="n">20 TDE</span></div>
@@ -263,9 +260,18 @@ const ESE=[
   {id:'ese12',title:'ESE 12 — Tema 18-01-2025',items:['Problema 1 — Cinematica+Dinamica (asta+massa)','Problema 2 — Statica (3 aste + incastro)','Problema 3 — Trasmissioni (impianto sollevamento)']},
 ];
 
-// ─── GUIDE CONTENT ───
-const GUIDES={
-vett:`<div class="ghead"><div class="dot" style="background:var(--vett)"></div><h2>Calcolo Vettoriale</h2></div>
+// ─── GUIDE (now separate pages) ───
+const GUIDES_REMOVED = true;
+/* Guide content moved to separate HTML files:
+ - guide_vettoriale.html
+ - guide_cinematica_punto.html
+ - guide_cinematica_corpo.html
+ - guide_meccanismi.html
+ - guide_statica.html
+ - guide_dinamica.html
+*/
+
+const _UNUSED = `<div class="ghead"><div class="dot" style="background:var(--vett)"></div><h2>Calcolo Vettoriale</h2></div>
 <h3 class="gsub">Tre notazioni per un vettore</h3>
 <div class="gformula">
 Per componenti: a&#x20D7; = (a<sub>x</sub>, a<sub>y</sub>, a<sub>z</sub>)<br>
@@ -565,19 +571,6 @@ function updateStats(){
   ESE.forEach(e=>{eseT+=e.items.length;e.items.forEach((_,i)=>{if(ls(`ese_${e.id}_${i}_done`)==='1')eseD++;});});
   document.getElementById('st-ese').textContent=`${eseD} / ${eseT}`;
   document.getElementById('bar-ese').style.width=Math.round(eseD/eseT*100)+'%';
-}
-
-// ─── GUIDE PANELS ───
-let openGuide=null;
-function toggleGuide(id){
-  const container=document.getElementById('guide-container');
-  if(openGuide===id){container.innerHTML='';openGuide=null;return;}
-  openGuide=id;
-  container.innerHTML=`<div class="card gpanel open"><div class="gpanel-inner" style="position:relative">
-    <button class="gpanel-close" onclick="toggleGuide('${id}')">Chiudi</button>
-    ${GUIDES[id]||'<p>Guida in arrivo...</p>'}
-  </div></div>`;
-  container.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
 // ─── INIT ───

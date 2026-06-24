@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calcolo Vettoriale — Guida Meccanica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Spline+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f4efe4;--paper2:#faf7ef;--card:#fffdf8;--ink:#241f18;--ink-soft:#6b6255;--line:#e4dccb;--line2:#d8cfba;--d-low:#2f9e63;--d-mid:#e0992a;--d-high:#cf3a2c;--accent:#5a6577;--shadow:0 1px 2px rgba(50,40,20,.05),0 12px 28px -14px rgba(70,55,25,.22)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Spline Sans',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;padding:clamp(16px,4vw,48px);min-height:100vh;
+  background-image:radial-gradient(circle at 12% 18%,rgba(90,101,119,.06),transparent 38%)}
+.wrap{max-width:860px;margin:0 auto}
+a.back{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;display:inline-block;margin-bottom:20px}
+a.back:hover{color:var(--accent)}
+h1{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(28px,6vw,48px);line-height:1;margin-bottom:8px}
+h1 .dot{display:inline-block;width:14px;height:14px;border-radius:4px;background:var(--accent);margin-right:10px}
+.sub{color:var(--ink-soft);margin-bottom:32px;font-size:15px}
+h2{font-family:'Fraunces',serif;font-weight:700;font-size:22px;margin:36px 0 14px;padding-top:12px;border-top:1px solid var(--line)}
+h3{font-family:'Fraunces',serif;font-weight:600;font-size:17px;margin:24px 0 10px}
+p{margin:0 0 12px;font-size:14.5px;color:var(--ink-soft);line-height:1.7}
+p b,p strong{color:var(--ink)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:22px 24px;margin:16px 0}
+.formula{font-family:'IBM Plex Mono',monospace;font-size:13px;background:var(--paper2);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:12px 0;line-height:1.8;color:var(--d-high)}
+.steps{counter-reset:s;margin:14px 0}
+.step{display:flex;gap:14px;margin-bottom:16px;align-items:flex-start}
+.step-n{counter-increment:s;width:30px;height:30px;border-radius:10px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:900;font-size:14px;color:#fff;background:var(--accent)}
+.step-n::before{content:counter(s)}
+.step-b{flex:1}.step-b strong{display:block;font-size:14.5px;font-weight:600;margin-bottom:4px;color:var(--ink)}
+.step-b p{margin:0;font-size:13.5px}
+.box{border-radius:10px;padding:14px 16px;margin:14px 0;font-size:13.5px;line-height:1.65}
+.box.tip{background:rgba(47,158,99,.07);border:1px solid rgba(47,158,99,.22)}
+.box.warn{background:rgba(224,153,42,.07);border:1px solid rgba(224,153,42,.22)}
+.box.danger{background:rgba(207,58,44,.06);border:1px solid rgba(207,58,44,.2)}
+.box.info{background:rgba(34,87,196,.06);border:1px solid rgba(34,87,196,.2)}
+.box-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-bottom:6px}
+.box.tip .box-label{color:var(--d-low)}.box.warn .box-label{color:var(--d-mid)}.box.danger .box-label{color:var(--d-high)}.box.info .box-label{color:#2257c4}
+.box p{margin:0;color:var(--ink-soft)}.box p b{color:var(--ink)}
+.box ul{padding-left:18px;color:var(--ink-soft);margin:4px 0 0}.box ul li{margin-bottom:4px}
+svg{display:block;margin:16px auto;max-width:100%}
+svg text{font-family:'Spline Sans',sans-serif}
+.example{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:16px 0}
+.example h4{font-family:'Fraunces',serif;font-weight:600;font-size:15px;margin-bottom:10px}
+.example p{font-size:13px;margin:4px 0}
+.example .formula{font-size:12px;padding:10px 12px;margin:8px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a href="index.html" class="back">&larr; Torna alla home</a>
+<h1><span class="dot"></span>Calcolo Vettoriale</h1>
+<p class="sub">Tutto quello che devi sapere su vettori, notazioni, operazioni e applicazioni in Meccanica. La base su cui si costruisce tutto il resto.</p>
+
+<!-- ═══ 1. COS'È UN VETTORE ═══ -->
+<h2>1. Cos'e un vettore</h2>
+<p>Un vettore e una grandezza che ha tre proprieta: <b>modulo</b> (quanto e "grande"), <b>direzione</b> (lungo quale retta giace) e <b>verso</b> (in quale dei due sensi lungo quella retta punta). A differenza di uno scalare (un numero), un vettore ha un orientamento nello spazio.</p>
+<p>In Meccanica, sono vettori: le <b>forze</b>, le <b>velocita</b>, le <b>accelerazioni</b>, i <b>momenti</b>. Sono scalari: la massa, l'energia, la temperatura.</p>
+
+<!-- ═══ 2. LE TRE NOTAZIONI ═══ -->
+<h2>2. Le tre notazioni di un vettore</h2>
+
+<h3>2.1 Per componenti</h3>
+<p>Un vettore nel piano si esprime come: <b>a = (a<sub>x</sub>, a<sub>y</sub>)</b>. Le componenti a<sub>x</sub> e a<sub>y</sub> sono le proiezioni del vettore sugli assi x e y. Sono numeri con segno: positivi se il vettore punta nella direzione positiva dell'asse, negativi altrimenti.</p>
+<p>Nello spazio 3D: <b>a = (a<sub>x</sub>, a<sub>y</sub>, a<sub>z</sub>)</b>.</p>
+
+<h3>2.2 Nel piano complesso</h3>
+<p>Un vettore nel piano si puo scrivere come un numero complesso: <b>a = a<sub>x</sub> + j&middot;a<sub>y</sub></b>, dove j e l'unita immaginaria (in matematica si scrive i, in ingegneria j per non confonderla con la corrente). La parte reale e a<sub>x</sub>, la parte immaginaria e a<sub>y</sub>.</p>
+
+<h3>2.3 In forma polare</h3>
+<p>Un vettore si puo descrivere con il suo <b>modulo</b> |a| e l'<b>angolo</b> &theta; che forma con l'asse x positivo: <b>a = |a| &ang; &theta;</b>. Questa notazione e comoda quando si conoscono "quanto e lungo" e "dove punta".</p>
+<p>Il legame tra le notazioni: a<sub>x</sub> = |a|&middot;cos&theta;, a<sub>y</sub> = |a|&middot;sin&theta;.</p>
+
+<svg viewBox="0 0 420 300" width="420">
+  <defs><marker id="a1" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#5a6577"/></marker>
+  <marker id="a2" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#2257c4"/></marker></defs>
+  <!-- assi -->
+  <line x1="50" y1="250" x2="400" y2="250" stroke="#d8cfba" stroke-width="1"/>
+  <line x1="50" y1="250" x2="50" y2="30" stroke="#d8cfba" stroke-width="1"/>
+  <text x="395" y="268" font-size="12" fill="#6b6255">x</text>
+  <text x="35" y="38" font-size="12" fill="#6b6255">y</text>
+  <!-- vettore -->
+  <line x1="50" y1="250" x2="300" y2="80" stroke="#5a6577" stroke-width="2.5" marker-end="url(#a1)"/>
+  <!-- componenti -->
+  <line x1="50" y1="250" x2="300" y2="250" stroke="#2257c4" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#a2)"/>
+  <line x1="300" y1="250" x2="300" y2="80" stroke="#0d8a6a" stroke-width="2" stroke-dasharray="6 4"/>
+  <!-- angolo -->
+  <path d="M 110 250 A 60 60 0 0 0 95 222" stroke="#e0992a" stroke-width="1.5" fill="none"/>
+  <text x="112" y="237" font-size="13" fill="#e0992a" font-weight="600">&theta;</text>
+  <!-- labels -->
+  <text x="305" y="85" font-size="14" fill="#5a6577" font-weight="700">a</text>
+  <text x="160" y="270" font-size="13" fill="#2257c4" font-weight="600">a<tspan baseline-shift="sub" font-size="10">x</tspan> = |a|cos&theta;</text>
+  <text x="308" y="175" font-size="13" fill="#0d8a6a" font-weight="600">a<tspan baseline-shift="sub" font-size="10">y</tspan> = |a|sin&theta;</text>
+  <text x="130" y="155" font-size="13" fill="#5a6577">|a|</text>
+  <!-- punto retto -->
+  <rect x="290" y="240" width="10" height="10" fill="none" stroke="#6b6255" stroke-width="1"/>
+</svg>
+
+<!-- ═══ 3. MODULO ═══ -->
+<h2>3. Modulo di un vettore</h2>
+<p>Il modulo (o norma) di un vettore e la sua "lunghezza". Si calcola con il <b>teorema di Pitagora</b>:</p>
+<div class="formula">|a| = &radic;(a<sub>x</sub>&sup2; + a<sub>y</sub>&sup2;)</div>
+<p>Il modulo e sempre <b>&ge; 0</b>. E zero solo per il vettore nullo (0, 0).</p>
+
+<div class="example">
+<h4>Esempio numerico</h4>
+<p>Dato a = (3, 4):</p>
+<div class="formula">|a| = &radic;(3&sup2; + 4&sup2;) = &radic;(9 + 16) = &radic;25 = 5</div>
+<p>Le terne (3, 4, 5) e (5, 12, 13) sono terne pitagoriche famose: il modulo viene intero.</p>
+</div>
+
+<svg viewBox="0 0 350 250" width="350">
+  <defs><marker id="a3" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#cf3a2c"/></marker></defs>
+  <line x1="50" y1="200" x2="250" y2="200" stroke="#2257c4" stroke-width="2.5"/>
+  <line x1="250" y1="200" x2="250" y2="60" stroke="#0d8a6a" stroke-width="2.5"/>
+  <line x1="50" y1="200" x2="250" y2="60" stroke="#cf3a2c" stroke-width="3" marker-end="url(#a3)"/>
+  <rect x="240" y="190" width="10" height="10" fill="none" stroke="#6b6255" stroke-width="1"/>
+  <text x="140" y="220" font-size="14" fill="#2257c4" font-weight="600">3</text>
+  <text x="258" y="140" font-size="14" fill="#0d8a6a" font-weight="600">4</text>
+  <text x="120" y="118" font-size="15" fill="#cf3a2c" font-weight="700">|a| = 5</text>
+</svg>
+
+<!-- ═══ 4. DIREZIONE ═══ -->
+<h2>4. Direzione e verso</h2>
+<p>L'angolo &theta; che il vettore forma con l'asse x positivo si calcola con:</p>
+<div class="formula">&theta; = atan2(a<sub>y</sub>, a<sub>x</sub>)</div>
+
+<div class="box warn">
+<div class="box-label">Perche atan2 e non atan?</div>
+<p>La funzione <b>atan(a<sub>y</sub>/a<sub>x</sub>)</b> restituisce angoli solo tra &minus;90&deg; e +90&deg;, e non distingue il quadrante. Ad esempio, atan(1/1) = atan(&minus;1/&minus;1) = 45&deg;, ma i vettori (1,1) e (&minus;1,&minus;1) puntano in direzioni opposte! <b>atan2(a<sub>y</sub>, a<sub>x</sub>)</b> restituisce l'angolo corretto tra &minus;180&deg; e +180&deg;, distinguendo tutti e 4 i quadranti.</p>
+</div>
+
+<div class="example">
+<h4>Esempi nei 4 quadranti</h4>
+<p><b>I quadrante</b>: a = (1, 1) &rarr; &theta; = atan2(1, 1) = 45&deg;</p>
+<p><b>II quadrante</b>: a = (&minus;1, 1) &rarr; &theta; = atan2(1, &minus;1) = 135&deg;</p>
+<p><b>III quadrante</b>: a = (&minus;1, &minus;1) &rarr; &theta; = atan2(&minus;1, &minus;1) = &minus;135&deg; (oppure 225&deg;)</p>
+<p><b>IV quadrante</b>: a = (1, &minus;1) &rarr; &theta; = atan2(&minus;1, 1) = &minus;45&deg; (oppure 315&deg;)</p>
+</div>
+
+<!-- ═══ 5. SOMMA VETTORIALE ═══ -->
+<h2>5. Somma vettoriale</h2>
+<p>La somma di due vettori si fa <b>componente per componente</b>:</p>
+<div class="formula">c = a + b = (a<sub>x</sub> + b<sub>x</sub>, a<sub>y</sub> + b<sub>y</sub>)</div>
+<p>Graficamente, ci sono due modi equivalenti per visualizzarla:</p>
+
+<h3>5.1 Regola punta-coda</h3>
+<p>Metti la coda di b sulla punta di a. Il vettore somma va dalla coda di a alla punta di b.</p>
+
+<h3>5.2 Regola del parallelogramma</h3>
+<p>Metti a e b con la stessa coda. Completa il parallelogramma. La diagonale e il vettore somma.</p>
+
+<svg viewBox="0 0 500 220" width="500">
+  <defs><marker id="a4" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#5a6577"/></marker>
+  <marker id="a5" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#2257c4"/></marker>
+  <marker id="a6" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#cf3a2c"/></marker></defs>
+  <!-- Punta-coda -->
+  <text x="30" y="20" font-size="12" fill="#6b6255" font-weight="600">Regola punta-coda</text>
+  <line x1="30" y1="180" x2="140" y2="180" stroke="#5a6577" stroke-width="2.5" marker-end="url(#a4)"/>
+  <line x1="140" y1="180" x2="200" y2="80" stroke="#2257c4" stroke-width="2.5" marker-end="url(#a5)"/>
+  <line x1="30" y1="180" x2="200" y2="80" stroke="#cf3a2c" stroke-width="2.5" marker-end="url(#a6)"/>
+  <text x="75" y="198" font-size="13" fill="#5a6577" font-weight="600">a</text>
+  <text x="178" y="125" font-size="13" fill="#2257c4" font-weight="600">b</text>
+  <text x="90" y="118" font-size="13" fill="#cf3a2c" font-weight="700">a+b</text>
+  <!-- Parallelogramma -->
+  <text x="280" y="20" font-size="12" fill="#6b6255" font-weight="600">Parallelogramma</text>
+  <line x1="280" y1="180" x2="390" y2="180" stroke="#5a6577" stroke-width="2.5" marker-end="url(#a4)"/>
+  <line x1="280" y1="180" x2="340" y2="80" stroke="#2257c4" stroke-width="2.5" marker-end="url(#a5)"/>
+  <line x1="390" y1="180" x2="450" y2="80" stroke="#6b6255" stroke-width="1" stroke-dasharray="5 3"/>
+  <line x1="340" y1="80" x2="450" y2="80" stroke="#6b6255" stroke-width="1" stroke-dasharray="5 3"/>
+  <line x1="280" y1="180" x2="450" y2="80" stroke="#cf3a2c" stroke-width="2.5" marker-end="url(#a6)"/>
+  <text x="330" y="198" font-size="13" fill="#5a6577" font-weight="600">a</text>
+  <text x="296" y="125" font-size="13" fill="#2257c4" font-weight="600">b</text>
+  <text x="340" y="118" font-size="13" fill="#cf3a2c" font-weight="700">a+b</text>
+</svg>
+
+<div class="example">
+<h4>Esempio numerico</h4>
+<p>a = (3, 1), b = (1, 4)</p>
+<div class="formula">c = a + b = (3+1, 1+4) = (4, 5)<br>|c| = &radic;(16+25) = &radic;41 &asymp; 6.40</div>
+</div>
+
+<div class="box tip">
+<div class="box-label">Consiglio</div>
+<p>Per la somma, lavora <b>sempre per componenti</b>. E il metodo piu sicuro e veloce. La forma polare e utile solo per rappresentare il risultato finale.</p>
+</div>
+
+<!-- ═══ 6. PRODOTTO SCALARE ═══ -->
+<h2>6. Prodotto scalare</h2>
+<p>Il prodotto scalare (o dot product) tra due vettori produce un <b>numero</b> (scalare), non un vettore.</p>
+
+<h3>6.1 Formula algebrica</h3>
+<div class="formula">a &middot; b = a<sub>x</sub>&middot;b<sub>x</sub> + a<sub>y</sub>&middot;b<sub>y</sub> + a<sub>z</sub>&middot;b<sub>z</sub></div>
+
+<h3>6.2 Formula geometrica</h3>
+<div class="formula">a &middot; b = |a| &middot; |b| &middot; cos&theta;</div>
+<p>dove &theta; e l'angolo tra i due vettori.</p>
+
+<h3>6.3 Significato: la proiezione</h3>
+<p>Il prodotto scalare a&middot;b equivale a prendere la <b>proiezione di b su a</b> e moltiplicarla per |a|. Oppure viceversa: la proiezione di a su b, moltiplicata per |b|. Rappresenta "quanto b va nella direzione di a".</p>
+
+<svg viewBox="0 0 400 200" width="400">
+  <defs><marker id="a7" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#5a6577"/></marker>
+  <marker id="a8" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#2257c4"/></marker></defs>
+  <line x1="40" y1="150" x2="350" y2="150" stroke="#5a6577" stroke-width="2.5" marker-end="url(#a7)"/>
+  <line x1="40" y1="150" x2="220" y2="50" stroke="#2257c4" stroke-width="2.5" marker-end="url(#a8)"/>
+  <!-- proiezione -->
+  <line x1="220" y1="50" x2="220" y2="150" stroke="#e0992a" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <line x1="40" y1="150" x2="220" y2="150" stroke="#cf3a2c" stroke-width="3"/>
+  <rect x="210" y="140" width="10" height="10" fill="none" stroke="#6b6255" stroke-width="1"/>
+  <text x="340" y="145" font-size="13" fill="#5a6577" font-weight="600">a</text>
+  <text x="225" y="50" font-size="13" fill="#2257c4" font-weight="600">b</text>
+  <text x="105" y="170" font-size="12" fill="#cf3a2c" font-weight="600">proiezione di b su a</text>
+  <path d="M 80 150 A 40 40 0 0 0 72 130" stroke="#e0992a" stroke-width="1.5" fill="none"/>
+  <text x="85" y="137" font-size="11" fill="#e0992a">&theta;</text>
+</svg>
+
+<h3>6.4 Proprieta importanti</h3>
+<div class="steps">
+<div class="step"><div class="step-n"></div><div class="step-b"><strong>Commutativo</strong><p>a &middot; b = b &middot; a. L'ordine non conta.</p></div></div>
+<div class="step"><div class="step-n"></div><div class="step-b"><strong>Se a &middot; b = 0, i vettori sono perpendicolari</strong><p>Perche cos90&deg; = 0. Utile per verificare la perpendicolarita.</p></div></div>
+<div class="step"><div class="step-n"></div><div class="step-b"><strong>Se &theta; &lt; 90&deg;, il prodotto e positivo</strong><p>I vettori "vanno nella stessa direzione". Se &theta; &gt; 90&deg;, il prodotto e negativo.</p></div></div>
+</div>
+
+<div class="example">
+<h4>Esempio numerico</h4>
+<p>a = (2, 3), b = (4, &minus;1)</p>
+<div class="formula">a &middot; b = 2&middot;4 + 3&middot;(&minus;1) = 8 &minus; 3 = 5</div>
+</div>
+
+<div class="box info">
+<div class="box-label">In Meccanica: il lavoro</div>
+<p>Il lavoro di una forza F lungo uno spostamento s e: <b>W = F &middot; s = |F|&middot;|s|&middot;cos&theta;</b>. Se la forza e perpendicolare allo spostamento, il lavoro e zero (es. la forza normale non lavora).</p>
+</div>
+
+<!-- ═══ 7. PRODOTTO VETTORIALE ═══ -->
+<h2>7. Prodotto vettoriale</h2>
+<p>Il prodotto vettoriale (o cross product) tra due vettori produce un <b>vettore</b>, non un numero. Il risultato e perpendicolare al piano formato dai due vettori.</p>
+
+<h3>7.1 Formula nel piano (2D)</h3>
+<p>Se a e b giacciono nel piano xy, il risultato e diretto lungo z:</p>
+<div class="formula">a &times; b = (a<sub>x</sub>&middot;b<sub>y</sub> &minus; a<sub>y</sub>&middot;b<sub>x</sub>) k&#x302;</div>
+<p>Il risultato e un singolo numero moltiplicato per k&#x302; (il versore uscente dal piano). Se positivo, punta verso di te; se negativo, punta lontano da te.</p>
+
+<h3>7.2 Formula generale (3D) &mdash; determinante</h3>
+<div class="formula">a &times; b = det | i&#x302;  j&#x302;  k&#x302; |<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| a<sub>x</sub> a<sub>y</sub> a<sub>z</sub> |<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| b<sub>x</sub> b<sub>y</sub> b<sub>z</sub> |<br><br>
+= (a<sub>y</sub>b<sub>z</sub>&minus;a<sub>z</sub>b<sub>y</sub>) i&#x302; &minus; (a<sub>x</sub>b<sub>z</sub>&minus;a<sub>z</sub>b<sub>x</sub>) j&#x302; + (a<sub>x</sub>b<sub>y</sub>&minus;a<sub>y</sub>b<sub>x</sub>) k&#x302;</div>
+
+<h3>7.3 Formula geometrica</h3>
+<div class="formula">|a &times; b| = |a| &middot; |b| &middot; sin&theta;</div>
+<p>Il modulo del prodotto vettoriale e uguale all'<b>area del parallelogramma</b> formato dai due vettori.</p>
+
+<h3>7.4 Regola della mano destra</h3>
+<p>Per trovare la direzione di a&times;b: punta le dita della mano destra lungo a, curvale verso b. Il pollice indica la direzione del prodotto vettoriale.</p>
+
+<svg viewBox="0 0 400 280" width="400">
+  <defs><marker id="a9" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#5a6577"/></marker>
+  <marker id="a10" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#2257c4"/></marker>
+  <marker id="a11" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#cf3a2c"/></marker></defs>
+  <!-- piano -->
+  <polygon points="50,200 250,200 300,140 100,140" fill="rgba(90,101,119,.06)" stroke="#d8cfba" stroke-width="1"/>
+  <!-- vettori nel piano -->
+  <line x1="120" y1="180" x2="250" y2="180" stroke="#5a6577" stroke-width="2.5" marker-end="url(#a9)"/>
+  <line x1="120" y1="180" x2="200" y2="140" stroke="#2257c4" stroke-width="2.5" marker-end="url(#a10)"/>
+  <!-- risultato perpendicolare -->
+  <line x1="120" y1="180" x2="120" y2="40" stroke="#cf3a2c" stroke-width="3" marker-end="url(#a11)"/>
+  <text x="255" y="178" font-size="13" fill="#5a6577" font-weight="600">a</text>
+  <text x="205" y="137" font-size="13" fill="#2257c4" font-weight="600">b</text>
+  <text x="128" y="50" font-size="13" fill="#cf3a2c" font-weight="700">a &times; b</text>
+  <text x="128" y="68" font-size="10" fill="#cf3a2c">(esce dal piano!)</text>
+  <!-- angolo -->
+  <path d="M 155 180 A 35 35 0 0 0 148 165" stroke="#e0992a" stroke-width="1.5" fill="none"/>
+  <text x="155" y="170" font-size="11" fill="#e0992a">&theta;</text>
+  <text x="140" y="250" font-size="11" fill="#6b6255">Il piano contiene a e b</text>
+</svg>
+
+<div class="box danger">
+<div class="box-label">NON e commutativo!</div>
+<p><b>a &times; b = &minus;(b &times; a)</b>. Invertendo l'ordine, il risultato cambia segno (la direzione si inverte). Questo e diverso dal prodotto scalare, che invece e commutativo.</p>
+</div>
+
+<div class="example">
+<h4>Esempio numerico</h4>
+<p>a = (2, 0, 0), b = (&radic;3, 1, 0)</p>
+<div class="formula">a &times; b = (a<sub>x</sub>b<sub>y</sub> &minus; a<sub>y</sub>b<sub>x</sub>) k&#x302; = (2&middot;1 &minus; 0&middot;&radic;3) k&#x302; = 2 k&#x302;</div>
+<p>Il risultato e un vettore che esce dal piano xy con modulo 2.</p>
+</div>
+
+<div class="box info">
+<div class="box-label">In Meccanica: il momento</div>
+<p>Il momento di una forza F rispetto a un punto O e: <b>M = r &times; F</b>, dove r e il vettore posizione dal punto O al punto di applicazione della forza. Il modulo e |r|&middot;|F|&middot;sin&theta; = |F|&middot;d, dove d e il <b>braccio</b> (distanza perpendicolare).</p>
+</div>
+
+<!-- ═══ 8. ESEMPIO COMPLETO ═══ -->
+<h2>8. Esempio completo svolto</h2>
+<div class="card">
+<h3>Dati: a = (2, 0, 0) e b = (&radic;3, 1, 0)</h3>
+
+<h3>Passo 1: Le tre notazioni</h3>
+<p><b>Vettore a:</b></p>
+<div class="formula">Componenti: a = (2, 0, 0)<br>
+Complesso: a = 2 + j&middot;0 = 2<br>
+Polare: |a| = 2, &theta;<sub>a</sub> = 0&deg; &rarr; a = 2 &ang; 0&deg;</div>
+
+<p><b>Vettore b:</b></p>
+<div class="formula">Componenti: b = (&radic;3, 1, 0)<br>
+Complesso: b = &radic;3 + j&middot;1<br>
+|b| = &radic;(3 + 1) = 2, &theta;<sub>b</sub> = atan2(1, &radic;3) = 30&deg; &rarr; b = 2 &ang; 30&deg;</div>
+
+<h3>Passo 2: Somma vettoriale</h3>
+<div class="formula">c = a + b = (2 + &radic;3, 0 + 1, 0) = (2 + 1.732, 1, 0) = (3.732, 1, 0)<br>
+|c| = &radic;(3.732&sup2; + 1&sup2;) = &radic;(13.93 + 1) = &radic;14.93 &asymp; 3.86<br>
+&theta;<sub>c</sub> = atan2(1, 3.732) &asymp; 15&deg;</div>
+
+<h3>Passo 3: Prodotto scalare</h3>
+<div class="formula">a &middot; b = 2&middot;&radic;3 + 0&middot;1 + 0&middot;0 = 2&radic;3 &asymp; 3.46<br><br>
+Verifica: |a|&middot;|b|&middot;cos&theta; = 2&middot;2&middot;cos30&deg; = 4&middot;0.866 = 3.46 &#10004;</div>
+
+<h3>Passo 4: Prodotto vettoriale</h3>
+<div class="formula">a &times; b = (a<sub>x</sub>b<sub>y</sub> &minus; a<sub>y</sub>b<sub>x</sub>) k&#x302; = (2&middot;1 &minus; 0&middot;&radic;3) k&#x302; = 2 k&#x302;<br><br>
+Verifica: |a|&middot;|b|&middot;sin&theta; = 2&middot;2&middot;sin30&deg; = 4&middot;0.5 = 2 &#10004;</div>
+</div>
+
+<!-- ═══ 9. APPLICAZIONI ═══ -->
+<h2>9. Applicazioni in Meccanica</h2>
+
+<h3>9.1 Velocita risultante (Aereo con vento)</h3>
+<p>Un aereo vola verso Nord a 500 km/h. C'e un vento laterale verso Ovest di 40 km/h. La velocita rispetto al suolo e la somma vettoriale:</p>
+<div class="formula">v<sub>aereo</sub> = (0, 500) km/h (Nord = y positivo)<br>
+v<sub>vento</sub> = (&minus;40, 0) km/h (Ovest = x negativo)<br>
+v<sub>risultante</sub> = (&minus;40, 500) km/h<br>
+|v| = &radic;(1600 + 250000) &asymp; 501.6 km/h</div>
+
+<h3>9.2 Risultante delle forze</h3>
+<p>Se su un oggetto agiscono piu forze, la risultante e la somma vettoriale di tutte. Si scompone ogni forza in componenti x e y, si sommano separatamente, poi si ricompone.</p>
+
+<h3>9.3 Momento di una forza</h3>
+<p>Il momento di una forza F rispetto al punto O misura la "tendenza a far ruotare" attorno a O. Si calcola come M = r &times; F, dove r va da O al punto di applicazione di F.</p>
+
+<svg viewBox="0 0 400 250" width="400">
+  <defs><marker id="a12" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#cf3a2c"/></marker>
+  <marker id="a13" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#5a6577"/></marker></defs>
+  <!-- fulcro -->
+  <circle cx="80" cy="180" r="6" fill="#e0992a" stroke="#e0992a" stroke-width="2"/>
+  <text x="65" y="205" font-size="13" fill="#e0992a" font-weight="600">O</text>
+  <!-- asta -->
+  <line x1="80" y1="180" x2="300" y2="180" stroke="#241f18" stroke-width="3"/>
+  <!-- r -->
+  <line x1="80" y1="170" x2="300" y2="170" stroke="#5a6577" stroke-width="1.5" marker-end="url(#a13)" stroke-dasharray="5 3"/>
+  <text x="180" y="165" font-size="12" fill="#5a6577" font-weight="600">r</text>
+  <!-- F -->
+  <line x1="300" y1="180" x2="300" y2="80" stroke="#cf3a2c" stroke-width="2.5" marker-end="url(#a12)"/>
+  <text x="310" y="130" font-size="14" fill="#cf3a2c" font-weight="700">F</text>
+  <!-- braccio -->
+  <line x1="80" y1="190" x2="300" y2="190" stroke="#0d8a6a" stroke-width="2"/>
+  <text x="175" y="215" font-size="12" fill="#0d8a6a" font-weight="600">d = braccio</text>
+  <!-- M -->
+  <path d="M 95 150 A 30 30 0 1 0 68 165" stroke="#7b4ad1" stroke-width="2" fill="none" marker-end="url(#a12)"/>
+  <text x="50" y="140" font-size="13" fill="#7b4ad1" font-weight="700">M = r &times; F</text>
+  <text x="50" y="155" font-size="11" fill="#7b4ad1">|M| = |F|&middot;d</text>
+</svg>
+
+<!-- ═══ 10. ERRORI COMUNI ═══ -->
+<h2>10. Errori comuni e consigli</h2>
+
+<div class="box danger">
+<div class="box-label">Non confondere scalare e vettoriale</div>
+<p>Il prodotto <b>scalare</b> (a&middot;b) da un <b>numero</b>. Il prodotto <b>vettoriale</b> (a&times;b) da un <b>vettore</b>. Sono operazioni completamente diverse. Il primo usa il coseno, il secondo il seno.</p>
+</div>
+
+<div class="box warn">
+<div class="box-label">Il prodotto vettoriale NON e commutativo</div>
+<p>a &times; b = &minus;(b &times; a). Se inverti l'ordine, il segno cambia. Quando calcoli il momento M = r &times; F, l'ordine <b>r prima, F dopo</b> e fondamentale.</p>
+</div>
+
+<div class="box warn">
+<div class="box-label">Usa atan2, non atan</div>
+<p>La calcolatrice da atan, ma devi controllare il quadrante manualmente. Meglio usare atan2 che lo fa automaticamente. In MATLAB: atan2(y, x).</p>
+</div>
+
+<div class="box tip">
+<div class="box-label">Lavora per componenti</div>
+<p>Per la somma vettoriale, <b>sempre per componenti</b>. Scomponi ogni vettore in x e y, somma le componenti x tra loro e le y tra loro. E il metodo piu sicuro.</p>
+</div>
+
+<div class="box tip">
+<div class="box-label">Controllo rapido del prodotto scalare</div>
+<p>Se i due vettori "puntano dalla stessa parte" (angolo &lt; 90&deg;), il prodotto scalare e positivo. Se puntano "in direzioni opposte" (angolo &gt; 90&deg;), e negativo. Se sono perpendicolari, e zero.</p>
+</div>
+
+</div>
+</body>
+</html>

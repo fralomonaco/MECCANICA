@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meccanismi — Guida Meccanica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Spline+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f4efe4;--paper2:#faf7ef;--card:#fffdf8;--ink:#241f18;--ink-soft:#6b6255;--line:#e4dccb;--line2:#d8cfba;--d-low:#2f9e63;--d-mid:#e0992a;--d-high:#cf3a2c;--accent:#a8551b;--shadow:0 1px 2px rgba(50,40,20,.05),0 12px 28px -14px rgba(70,55,25,.22)}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Spline Sans',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;padding:clamp(16px,4vw,48px);min-height:100vh;background-image:radial-gradient(circle at 88% 80%,rgba(168,85,27,.06),transparent 38%)}.wrap{max-width:860px;margin:0 auto}a.back{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;display:inline-block;margin-bottom:20px}a.back:hover{color:var(--accent)}h1{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(28px,6vw,48px);line-height:1;margin-bottom:8px}h1 .dot{display:inline-block;width:14px;height:14px;border-radius:4px;background:var(--accent);margin-right:10px}.sub{color:var(--ink-soft);margin-bottom:32px;font-size:15px}h2{font-family:'Fraunces',serif;font-weight:700;font-size:22px;margin:36px 0 14px;padding-top:12px;border-top:1px solid var(--line)}h3{font-family:'Fraunces',serif;font-weight:600;font-size:17px;margin:24px 0 10px}p{margin:0 0 12px;font-size:14.5px;color:var(--ink-soft);line-height:1.7}p b,p strong{color:var(--ink)}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:22px 24px;margin:16px 0}.formula{font-family:'IBM Plex Mono',monospace;font-size:13px;background:var(--paper2);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:12px 0;line-height:1.8;color:var(--d-high)}.box{border-radius:10px;padding:14px 16px;margin:14px 0;font-size:13.5px;line-height:1.65}.box.tip{background:rgba(47,158,99,.07);border:1px solid rgba(47,158,99,.22)}.box.warn{background:rgba(224,153,42,.07);border:1px solid rgba(224,153,42,.22)}.box.danger{background:rgba(207,58,44,.06);border:1px solid rgba(207,58,44,.2)}.box.info{background:rgba(34,87,196,.06);border:1px solid rgba(34,87,196,.2)}.box-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-bottom:6px}.box.tip .box-label{color:var(--d-low)}.box.warn .box-label{color:var(--d-mid)}.box.danger .box-label{color:var(--d-high)}.box.info .box-label{color:#2257c4}.box p{margin:0;color:var(--ink-soft)}.box p b{color:var(--ink)}.box ul{padding-left:18px;color:var(--ink-soft);margin:4px 0 0}.box ul li{margin-bottom:4px}svg{display:block;margin:16px auto;max-width:100%}svg text{font-family:'Spline Sans',sans-serif}.steps{counter-reset:s;margin:14px 0}.step{display:flex;gap:14px;margin-bottom:16px;align-items:flex-start}.step-n{counter-increment:s;width:30px;height:30px;border-radius:10px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:900;font-size:14px;color:#fff;background:var(--accent)}.step-n::before{content:counter(s)}.step-b{flex:1}.step-b strong{display:block;font-size:14.5px;font-weight:600;margin-bottom:4px;color:var(--ink)}.step-b p{margin:0;font-size:13.5px}.example{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:16px 0}.example h4{font-family:'Fraunces',serif;font-weight:600;font-size:15px;margin-bottom:10px}.example p{font-size:13px;margin:4px 0}.example .formula{font-size:12px;padding:10px 12px;margin:8px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a href="index.html" class="back">&larr; Torna alla home</a>
+<h1><span class="dot"></span>Meccanismi</h1>
+<p class="sub">Chiusura cinematica, quadrilateri articolati, glifi oscillanti. Come analizzare meccanismi complessi con metodo sistematico.</p>
+
+<h2>1. Cos'e un meccanismo</h2>
+<p>Un meccanismo e un sistema di corpi rigidi collegati da vincoli che permettono il moto. Tipicamente ha <b>1 grado di liberta</b>: basta conoscere una sola variabile (es. l'angolo di un'asta) per descrivere il moto di tutto il sistema.</p>
+<p>Esempi: manovella-biella-pistone (motore a scoppio), quadrilatero articolato, glifo oscillante (stepper da palestra), tergicristallo.</p>
+
+<h2>2. La Chiusura Cinematica</h2>
+<p>La chiusura cinematica e il <b>metodo fondamentale</b> per analizzare i meccanismi. L'idea e semplice: se percorri un giro completo lungo le aste del meccanismo, torni al punto di partenza. Quindi la somma dei vettori posizione lungo il loop e <b>zero</b>.</p>
+
+<h3>2.1 Scrivere l'equazione di chiusura</h3>
+<div class="steps">
+<div class="step"><div class="step-n"></div><div class="step-b"><strong>Identifica il loop chiuso</strong><p>Scegli un percorso che tocchi tutte le aste e torni al punto di partenza. Es: O &rarr; A &rarr; B &rarr; O' &rarr; O.</p></div></div>
+<div class="step"><div class="step-n"></div><div class="step-b"><strong>Scrivi ogni vettore posizione</strong><p>Ogni asta di lunghezza L inclinata di un angolo &alpha; rispetto all'orizzontale contribuisce con:<br>
+<b>L&middot;cos(&alpha;) i&#x302; + L&middot;sin(&alpha;) j&#x302;</b></p></div></div>
+<div class="step"><div class="step-n"></div><div class="step-b"><strong>Somma e uguaglia a zero</strong><p>OA&#x20D7; + AB&#x20D7; + BO'&#x20D7; + O'O&#x20D7; = 0&#x20D7;</p></div></div>
+<div class="step"><div class="step-n"></div><div class="step-b"><strong>Proietta su x e y</strong><p>Ottieni 2 equazioni scalari. Queste ti servono per trovare gli angoli incogniti.</p></div></div>
+</div>
+
+<svg viewBox="0 0 450 280" width="450">
+  <defs><marker id="m1" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#a8551b"/></marker>
+  <marker id="m2" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#2257c4"/></marker>
+  <marker id="m3" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#0d8a6a"/></marker>
+  <marker id="m4" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#cf3a2c"/></marker></defs>
+  <!-- quadrilatero -->
+  <line x1="60" y1="220" x2="140" y2="100" stroke="#a8551b" stroke-width="3" marker-end="url(#m1)"/>
+  <line x1="140" y1="100" x2="330" y2="80" stroke="#2257c4" stroke-width="3" marker-end="url(#m2)"/>
+  <line x1="330" y1="80" x2="350" y2="220" stroke="#0d8a6a" stroke-width="3" marker-end="url(#m3)"/>
+  <line x1="350" y1="220" x2="60" y2="220" stroke="#cf3a2c" stroke-width="3" marker-end="url(#m4)"/>
+  <!-- punti -->
+  <circle cx="60" cy="220" r="6" fill="#241f18"/><text x="40" y="242" font-size="13" fill="#241f18" font-weight="700">O</text>
+  <circle cx="140" cy="100" r="6" fill="#241f18"/><text x="148" y="95" font-size="13" fill="#241f18" font-weight="700">A</text>
+  <circle cx="330" cy="80" r="6" fill="#241f18"/><text x="338" y="75" font-size="13" fill="#241f18" font-weight="700">B</text>
+  <circle cx="350" cy="220" r="6" fill="#241f18"/><text x="358" y="242" font-size="13" fill="#241f18" font-weight="700">O'</text>
+  <!-- labels -->
+  <text x="75" y="155" font-size="12" fill="#a8551b" font-weight="600">L<sub>1</sub>, &alpha;<sub>1</sub></text>
+  <text x="210" y="78" font-size="12" fill="#2257c4" font-weight="600">L<sub>2</sub>, &alpha;<sub>2</sub></text>
+  <text x="345" y="155" font-size="12" fill="#0d8a6a" font-weight="600">L<sub>3</sub>, &alpha;<sub>3</sub></text>
+  <text x="190" y="238" font-size="12" fill="#cf3a2c" font-weight="600">L<sub>4</sub> (telaio, fisso)</text>
+  <!-- loop arrow -->
+  <text x="180" y="155" font-size="11" fill="#6b6255">Loop: OA + AB + BO' + O'O = 0</text>
+</svg>
+
+<h3>2.2 Derivazione per le velocita</h3>
+<p>Derivi le equazioni di chiusura rispetto al tempo. Le lunghezze L sono <b>costanti</b> (non si derivano), gli angoli &alpha; cambiano.</p>
+<div class="formula">d/dt [L&middot;cos(&alpha;)] = &minus;L&middot;sin(&alpha;)&middot;&alpha;&#x0307;<br>
+d/dt [L&middot;sin(&alpha;)] = L&middot;cos(&alpha;)&middot;&alpha;&#x0307;</div>
+<p>Ottieni un <b>sistema lineare</b> nelle velocita angolari incognite &alpha;&#x0307;<sub>2</sub>, &alpha;&#x0307;<sub>3</sub> (quella nota e &alpha;&#x0307;<sub>1</sub>, il dato del problema).</p>
+
+<h3>2.3 Derivazione per le accelerazioni</h3>
+<p>Derivi ancora. Compaiono termini con &alpha;&#x0307;&sup2; (gia <b>noti</b> dal passo precedente) e con &alpha;&#x0308; (<b>incogniti</b>).</p>
+<div class="formula">d/dt [&minus;L&middot;sin(&alpha;)&middot;&alpha;&#x0307;] = &minus;L&middot;cos(&alpha;)&middot;&alpha;&#x0307;&sup2; &minus; L&middot;sin(&alpha;)&middot;&alpha;&#x0308;<br>
+d/dt [L&middot;cos(&alpha;)&middot;&alpha;&#x0307;] = &minus;L&middot;sin(&alpha;)&middot;&alpha;&#x0307;&sup2; + L&middot;cos(&alpha;)&middot;&alpha;&#x0308;</div>
+<p>Di nuovo un sistema lineare, stavolta in &alpha;&#x0308;<sub>2</sub>, &alpha;&#x0308;<sub>3</sub>.</p>
+
+<div class="box warn">
+<div class="box-label">Attenzione alla derivazione</div>
+<p>d/dt[cos(&alpha;)] = &minus;sin(&alpha;)&middot;&alpha;&#x0307;, <b>NON</b> &minus;sin(&alpha;&#x0307;). L'argomento del seno e sempre &alpha;, non la sua derivata! Errore frequentissimo.</p>
+</div>
+
+<h2>3. Glifo Oscillante</h2>
+<p>Il glifo oscillante e un meccanismo in cui un <b>perno scorre dentro una guida</b> che ruota. E il meccanismo dello stepper da palestra (ESE03) e di molti altri dispositivi.</p>
+
+<h3>3.1 Perche si usano i moti relativi</h3>
+<p>Il perno P appartiene a un corpo (es. un'asta) e contemporaneamente scorre nella guida di un altro corpo. La sua velocita assoluta (calcolata dall'asta) deve uguagliare la somma della velocita relativa (scorrimento lungo la guida) e della velocita di trascinamento (rotazione della guida).</p>
+
+<svg viewBox="0 0 400 250" width="400">
+  <defs><marker id="g1" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#cf3a2c"/></marker>
+  <marker id="g2" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#0d8a6a"/></marker>
+  <marker id="g3" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#2257c4"/></marker></defs>
+  <!-- centro guida -->
+  <circle cx="100" cy="180" r="5" fill="#e0992a"/>
+  <text x="80" y="200" font-size="11" fill="#e0992a" font-weight="600">O<sub>2</sub></text>
+  <!-- guida (asta inclinata larga) -->
+  <line x1="100" y1="180" x2="320" y2="60" stroke="#d8cfba" stroke-width="12" stroke-linecap="round"/>
+  <line x1="100" y1="180" x2="320" y2="60" stroke="#241f18" stroke-width="2"/>
+  <!-- perno P -->
+  <circle cx="230" cy="108" r="7" fill="#cf3a2c"/>
+  <text x="240" y="105" font-size="13" fill="#cf3a2c" font-weight="700">P</text>
+  <!-- v_ass -->
+  <line x1="230" y1="108" x2="230" y2="40" stroke="#cf3a2c" stroke-width="2.5" marker-end="url(#g1)"/>
+  <text x="238" y="50" font-size="11" fill="#cf3a2c" font-weight="600">v<sub>ass</sub> (nota)</text>
+  <!-- v_rel (lungo la guida) -->
+  <line x1="230" y1="108" x2="290" y2="72" stroke="#0d8a6a" stroke-width="2.5" marker-end="url(#g2)"/>
+  <text x="295" y="68" font-size="11" fill="#0d8a6a" font-weight="600">v<sub>rel</sub></text>
+  <text x="295" y="82" font-size="9" fill="#0d8a6a">(lungo guida)</text>
+  <!-- v_tras (perp al raggio) -->
+  <line x1="230" y1="108" x2="175" y2="58" stroke="#2257c4" stroke-width="2.5" marker-end="url(#g3)"/>
+  <text x="130" y="52" font-size="11" fill="#2257c4" font-weight="600">v<sub>tras</sub> = &omega;<sub>2</sub>&times;r</text>
+  <text x="130" y="66" font-size="9" fill="#2257c4">(&perp; al raggio)</text>
+  <!-- omega -->
+  <path d="M 120 160 A 20 20 0 0 0 115 170" stroke="#e0992a" stroke-width="2" fill="none"/>
+  <text x="128" y="165" font-size="11" fill="#e0992a" font-weight="600">&omega;<sub>2</sub></text>
+</svg>
+
+<h3>3.2 Procedura per il glifo</h3>
+<div class="steps">
+<div class="step"><div class="step-n"></div><div class="step-b"><strong>Calcola v<sub>P</sub> dal corpo a cui appartiene il perno</strong><p>Usa Rivals sul corpo 1 per trovare la velocita assoluta del perno P.</p></div></div>
+<div class="step"><div class="step-n"></div><div class="step-b"><strong>Identifica la direzione di v<sub>rel</sub></strong><p>La velocita relativa e <b>parallela alla guida</b> (il perno scorre lungo di essa).</p></div></div>
+<div class="step"><div class="step-n"></div><div class="step-b"><strong>Calcola v<sub>tras</sub></strong><p>v<sub>tras</sub> = &omega;<sub>guida</sub> &times; r, dove r va dal centro della guida al perno P. E <b>perpendicolare</b> al raggio.</p></div></div>
+<div class="step"><div class="step-n"></div><div class="step-b"><strong>Scrivi v<sub>ass</sub> = v<sub>rel</sub> + v<sub>tras</sub></strong><p>Proietta su 2 direzioni (es. lungo e perpendicolarmente alla guida). Ottieni 2 equazioni con 2 incognite: &omega;<sub>guida</sub> e v<sub>rel</sub>.</p></div></div>
+<div class="step"><div class="step-n"></div><div class="step-b"><strong>Per l'accelerazione, aggiungi Coriolis</strong><p>a<sub>ass</sub> = a<sub>rel</sub> + a<sub>tras</sub> + <b>2&omega;<sub>guida</sub> &times; v<sub>rel</sub></b></p></div></div>
+</div>
+
+<div class="box danger">
+<div class="box-label">v<sub>rel</sub> e lungo la guida, non perpendicolare!</div>
+<p>La velocita relativa rappresenta lo scorrimento del perno nella guida: e diretta <b>lungo la guida</b>. La velocita di trascinamento e invece perpendicolare al raggio. Non confonderle!</p>
+</div>
+
+<h2>4. Manovella-biella-pistone</h2>
+<p>E il meccanismo del motore a scoppio. Un disco (manovella) ruota, un'asta (biella) collega il bordo del disco a un pistone che scorre lungo una guida rettilinea.</p>
+<p>Si analizza con la <b>chiusura cinematica</b> o con <b>Rivals</b> applicato asta per asta. La chiusura cinematica e spesso piu sistematica.</p>
+
+<svg viewBox="0 0 400 200" width="400">
+  <defs><marker id="p1" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#a8551b"/></marker></defs>
+  <!-- manovella -->
+  <circle cx="100" cy="130" r="50" fill="none" stroke="#d8cfba" stroke-width="1" stroke-dasharray="4 3"/>
+  <circle cx="100" cy="130" r="4" fill="#241f18"/>
+  <line x1="100" y1="130" x2="140" y2="88" stroke="#a8551b" stroke-width="3"/>
+  <circle cx="140" cy="88" r="5" fill="#a8551b"/>
+  <text x="95" y="155" font-size="11" fill="#241f18" font-weight="600">O</text>
+  <text x="148" y="85" font-size="11" fill="#a8551b" font-weight="600">A</text>
+  <!-- biella -->
+  <line x1="140" y1="88" x2="300" y2="130" stroke="#2257c4" stroke-width="3"/>
+  <circle cx="300" cy="130" r="5" fill="#2257c4"/>
+  <text x="308" y="128" font-size="11" fill="#2257c4" font-weight="600">B</text>
+  <!-- pistone -->
+  <rect x="290" y="118" width="30" height="24" fill="#faf7ef" stroke="#241f18" stroke-width="2" rx="3"/>
+  <!-- guida -->
+  <line x1="280" y1="130" x2="380" y2="130" stroke="#6b6255" stroke-width="1" stroke-dasharray="3 3"/>
+  <!-- labels -->
+  <text x="108" y="100" font-size="10" fill="#a8551b">manovella</text>
+  <text x="190" y="100" font-size="10" fill="#2257c4">biella</text>
+  <text x="330" y="135" font-size="10" fill="#241f18">pistone</text>
+  <!-- omega -->
+  <path d="M 120 108 A 20 20 0 0 0 118 118" stroke="#e0992a" stroke-width="2" fill="none" marker-end="url(#p1)"/>
+  <text x="128" y="115" font-size="11" fill="#e0992a" font-weight="600">&omega;</text>
+</svg>
+
+<h2>5. Errori comuni</h2>
+<div class="box danger">
+<div class="box-label">Angoli: attenzione al quadrante!</div>
+<p>Se un'asta punta verso sinistra-basso, il suo angolo e nel <b>terzo quadrante</b> (180&deg;+...). Se punti verso sinistra-alto e nel secondo quadrante. Disegna sempre l'angolo per verificare.</p>
+</div>
+<div class="box warn">
+<div class="box-label">Prima angoli, poi velocita, poi accelerazioni</div>
+<p>Non puoi calcolare le velocita angolari senza conoscere gli angoli. E non puoi calcolare le accelerazioni senza le velocita. Segui l'ordine: <b>posizione &rarr; velocita &rarr; accelerazione</b>.</p>
+</div>
+<div class="box warn">
+<div class="box-label">Nel glifo: Coriolis!</div>
+<p>Quando passi all'accelerazione nel glifo, non dimenticare il termine di <b>Coriolis = 2&omega; &times; v<sub>rel</sub></b>. E l'errore piu comune negli esercizi sul glifo.</p>
+</div>
+<div class="box tip">
+<div class="box-label">Verifica con i GdL</div>
+<p>Prima di iniziare, verifica che il meccanismo abbia 1 GdL. Se ne ha di piu, manca un dato. Se ne ha zero, c'e un vincolo in piu e il sistema potrebbe essere inconsistente.</p>
+</div>
+</div>
+</body>
+</html>

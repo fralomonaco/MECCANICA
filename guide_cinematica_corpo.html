@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cinematica del Corpo Rigido — Guida Meccanica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Spline+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f4efe4;--paper2:#faf7ef;--card:#fffdf8;--ink:#241f18;--ink-soft:#6b6255;--line:#e4dccb;--line2:#d8cfba;--d-low:#2f9e63;--d-mid:#e0992a;--d-high:#cf3a2c;--accent:#2257c4;--shadow:0 1px 2px rgba(50,40,20,.05),0 12px 28px -14px rgba(70,55,25,.22)}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Spline Sans',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;padding:clamp(16px,4vw,48px);min-height:100vh;background-image:radial-gradient(circle at 12% 18%,rgba(34,87,196,.06),transparent 38%)}.wrap{max-width:860px;margin:0 auto}a.back{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;display:inline-block;margin-bottom:20px}a.back:hover{color:var(--accent)}h1{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(28px,6vw,48px);line-height:1;margin-bottom:8px}h1 .dot{display:inline-block;width:14px;height:14px;border-radius:4px;background:var(--accent);margin-right:10px}.sub{color:var(--ink-soft);margin-bottom:32px;font-size:15px}h2{font-family:'Fraunces',serif;font-weight:700;font-size:22px;margin:36px 0 14px;padding-top:12px;border-top:1px solid var(--line)}h3{font-family:'Fraunces',serif;font-weight:600;font-size:17px;margin:24px 0 10px}p{margin:0 0 12px;font-size:14.5px;color:var(--ink-soft);line-height:1.7}p b,p strong{color:var(--ink)}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:22px 24px;margin:16px 0}.formula{font-family:'IBM Plex Mono',monospace;font-size:13px;background:var(--paper2);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:12px 0;line-height:1.8;color:var(--d-high)}.steps{counter-reset:s;margin:14px 0}.step{display:flex;gap:14px;margin-bottom:16px;align-items:flex-start}.step-n{counter-increment:s;width:30px;height:30px;border-radius:10px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:900;font-size:14px;color:#fff;background:var(--accent)}.step-n::before{content:counter(s)}.step-b{flex:1}.step-b strong{display:block;font-size:14.5px;font-weight:600;margin-bottom:4px;color:var(--ink)}.step-b p{margin:0;font-size:13.5px}.box{border-radius:10px;padding:14px 16px;margin:14px 0;font-size:13.5px;line-height:1.65}.box.tip{background:rgba(47,158,99,.07);border:1px solid rgba(47,158,99,.22)}.box.warn{background:rgba(224,153,42,.07);border:1px solid rgba(224,153,42,.22)}.box.danger{background:rgba(207,58,44,.06);border:1px solid rgba(207,58,44,.2)}.box.info{background:rgba(34,87,196,.06);border:1px solid rgba(34,87,196,.2)}.box-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-bottom:6px}.box.tip .box-label{color:var(--d-low)}.box.warn .box-label{color:var(--d-mid)}.box.danger .box-label{color:var(--d-high)}.box.info .box-label{color:#2257c4}.box p{margin:0;color:var(--ink-soft)}.box p b{color:var(--ink)}.box ul{padding-left:18px;color:var(--ink-soft);margin:4px 0 0}.box ul li{margin-bottom:4px}svg{display:block;margin:16px auto;max-width:100%}svg text{font-family:'Spline Sans',sans-serif}.example{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:16px 0}.example h4{font-family:'Fraunces',serif;font-weight:600;font-size:15px;margin-bottom:10px}.example p{font-size:13px;margin:4px 0}.example .formula{font-size:12px;padding:10px 12px;margin:8px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a href="index.html" class="back">&larr; Torna alla home</a>
+<h1><span class="dot"></span>Cinematica del Corpo Rigido</h1>
+<p class="sub">Come descrivere il moto di aste, dischi e meccanismi. Gradi di liberta, Teorema di Rivals, puro rotolamento, moti relativi e chiusura cinematica.</p>
+
+<h2>1. Gradi di Liberta (GdL)</h2>
+<p>Un corpo rigido <b>libero</b> nel piano ha 3 gradi di liberta: puo traslare in x, traslare in y, e ruotare. I vincoli tolgono gradi di liberta.</p>
+<div class="formula">GdL = 3 &times; N<sub>corpi</sub> &minus; &sum; (vincoli rimossi da ciascun vincolo)</div>
+
+<h3>Tabella vincoli</h3>
+<div class="card">
+<p><b>Cerniera a terra</b> &mdash; 2 GdL rimossi (il punto non si muove, ma il corpo puo ruotare). Reazioni: H<sub>x</sub>, H<sub>y</sub>.</p>
+<p><b>Cerniera interna</b> (tra 2 corpi) &mdash; 2 GdL rimossi (i due corpi devono avere lo stesso punto, ma possono ruotare indipendentemente).</p>
+<p><b>Carrello</b> &mdash; 1 GdL rimosso (il punto puo scorrere lungo una direzione, ma non spostarsi perpendicolarmente). Reazione: N &perp; piano.</p>
+<p><b>Incastro</b> &mdash; 3 GdL rimossi (il punto non si muove E non puo ruotare). Reazioni: H<sub>x</sub>, H<sub>y</sub>, M.</p>
+<p><b>Manicotto</b> &mdash; 2 GdL rimossi (scorre lungo guida, non puo spostarsi perpendicolarmente ne ruotare). Reazioni: N, M.</p>
+<p><b>Pendolo/biella</b> &mdash; 1 GdL rimosso (forza solo lungo l'asta).</p>
+</div>
+
+<svg viewBox="0 0 500 120" width="500">
+  <text x="10" y="20" font-size="11" fill="#2257c4" font-weight="600">Vincoli e GdL rimossi:</text>
+  <!-- Cerniera -->
+  <circle cx="50" cy="65" r="7" fill="none" stroke="#2257c4" stroke-width="2"/><line x1="42" y1="76" x2="58" y2="76" stroke="#2257c4" stroke-width="2"/><line x1="38" y1="80" x2="62" y2="80" stroke="#2257c4" stroke-width="1.5"/>
+  <text x="28" y="100" font-size="9" fill="#6b6255">Cerniera</text><text x="36" y="112" font-size="9" fill="#2257c4">&minus;2 GdL</text>
+  <!-- Carrello -->
+  <circle cx="140" cy="68" r="5" fill="none" stroke="#2257c4" stroke-width="1.5"/><circle cx="155" cy="68" r="5" fill="none" stroke="#2257c4" stroke-width="1.5"/><line x1="132" y1="58" x2="163" y2="58" stroke="#2257c4" stroke-width="2"/><line x1="128" y1="77" x2="167" y2="77" stroke="#2257c4" stroke-width="1.5"/>
+  <text x="125" y="100" font-size="9" fill="#6b6255">Carrello</text><text x="131" y="112" font-size="9" fill="#2257c4">&minus;1 GdL</text>
+  <!-- Incastro -->
+  <line x1="240" y1="45" x2="240" y2="85" stroke="#2257c4" stroke-width="3"/><line x1="236" y1="48" x2="228" y2="40" stroke="#2257c4" stroke-width="1.5"/><line x1="236" y1="58" x2="228" y2="50" stroke="#2257c4" stroke-width="1.5"/><line x1="236" y1="68" x2="228" y2="60" stroke="#2257c4" stroke-width="1.5"/><line x1="236" y1="78" x2="228" y2="70" stroke="#2257c4" stroke-width="1.5"/>
+  <text x="222" y="100" font-size="9" fill="#6b6255">Incastro</text><text x="226" y="112" font-size="9" fill="#2257c4">&minus;3 GdL</text>
+  <!-- Manicotto -->
+  <rect x="320" y="50" width="25" height="25" fill="none" stroke="#2257c4" stroke-width="2" rx="2"/><line x1="332" y1="50" x2="332" y2="40" stroke="#2257c4" stroke-width="2"/><line x1="332" y1="75" x2="332" y2="85" stroke="#2257c4" stroke-width="2"/>
+  <text x="310" y="100" font-size="9" fill="#6b6255">Manicotto</text><text x="316" y="112" font-size="9" fill="#2257c4">&minus;2 GdL</text>
+  <!-- Biella -->
+  <circle cx="430" cy="48" r="5" fill="none" stroke="#2257c4" stroke-width="1.5"/><line x1="430" y1="53" x2="430" y2="75" stroke="#2257c4" stroke-width="2"/><circle cx="430" cy="80" r="5" fill="none" stroke="#2257c4" stroke-width="1.5"/>
+  <text x="416" y="100" font-size="9" fill="#6b6255">Pendolo</text><text x="419" y="112" font-size="9" fill="#2257c4">&minus;1 GdL</text>
+</svg>
+
+<div class="example">
+<h4>Esempio: scala appoggiata a un muro</h4>
+<p>1 corpo rigido (la scala), 2 vincoli carrello (uno a terra, uno sul muro).</p>
+<div class="formula">GdL = 3 &times; 1 &minus; 1 &minus; 1 = 1</div>
+<p>La scala ha 1 GdL: basta conoscere l'angolo &alpha; per descrivere completamente la posizione.</p>
+</div>
+
+<h2>2. Teorema di Rivals</h2>
+<p>Il teorema di Rivals e <b>lo strumento fondamentale</b> della cinematica del corpo rigido. Permette di calcolare la velocita e l'accelerazione di un punto B, conoscendo quelle di un punto A <b>sullo stesso corpo rigido</b>.</p>
+
+<h3>Formula per la velocita</h3>
+<div class="formula" style="font-size:15px;color:var(--accent)">v&#x20D7;<sub>B</sub> = v&#x20D7;<sub>A</sub> + &omega;&#x20D7; &times; (B &minus; A)</div>
+<p>Dove:</p>
+<ul style="padding-left:20px;margin-bottom:14px;color:var(--ink-soft)">
+<li><b>v&#x20D7;<sub>A</sub></b> e la velocita del punto A (nota, tipicamente dal vincolo o dal dato del problema)</li>
+<li><b>&omega;&#x20D7;</b> e la velocita angolare del corpo (&omega; = &omega; k&#x302; nel piano)</li>
+<li><b>(B &minus; A)</b> e il vettore posizione che va <b>da A verso B</b></li>
+<li><b>&omega;&#x20D7; &times; (B&minus;A)</b> e un vettore <b>perpendicolare</b> a (B&minus;A), di modulo &omega;&middot;|BA|</li>
+</ul>
+
+<svg viewBox="0 0 450 280" width="450">
+  <defs><marker id="r1" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#2257c4"/></marker>
+  <marker id="r2" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#cf3a2c"/></marker>
+  <marker id="r3" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#0d8a6a"/></marker></defs>
+  <!-- asta -->
+  <line x1="80" y1="200" x2="320" y2="90" stroke="#241f18" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="80" cy="200" r="6" fill="#2257c4"/><text x="60" y="222" font-size="13" fill="#2257c4" font-weight="700">A</text>
+  <circle cx="320" cy="90" r="6" fill="#cf3a2c"/><text x="328" y="88" font-size="13" fill="#cf3a2c" font-weight="700">B</text>
+  <!-- vA -->
+  <line x1="80" y1="200" x2="160" y2="200" stroke="#2257c4" stroke-width="2.5" marker-end="url(#r1)"/>
+  <text x="110" y="218" font-size="12" fill="#2257c4" font-weight="600">v&#x20D7;<sub>A</sub></text>
+  <!-- omega x (B-A) perpendicolare all'asta -->
+  <line x1="320" y1="90" x2="280" y2="15" stroke="#0d8a6a" stroke-width="2.5" marker-end="url(#r3)"/>
+  <text x="240" y="15" font-size="11" fill="#0d8a6a" font-weight="600">&omega; &times; (B&minus;A)</text>
+  <text x="240" y="30" font-size="10" fill="#0d8a6a">&perp; all'asta!</text>
+  <!-- vB = somma -->
+  <line x1="320" y1="90" x2="360" y2="15" stroke="#cf3a2c" stroke-width="3" marker-end="url(#r2)"/>
+  <text x="365" y="18" font-size="13" fill="#cf3a2c" font-weight="700">v&#x20D7;<sub>B</sub></text>
+  <!-- B-A -->
+  <text x="175" y="135" font-size="12" fill="#241f18">(B&minus;A)</text>
+  <!-- omega -->
+  <path d="M 210 130 A 15 15 0 1 0 195 138" stroke="#e0992a" stroke-width="2" fill="none"/>
+  <text x="185" y="120" font-size="12" fill="#e0992a" font-weight="600">&omega;</text>
+  <text x="50" y="265" font-size="11" fill="#6b6255">v<sub>B</sub> = v<sub>A</sub> (traslata in B) + &omega;&times;(B&minus;A) (perpendicolare all'asta)</text>
+</svg>
+
+<h3>Formula per l'accelerazione</h3>
+<div class="formula" style="font-size:14px;color:var(--accent)">a&#x20D7;<sub>B</sub> = a&#x20D7;<sub>A</sub> + &omega;&#x0307;&#x20D7; &times; (B&minus;A) + &omega;&#x20D7; &times; (&omega;&#x20D7; &times; (B&minus;A))</div>
+<div class="card">
+<p><b>&omega;&#x0307; &times; (B&minus;A)</b> = <b>accelerazione tangenziale</b>. E <b>perpendicolare</b> all'asta (come la velocita). Modulo: &omega;&#x0307;&middot;|BA|.</p>
+<p><b>&omega; &times; (&omega; &times; (B&minus;A))</b> = <b>accelerazione centripeta</b>. E diretta <b>da B verso A</b> (verso il centro di rotazione). Modulo: &omega;&sup2;&middot;|BA|. Presente sempre che &omega; &ne; 0.</p>
+</div>
+
+<h2>3. Come calcolare &omega; &times; r in pratica</h2>
+<p>Nel piano, &omega; = &omega; k&#x302; e r = (r<sub>x</sub>, r<sub>y</sub>). Il prodotto vettoriale diventa:</p>
+<div class="formula">&omega; &times; r = &omega; k&#x302; &times; (r<sub>x</sub> i&#x302; + r<sub>y</sub> j&#x302;) = &omega;&middot;r<sub>x</sub> (k&#x302;&times;i&#x302;) + &omega;&middot;r<sub>y</sub> (k&#x302;&times;j&#x302;)<br>
+= &omega;&middot;r<sub>x</sub> j&#x302; &minus; &omega;&middot;r<sub>y</sub> i&#x302; = (<b>&minus;&omega;&middot;r<sub>y</sub></b>, <b>&omega;&middot;r<sub>x</sub></b>)</div>
+
+<div class="box tip">
+<div class="box-label">Regola pratica</div>
+<p><b>&omega; &times; r ruota il vettore r di 90&deg; in senso antiorario</b> e lo moltiplica per &omega;. Se r punta a destra, &omega;&times;r punta in alto. Se r punta in alto, &omega;&times;r punta a sinistra. Provalo con le dita!</p>
+</div>
+
+<svg viewBox="0 0 350 200" width="350">
+  <defs><marker id="p1" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#241f18"/></marker>
+  <marker id="p2" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#cf3a2c"/></marker></defs>
+  <circle cx="100" cy="130" r="3" fill="#6b6255"/>
+  <line x1="100" y1="130" x2="260" y2="80" stroke="#241f18" stroke-width="2.5" marker-end="url(#p1)"/>
+  <text x="190" y="118" font-size="13" fill="#241f18" font-weight="600">r = (r<sub>x</sub>, r<sub>y</sub>)</text>
+  <line x1="100" y1="130" x2="150" y2="20" stroke="#cf3a2c" stroke-width="2.5" marker-end="url(#p2)"/>
+  <text x="110" y="30" font-size="13" fill="#cf3a2c" font-weight="600">&omega;&times;r</text>
+  <!-- angolo 90 -->
+  <path d="M 130 105 A 20 20 0 0 0 115 90" stroke="#e0992a" stroke-width="2" fill="none"/>
+  <text x="128" y="88" font-size="12" fill="#e0992a" font-weight="600">90&deg;</text>
+  <text x="50" y="180" font-size="11" fill="#6b6255">Ruota di 90&deg; antiorario e moltiplica per &omega;</text>
+</svg>
+
+<h2>4. Puro Rotolamento</h2>
+<p>Un disco che <b>rotola senza strisciare</b> su un piano ha una proprieta fondamentale: il punto di contatto ha velocita zero in quell'istante (non scivola). Questo punto e il <b>Centro Istantaneo di Rotazione (CIR)</b>.</p>
+
+<div class="formula">Puro rotolamento: v<sub>contatto</sub> = 0<br>
+v<sub>centro</sub> = &omega; &times; R (orizzontale, modulo &omega;R)<br>
+a<sub>centro</sub> = &omega;&#x0307; &times; R (orizzontale, modulo &omega;&#x0307;R)</div>
+
+<svg viewBox="0 0 420 240" width="420">
+  <defs><marker id="d1" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#2257c4"/></marker></defs>
+  <line x1="30" y1="190" x2="400" y2="190" stroke="#241f18" stroke-width="2"/>
+  <circle cx="200" cy="130" r="60" fill="none" stroke="#241f18" stroke-width="2"/>
+  <circle cx="200" cy="130" r="4" fill="#2257c4"/><text x="175" y="128" font-size="11" fill="#2257c4" font-weight="600">C</text>
+  <circle cx="200" cy="190" r="4" fill="#cf3a2c"/><text x="210" y="208" font-size="11" fill="#cf3a2c" font-weight="600">v=0 (CIR)</text>
+  <circle cx="200" cy="70" r="4" fill="#0d8a6a"/><text x="175" y="65" font-size="11" fill="#0d8a6a" font-weight="600">D</text>
+  <line x1="200" y1="130" x2="290" y2="130" stroke="#2257c4" stroke-width="2.5" marker-end="url(#d1)"/>
+  <text x="235" y="122" font-size="12" fill="#2257c4" font-weight="600">v<sub>C</sub> = &omega;R</text>
+  <line x1="200" y1="70" x2="380" y2="70" stroke="#0d8a6a" stroke-width="2.5" marker-end="url(#d1)"/>
+  <text x="280" y="62" font-size="12" fill="#0d8a6a" font-weight="600">v<sub>D</sub> = 2&omega;R</text>
+</svg>
+
+<div class="box danger">
+<div class="box-label">v = 0 non significa a = 0!</div>
+<p>Il punto di contatto ha v = 0 ma <b>a &ne; 0</b>! La sua accelerazione e diretta verso l'alto (centripeta, verso il centro del disco) con modulo <b>&omega;&sup2;R</b>. Non confondere mai velocita zero con accelerazione zero.</p>
+</div>
+
+<h2>5. Moti Relativi</h2>
+<p>Si usano quando un punto <b>scorre su un corpo che si muove</b> (es. glifo oscillante: un perno scorre in una guida rotante).</p>
+<div class="formula">v&#x20D7;<sub>assoluta</sub> = v&#x20D7;<sub>relativa</sub> + v&#x20D7;<sub>trascinamento</sub><br><br>
+a&#x20D7;<sub>assoluta</sub> = a&#x20D7;<sub>relativa</sub> + a&#x20D7;<sub>trascinamento</sub> + a&#x20D7;<sub>Coriolis</sub><br>
+dove a<sub>Coriolis</sub> = 2&omega;&#x20D7; &times; v&#x20D7;<sub>relativa</sub></div>
+<div class="card">
+<p><b>v<sub>relativa</sub></b>: la velocita del punto vista da chi sta sul corpo mobile (es. la velocita di scorrimento lungo la guida).</p>
+<p><b>v<sub>trascinamento</sub></b>: la velocita che il punto avrebbe se fosse incollato al corpo mobile. Si calcola come &omega; &times; r (dove r e la posizione del punto rispetto al centro del corpo mobile).</p>
+<p><b>a<sub>Coriolis</sub></b>: termine extra che compare nell'accelerazione quando c'e sia rotazione (&omega; &ne; 0) che moto relativo (v<sub>rel</sub> &ne; 0). E <b>perpendicolare</b> alla velocita relativa.</p>
+</div>
+
+<h2>6. Chiusura Cinematica</h2>
+<p>Alternativa a Rivals per meccanismi con loop chiuso. L'idea: se percorro un giro completo lungo le aste del meccanismo, torno al punto di partenza. Quindi la somma dei vettori posizione e zero.</p>
+<div class="formula">OA&#x20D7; + AB&#x20D7; + BO&#x20D7; = 0&#x20D7;<br><br>
+Ogni asta: L&middot;cos(&alpha;) i&#x302; + L&middot;sin(&alpha;) j&#x302;<br><br>
+Proietta su x: L<sub>1</sub>cos&alpha;<sub>1</sub> + L<sub>2</sub>cos&alpha;<sub>2</sub> + ... = 0<br>
+Proietta su y: L<sub>1</sub>sin&alpha;<sub>1</sub> + L<sub>2</sub>sin&alpha;<sub>2</sub> + ... = 0</div>
+<p>Per le velocita, <b>derivo</b> rispetto al tempo (le lunghezze L sono costanti):</p>
+<div class="formula">d/dt[L&middot;cos(&alpha;)] = &minus;L&middot;sin(&alpha;)&middot;&alpha;&#x0307;<br>
+d/dt[L&middot;sin(&alpha;)] = L&middot;cos(&alpha;)&middot;&alpha;&#x0307;</div>
+
+<h2>7. Esempio completo: la scala che cade (ESE02)</h2>
+<div class="card">
+<h3>Dati</h3>
+<div class="formula">l = 0.7 m, &alpha; = 30&deg;<br>
+v<sub>A</sub> = 5 m/s (orizzontale, verso destra)<br>
+a<sub>A</sub> = 0.3 m/s&sup2; (equiversa)</div>
+<p>Il punto A (a terra) e su un carrello orizzontale: si muove solo in x. Il punto B (sul muro) e su un carrello verticale: si muove solo in y.</p>
+
+<svg viewBox="0 0 350 300" width="350">
+  <defs><marker id="s1" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#2257c4"/></marker>
+  <marker id="s2" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#cf3a2c"/></marker></defs>
+  <!-- muro -->
+  <line x1="40" y1="20" x2="40" y2="260" stroke="#241f18" stroke-width="3"/>
+  <!-- terra -->
+  <line x1="30" y1="260" x2="330" y2="260" stroke="#241f18" stroke-width="3"/>
+  <!-- scala -->
+  <line x1="280" y1="260" x2="40" y2="120" stroke="#e0992a" stroke-width="4" stroke-linecap="round"/>
+  <!-- A -->
+  <circle cx="280" cy="260" r="6" fill="#2257c4"/>
+  <text x="285" y="255" font-size="13" fill="#2257c4" font-weight="700">A</text>
+  <!-- B -->
+  <circle cx="40" cy="120" r="6" fill="#cf3a2c"/>
+  <text x="50" y="118" font-size="13" fill="#cf3a2c" font-weight="700">B</text>
+  <!-- G -->
+  <circle cx="160" cy="190" r="4" fill="#0d8a6a"/>
+  <text x="168" y="188" font-size="11" fill="#0d8a6a" font-weight="600">G</text>
+  <!-- vA -->
+  <line x1="280" y1="260" x2="340" y2="260" stroke="#2257c4" stroke-width="2.5" marker-end="url(#s1)"/>
+  <text x="300" y="280" font-size="11" fill="#2257c4" font-weight="600">v<sub>A</sub> = 5 m/s</text>
+  <!-- vB -->
+  <line x1="40" y1="120" x2="40" y2="50" stroke="#cf3a2c" stroke-width="2.5" stroke-dasharray="5 3" marker-end="url(#s2)"/>
+  <text x="50" y="80" font-size="11" fill="#cf3a2c" font-weight="600">v<sub>B</sub> = ? (verticale)</text>
+  <!-- alpha -->
+  <path d="M 240 260 A 40 40 0 0 0 252 240" stroke="#e0992a" stroke-width="1.5" fill="none"/>
+  <text x="230" y="248" font-size="12" fill="#e0992a" font-weight="600">&alpha;=30&deg;</text>
+  <!-- carrelli -->
+  <circle cx="280" cy="266" r="4" fill="none" stroke="#6b6255" stroke-width="1.5"/>
+  <circle cx="46" cy="120" r="4" fill="none" stroke="#6b6255" stroke-width="1.5"/>
+</svg>
+
+<h3>GdL</h3>
+<div class="formula">GdL = 3&times;1 &minus; 1 (carrello A) &minus; 1 (carrello B) = 1 &#10004;</div>
+
+<h3>Soluzione con Rivals</h3>
+<p><b>Passo 1</b>: Identifica le velocita note. A si muove orizzontale: <b>v<sub>A</sub> = 5 i&#x302;</b>. B si muove verticale: <b>v<sub>B</sub> = v<sub>B</sub> j&#x302;</b> (incognita scalare).</p>
+<p><b>Passo 2</b>: Calcola il vettore (B &minus; A):</p>
+<div class="formula">(B&minus;A) = l&middot;(&minus;cos30&deg; i&#x302; + sin30&deg; j&#x302;) = 0.7&middot;(&minus;0.866 i&#x302; + 0.5 j&#x302;)<br>
+= &minus;0.606 i&#x302; + 0.35 j&#x302;</div>
+<p><b>Passo 3</b>: Applica Rivals: v<sub>B</sub> = v<sub>A</sub> + &omega; &times; (B&minus;A)</p>
+<div class="formula">&omega; &times; (B&minus;A) = &omega; k&#x302; &times; (&minus;0.606 i&#x302; + 0.35 j&#x302;)<br>
+= &omega;&middot;(&minus;0.606 j&#x302; &minus; 0.35 i&#x302;) = &minus;0.35&omega; i&#x302; &minus; 0.606&omega; j&#x302;</div>
+<p><b>Passo 4</b>: Proietta su x e y:</p>
+<div class="formula"><b>x:</b> 0 = 5 &minus; 0.35&omega; &rArr; &omega; = 5/0.35 = <b>14.29 rad/s</b><br><br>
+<b>y:</b> v<sub>B</sub> = 0 &minus; 0.606 &times; 14.29 = <b>&minus;8.66 m/s</b></div>
+<p>Il segno negativo di v<sub>B</sub> indica che B <b>scende</b> (verso il basso). La scala cade!</p>
+</div>
+
+<h2>8. Errori comuni</h2>
+<div class="box danger">
+<div class="box-label">&omega; &times; (&omega; &times; r) non e &omega;&sup2; &middot; r!</div>
+<p>Il termine centripeto &omega;&times;(&omega;&times;r) e diretto <b>verso il centro</b> (da B verso A), cioe nel verso <b>opposto</b> a r. Il suo modulo e &omega;&sup2;|r|, ma la direzione e &minus;r&#x302;, non +r&#x302;.</p>
+</div>
+<div class="box warn">
+<div class="box-label">(B&minus;A) va DA A VERSO B</div>
+<p>Il vettore (B&minus;A) parte da A e arriva a B. Se lo scrivi al contrario (A&minus;B), il segno del prodotto vettoriale cambia e ottieni il risultato sbagliato.</p>
+</div>
+<div class="box warn">
+<div class="box-label">&omega; &times; r ruota di 90&deg; antiorario</div>
+<p>Se &omega; &gt; 0 (antiorario), il prodotto vettoriale ruota r di 90&deg; antiorario. Se &omega; &lt; 0, ruota in senso orario. Disegna sempre il risultato per verificare.</p>
+</div>
+<div class="box tip">
+<div class="box-label">Strategia per la scala che cade</div>
+<p>Per la scala, puoi usare tre metodi equivalenti: Rivals, moti relativi, o chiusura cinematica. Il piu veloce e spesso <b>Rivals</b> perche richiede meno passaggi. Ma il professore puo chiederti tutti e tre!</p>
+</div>
+</div>
+</body>
+</html>

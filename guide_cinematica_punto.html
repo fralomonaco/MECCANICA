@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cinematica del Punto — Guida Meccanica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Spline+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f4efe4;--paper2:#faf7ef;--card:#fffdf8;--ink:#241f18;--ink-soft:#6b6255;--line:#e4dccb;--line2:#d8cfba;--d-low:#2f9e63;--d-mid:#e0992a;--d-high:#cf3a2c;--accent:#2257c4;--shadow:0 1px 2px rgba(50,40,20,.05),0 12px 28px -14px rgba(70,55,25,.22)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Spline Sans',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;padding:clamp(16px,4vw,48px);min-height:100vh;
+  background-image:radial-gradient(circle at 12% 18%,rgba(34,87,196,.06),transparent 38%)}
+.wrap{max-width:860px;margin:0 auto}
+a.back{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;display:inline-block;margin-bottom:20px}
+a.back:hover{color:var(--accent)}
+h1{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(28px,6vw,48px);line-height:1;margin-bottom:8px}
+h1 .dot{display:inline-block;width:14px;height:14px;border-radius:4px;background:var(--accent);margin-right:10px}
+.sub{color:var(--ink-soft);margin-bottom:32px;font-size:15px}
+h2{font-family:'Fraunces',serif;font-weight:700;font-size:22px;margin:36px 0 14px;padding-top:12px;border-top:1px solid var(--line)}
+h3{font-family:'Fraunces',serif;font-weight:600;font-size:17px;margin:24px 0 10px}
+p{margin:0 0 12px;font-size:14.5px;color:var(--ink-soft);line-height:1.7}
+p b,p strong{color:var(--ink)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:22px 24px;margin:16px 0}
+.formula{font-family:'IBM Plex Mono',monospace;font-size:13px;background:var(--paper2);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:12px 0;line-height:1.8;color:var(--d-high)}
+.steps{counter-reset:s;margin:14px 0}
+.step{display:flex;gap:14px;margin-bottom:16px;align-items:flex-start}
+.step-n{counter-increment:s;width:30px;height:30px;border-radius:10px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:900;font-size:14px;color:#fff;background:var(--accent)}
+.step-n::before{content:counter(s)}
+.step-b{flex:1}.step-b strong{display:block;font-size:14.5px;font-weight:600;margin-bottom:4px;color:var(--ink)}
+.step-b p{margin:0;font-size:13.5px}
+.box{border-radius:10px;padding:14px 16px;margin:14px 0;font-size:13.5px;line-height:1.65}
+.box.tip{background:rgba(47,158,99,.07);border:1px solid rgba(47,158,99,.22)}
+.box.warn{background:rgba(224,153,42,.07);border:1px solid rgba(224,153,42,.22)}
+.box.danger{background:rgba(207,58,44,.06);border:1px solid rgba(207,58,44,.2)}
+.box.info{background:rgba(34,87,196,.06);border:1px solid rgba(34,87,196,.2)}
+.box-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-bottom:6px}
+.box.tip .box-label{color:var(--d-low)}.box.warn .box-label{color:var(--d-mid)}.box.danger .box-label{color:var(--d-high)}.box.info .box-label{color:#2257c4}
+.box p{margin:0;color:var(--ink-soft)}.box p b{color:var(--ink)}
+.box ul{padding-left:18px;color:var(--ink-soft);margin:4px 0 0}.box ul li{margin-bottom:4px}
+svg{display:block;margin:16px auto;max-width:100%}
+svg text{font-family:'Spline Sans',sans-serif}
+.example{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:16px 0}
+.example h4{font-family:'Fraunces',serif;font-weight:600;font-size:15px;margin-bottom:10px}
+.example p{font-size:13px;margin:4px 0}
+.example .formula{font-size:12px;padding:10px 12px;margin:8px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a href="index.html" class="back">&larr; Torna alla home</a>
+<h1><span class="dot"></span>Cinematica del Punto</h1>
+<p class="sub">Come descrivere il moto di un punto: posizione, velocita e accelerazione in coordinate cartesiane e polari. Il fondamento della cinematica.</p>
+
+<!-- ═══ 1. COORDINATE CARTESIANE ═══ -->
+<h2>1. Coordinate Cartesiane</h2>
+<p>Nella descrizione cartesiana, la posizione di un punto P nel piano e data da due funzioni del tempo:</p>
+<div class="formula">P(t) = x(t) i&#x302; + y(t) j&#x302;</div>
+<p>dove i&#x302; e j&#x302; sono i <b>versori</b> (vettori di lunghezza 1) lungo gli assi x e y. Sono <b>costanti</b> nel tempo: non cambiano ne direzione ne verso. Questo rende la derivazione molto semplice.</p>
+
+<h3>Velocita</h3>
+<p>La velocita e la <b>derivata della posizione</b> rispetto al tempo:</p>
+<div class="formula">v&#x20D7;(t) = dx/dt &middot; i&#x302; + dy/dt &middot; j&#x302; = x&#x0307; i&#x302; + y&#x0307; j&#x302;</div>
+<p>Dato che i&#x302; e j&#x302; sono costanti, la derivata si applica solo a x(t) e y(t).</p>
+
+<h3>Accelerazione</h3>
+<p>L'accelerazione e la <b>derivata della velocita</b>:</p>
+<div class="formula">a&#x20D7;(t) = d&sup2;x/dt&sup2; &middot; i&#x302; + d&sup2;y/dt&sup2; &middot; j&#x302; = x&#x0308; i&#x302; + y&#x0308; j&#x302;</div>
+
+<svg viewBox="0 0 400 300" width="400">
+  <defs><marker id="a1" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#2257c4"/></marker>
+  <marker id="a2" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#cf3a2c"/></marker></defs>
+  <line x1="40" y1="260" x2="380" y2="260" stroke="#d8cfba" stroke-width="1"/>
+  <line x1="40" y1="260" x2="40" y2="20" stroke="#d8cfba" stroke-width="1"/>
+  <text x="375" y="278" font-size="11" fill="#6b6255">x</text>
+  <text x="25" y="28" font-size="11" fill="#6b6255">y</text>
+  <!-- traiettoria curva -->
+  <path d="M 80 240 Q 150 180 200 160 Q 250 140 300 80" stroke="#d8cfba" stroke-width="2" fill="none" stroke-dasharray="6 4"/>
+  <!-- punto P -->
+  <circle cx="200" cy="160" r="6" fill="#2257c4"/>
+  <text x="208" y="155" font-size="13" fill="#2257c4" font-weight="700">P(t)</text>
+  <!-- vettore v -->
+  <line x1="200" y1="160" x2="280" y2="120" stroke="#2257c4" stroke-width="2.5" marker-end="url(#a1)"/>
+  <text x="252" y="112" font-size="12" fill="#2257c4" font-weight="600">v&#x20D7;</text>
+  <!-- vettore a -->
+  <line x1="200" y1="160" x2="240" y2="190" stroke="#cf3a2c" stroke-width="2.5" marker-end="url(#a2)"/>
+  <text x="248" y="195" font-size="12" fill="#cf3a2c" font-weight="600">a&#x20D7;</text>
+  <!-- proiezioni -->
+  <line x1="200" y1="160" x2="200" y2="260" stroke="#6b6255" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="40" y1="160" x2="200" y2="160" stroke="#6b6255" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="115" y="275" font-size="11" fill="#6b6255">x(t)</text>
+  <text x="18" y="163" font-size="11" fill="#6b6255">y(t)</text>
+  <text x="100" y="30" font-size="11" fill="#6b6255">v&#x20D7; e tangente alla traiettoria</text>
+</svg>
+
+<div class="box tip">
+<div class="box-label">Osservazione importante</div>
+<p>Il vettore velocita v&#x20D7; e sempre <b>tangente</b> alla traiettoria. L'accelerazione a&#x20D7; invece in generale <b>non</b> e tangente: punta verso l'interno della curva.</p>
+</div>
+
+<!-- ═══ 2. COORDINATE POLARI ═══ -->
+<h2>2. Coordinate Polari</h2>
+<p>Le coordinate polari sono lo strumento giusto quando un punto si muove lungo un <b>raggio che ruota</b>: il braccio di una gru, un'antenna radar, un braccio robotico. Invece di usare x e y, usiamo:</p>
+<ul style="padding-left:20px;margin-bottom:14px;color:var(--ink-soft)">
+<li><b>&rho;</b> (rho) = distanza del punto dal polo O (il "raggio")</li>
+<li><b>&theta;</b> (theta) = angolo che il raggio forma con l'asse x positivo</li>
+</ul>
+
+<h3>I versori e&#x0302;<sub>&rho;</sub> e e&#x0302;<sub>&theta;</sub></h3>
+<p>In coordinate polari definiamo due versori (vettori di lunghezza 1):</p>
+<ul style="padding-left:20px;margin-bottom:14px;color:var(--ink-soft)">
+<li><b>e&#x0302;<sub>&rho;</sub></b> (versore radiale): punta <b>dal polo O verso il punto P</b>, lungo il raggio. Direzione "uscente".</li>
+<li><b>e&#x0302;<sub>&theta;</sub></b> (versore trasversale): e perpendicolare a e&#x0302;<sub>&rho;</sub>, ruotato di <b>90&deg; in senso antiorario</b>.</li>
+</ul>
+
+<svg viewBox="0 0 420 320" width="420">
+  <defs><marker id="ar" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#cf3a2c"/></marker>
+  <marker id="at" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#0d8a6a"/></marker>
+  <marker id="ax" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#d8cfba"/></marker></defs>
+  <!-- assi -->
+  <line x1="60" y1="260" x2="390" y2="260" stroke="#d8cfba" stroke-width="1" marker-end="url(#ax)"/>
+  <line x1="60" y1="260" x2="60" y2="30" stroke="#d8cfba" stroke-width="1"/>
+  <text x="385" y="278" font-size="11" fill="#6b6255">x</text>
+  <text x="45" y="38" font-size="11" fill="#6b6255">y</text>
+  <!-- raggio rho -->
+  <line x1="60" y1="260" x2="280" y2="100" stroke="#241f18" stroke-width="2" stroke-dasharray="6 3"/>
+  <!-- punto P -->
+  <circle cx="280" cy="100" r="7" fill="#2257c4"/>
+  <text x="290" y="98" font-size="14" fill="#2257c4" font-weight="700">P</text>
+  <!-- e_rho -->
+  <line x1="280" y1="100" x2="350" y2="50" stroke="#cf3a2c" stroke-width="2.5" marker-end="url(#ar)"/>
+  <text x="355" y="48" font-size="13" fill="#cf3a2c" font-weight="700">e&#x0302;<tspan baseline-shift="sub" font-size="9">&rho;</tspan></text>
+  <!-- e_theta -->
+  <line x1="280" y1="100" x2="225" y2="35" stroke="#0d8a6a" stroke-width="2.5" marker-end="url(#at)"/>
+  <text x="205" y="30" font-size="13" fill="#0d8a6a" font-weight="700">e&#x0302;<tspan baseline-shift="sub" font-size="9">&theta;</tspan></text>
+  <!-- angolo retto tra versori -->
+  <rect x="265" y="72" width="10" height="10" fill="none" stroke="#6b6255" stroke-width="1" transform="rotate(-34 270 77)"/>
+  <!-- rho label -->
+  <text x="145" y="170" font-size="14" fill="#241f18" font-weight="600">&rho;</text>
+  <!-- angolo theta -->
+  <path d="M 120 260 A 60 60 0 0 0 105 225" stroke="#e0992a" stroke-width="2" fill="none"/>
+  <text x="122" y="242" font-size="14" fill="#e0992a" font-weight="700">&theta;</text>
+  <!-- O -->
+  <circle cx="60" cy="260" r="4" fill="#e0992a"/>
+  <text x="45" y="278" font-size="13" fill="#e0992a" font-weight="600">O</text>
+  <!-- nota -->
+  <text x="60" y="305" font-size="11" fill="#6b6255">e&#x0302;&rho; punta verso P (uscente), e&#x0302;&theta; e a 90&deg; antiorario</text>
+</svg>
+
+<div class="box danger">
+<div class="box-label">Fondamentale: i versori cambiano nel tempo!</div>
+<p>A differenza di i&#x302; e j&#x302; (che sono fissi), <b>e&#x0302;<sub>&rho;</sub> e e&#x0302;<sub>&theta;</sub> ruotano</b> man mano che &theta; cambia. Questo fatto e la ragione per cui la derivazione in polari produce termini "extra" (centripeto e Coriolis) che in cartesiane non ci sono.</p>
+<p>Le derivate dei versori sono:</p>
+<ul>
+<li><b>de&#x0302;<sub>&rho;</sub>/dt = &theta;&#x0307; &middot; e&#x0302;<sub>&theta;</sub></b> (il versore radiale "ruota" nella direzione trasversale)</li>
+<li><b>de&#x0302;<sub>&theta;</sub>/dt = &minus;&theta;&#x0307; &middot; e&#x0302;<sub>&rho;</sub></b> (il versore trasversale "ruota" verso il centro)</li>
+</ul>
+</div>
+
+<!-- ═══ 3. VELOCITA IN POLARI ═══ -->
+<h2>3. Velocita in coordinate polari</h2>
+<p>Ora deriviamo la velocita partendo dalla posizione. Questo e un passaggio fondamentale &mdash; seguilo con attenzione.</p>
+
+<h3>Derivazione passo per passo</h3>
+<p>La posizione del punto P e:</p>
+<div class="formula">P&#x20D7; = &rho; &middot; e&#x0302;<sub>&rho;</sub></div>
+<p>Deriviamo rispetto al tempo, usando la <b>regola del prodotto</b> (perche sia &rho; che e&#x0302;<sub>&rho;</sub> dipendono da t):</p>
+<div class="formula">v&#x20D7; = dP&#x20D7;/dt = d&rho;/dt &middot; e&#x0302;<sub>&rho;</sub> + &rho; &middot; de&#x0302;<sub>&rho;</sub>/dt</div>
+<p>Sostituendo de&#x0302;<sub>&rho;</sub>/dt = &theta;&#x0307; &middot; e&#x0302;<sub>&theta;</sub>:</p>
+<div class="formula" style="font-size:15px;color:var(--accent)">v&#x20D7; = &rho;&#x0307; &middot; e&#x0302;<sub>&rho;</sub> + &rho;&theta;&#x0307; &middot; e&#x0302;<sub>&theta;</sub></div>
+
+<h3>Cosa significa ogni termine</h3>
+<div class="card">
+<p><b>&rho;&#x0307; &middot; e&#x0302;<sub>&rho;</sub></b> = <b>velocita radiale</b>. Il punto si avvicina (&rho;&#x0307; &lt; 0) o si allontana (&rho;&#x0307; &gt; 0) dal polo. Questa componente e diretta lungo il raggio.</p>
+<p><b>&rho;&theta;&#x0307; &middot; e&#x0302;<sub>&theta;</sub></b> = <b>velocita trasversale</b>. Il punto ruota attorno al polo. Questa componente e perpendicolare al raggio. Nota: dipende sia dal raggio &rho; che dalla velocita angolare &theta;&#x0307; = &omega;.</p>
+</div>
+
+<svg viewBox="0 0 400 250" width="400">
+  <defs><marker id="vr" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#cf3a2c"/></marker>
+  <marker id="vt" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#0d8a6a"/></marker>
+  <marker id="vv" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#2257c4"/></marker></defs>
+  <circle cx="50" cy="200" r="3" fill="#e0992a"/>
+  <text x="38" y="218" font-size="11" fill="#e0992a">O</text>
+  <line x1="50" y1="200" x2="230" y2="110" stroke="#241f18" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <circle cx="230" cy="110" r="5" fill="#2257c4"/>
+  <!-- v radiale -->
+  <line x1="230" y1="110" x2="290" y2="75" stroke="#cf3a2c" stroke-width="2.5" marker-end="url(#vr)"/>
+  <text x="295" y="72" font-size="12" fill="#cf3a2c" font-weight="600">&rho;&#x0307; e&#x0302;<sub>&rho;</sub></text>
+  <text x="295" y="86" font-size="10" fill="#cf3a2c">(radiale)</text>
+  <!-- v trasversale -->
+  <line x1="230" y1="110" x2="190" y2="45" stroke="#0d8a6a" stroke-width="2.5" marker-end="url(#vt)"/>
+  <text x="150" y="40" font-size="12" fill="#0d8a6a" font-weight="600">&rho;&omega; e&#x0302;<sub>&theta;</sub></text>
+  <text x="150" y="54" font-size="10" fill="#0d8a6a">(trasversale)</text>
+  <!-- v totale -->
+  <line x1="230" y1="110" x2="250" y2="20" stroke="#2257c4" stroke-width="3" marker-end="url(#vv)"/>
+  <text x="255" y="20" font-size="13" fill="#2257c4" font-weight="700">v&#x20D7;</text>
+  <!-- parallelogramma -->
+  <line x1="290" y1="75" x2="250" y2="20" stroke="#6b6255" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="190" y1="45" x2="250" y2="20" stroke="#6b6255" stroke-width="1" stroke-dasharray="3 3"/>
+</svg>
+
+<!-- ═══ 4. ACCELERAZIONE IN POLARI ═══ -->
+<h2>4. Accelerazione in coordinate polari</h2>
+<p>Deriviamo la velocita per ottenere l'accelerazione. Anche qui, ogni termine va derivato con la regola del prodotto, ricordando che i versori cambiano nel tempo.</p>
+
+<h3>Derivazione completa</h3>
+<p>Partiamo da v&#x20D7; = &rho;&#x0307; e&#x0302;<sub>&rho;</sub> + &rho;&theta;&#x0307; e&#x0302;<sub>&theta;</sub> e deriviamo:</p>
+<div class="formula">a&#x20D7; = d/dt[&rho;&#x0307; e&#x0302;<sub>&rho;</sub>] + d/dt[&rho;&theta;&#x0307; e&#x0302;<sub>&theta;</sub>]<br><br>
+Primo termine: &rho;&#x0308; e&#x0302;<sub>&rho;</sub> + &rho;&#x0307; &middot; (de&#x0302;<sub>&rho;</sub>/dt) = &rho;&#x0308; e&#x0302;<sub>&rho;</sub> + &rho;&#x0307;&theta;&#x0307; e&#x0302;<sub>&theta;</sub><br><br>
+Secondo termine: d(&rho;&theta;&#x0307;)/dt &middot; e&#x0302;<sub>&theta;</sub> + &rho;&theta;&#x0307; &middot; (de&#x0302;<sub>&theta;</sub>/dt)<br>
+= (&rho;&#x0307;&theta;&#x0307; + &rho;&theta;&#x0308;) e&#x0302;<sub>&theta;</sub> + &rho;&theta;&#x0307; &middot; (&minus;&theta;&#x0307; e&#x0302;<sub>&rho;</sub>)<br>
+= (&rho;&#x0307;&theta;&#x0307; + &rho;&theta;&#x0308;) e&#x0302;<sub>&theta;</sub> &minus; &rho;&theta;&#x0307;&sup2; e&#x0302;<sub>&rho;</sub></div>
+<p>Raccogliendo i termini con e&#x0302;<sub>&rho;</sub> e quelli con e&#x0302;<sub>&theta;</sub>:</p>
+<div class="formula" style="font-size:15px;color:var(--accent)">a&#x20D7; = (&rho;&#x0308; &minus; &rho;&theta;&#x0307;&sup2;) e&#x0302;<sub>&rho;</sub> + (&rho;&theta;&#x0308; + 2&rho;&#x0307;&theta;&#x0307;) e&#x0302;<sub>&theta;</sub></div>
+
+<h3>I quattro termini dell'accelerazione</h3>
+<div class="card">
+<p><b style="color:var(--d-high)">&rho;&#x0308;</b> &mdash; <b>Accelerazione radiale propria</b>: variazione della velocita radiale. Presente quando il punto accelera/decelera lungo il raggio.</p>
+<p><b style="color:var(--d-high)">&minus;&rho;&theta;&#x0307;&sup2;</b> &mdash; <b>Accelerazione centripeta</b>: <b>sempre diretta verso il centro O</b> (segno meno!), presente ogni volta che il punto ruota (&theta;&#x0307; &ne; 0). Modulo: &rho;&omega;&sup2;. E la stessa accelerazione centripeta del moto circolare.</p>
+<p><b style="color:var(--accent)">&rho;&theta;&#x0308;</b> &mdash; <b>Accelerazione angolare</b>: compare quando la velocita angolare varia (&theta;&#x0308; = &omega;&#x0307; &ne; 0). Perpendicolare al raggio.</p>
+<p><b style="color:var(--accent)">2&rho;&#x0307;&theta;&#x0307;</b> &mdash; <b>Accelerazione di Coriolis</b>: compare <b>solo quando il punto si muove lungo il raggio (&rho;&#x0307; &ne; 0) MENTRE ruota (&theta;&#x0307; &ne; 0)</b>. Se il punto non si avvicina/allontana, o non ruota, Coriolis e zero.</p>
+</div>
+
+<svg viewBox="0 0 450 280" width="450">
+  <defs><marker id="c1" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#cf3a2c"/></marker>
+  <marker id="c2" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#7b4ad1"/></marker>
+  <marker id="c3" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#2257c4"/></marker>
+  <marker id="c4" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#0d8a6a"/></marker></defs>
+  <circle cx="40" cy="220" r="3" fill="#e0992a"/>
+  <text x="28" y="238" font-size="11" fill="#e0992a">O</text>
+  <line x1="40" y1="220" x2="240" y2="120" stroke="#241f18" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <circle cx="240" cy="120" r="5" fill="#241f18"/>
+  <text x="248" y="118" font-size="12" fill="#241f18" font-weight="600">P</text>
+  <!-- rho_ddot (radiale uscente) -->
+  <line x1="240" y1="120" x2="285" y2="97" stroke="#cf3a2c" stroke-width="2" marker-end="url(#c1)"/>
+  <text x="290" y="94" font-size="11" fill="#cf3a2c" font-weight="600">&rho;&#x0308; (radiale)</text>
+  <!-- -rho*theta_dot^2 (centripeta, verso O) -->
+  <line x1="240" y1="120" x2="195" y2="143" stroke="#7b4ad1" stroke-width="2" marker-end="url(#c2)"/>
+  <text x="135" y="160" font-size="11" fill="#7b4ad1" font-weight="600">&minus;&rho;&omega;&sup2; (centripeta)</text>
+  <!-- rho*theta_ddot (trasversale) -->
+  <line x1="240" y1="120" x2="215" y2="72" stroke="#2257c4" stroke-width="2" marker-end="url(#c3)"/>
+  <text x="170" y="62" font-size="11" fill="#2257c4" font-weight="600">&rho;&omega;&#x0307; (angolare)</text>
+  <!-- Coriolis (trasversale) -->
+  <line x1="240" y1="120" x2="218" y2="90" stroke="#0d8a6a" stroke-width="2" marker-end="url(#c4)"/>
+  <text x="160" y="85" font-size="11" fill="#0d8a6a" font-weight="600">2&rho;&#x0307;&omega; (Coriolis)</text>
+  <!-- nota -->
+  <text x="40" y="268" font-size="11" fill="#6b6255">I 4 termini: 2 lungo e&#x0302;&rho; (radiale) e 2 lungo e&#x0302;&theta; (trasversale)</text>
+</svg>
+
+<!-- ═══ 5. TRAIETTORIA ═══ -->
+<h2>5. Trovare la traiettoria</h2>
+<p>La traiettoria e la curva che il punto percorre nello spazio, <b>indipendente dal tempo</b>. Per trovarla, devi <b>eliminare t</b> dalle equazioni parametriche x(t) e y(t).</p>
+
+<div class="example">
+<h4>Esempio</h4>
+<p>Date le leggi di moto: x(t) = 2t, y(t) = 4t&sup2;</p>
+<p>Dalla prima: t = x/2. Sostituisco nella seconda:</p>
+<div class="formula">y = 4 &middot; (x/2)&sup2; = 4 &middot; x&sup2;/4 = x&sup2;</div>
+<p>La traiettoria e una <b>parabola</b> y = x&sup2;.</p>
+</div>
+
+<svg viewBox="0 0 350 250" width="350">
+  <line x1="30" y1="220" x2="320" y2="220" stroke="#d8cfba" stroke-width="1"/>
+  <line x1="30" y1="220" x2="30" y2="20" stroke="#d8cfba" stroke-width="1"/>
+  <path d="M 30 220 Q 120 218 160 180 Q 200 140 240 60" stroke="#2257c4" stroke-width="2.5" fill="none"/>
+  <circle cx="30" cy="220" r="4" fill="#e0992a"/>
+  <circle cx="160" cy="180" r="4" fill="#2257c4"/>
+  <circle cx="240" cy="60" r="4" fill="#2257c4"/>
+  <text x="165" y="198" font-size="10" fill="#2257c4">t=1</text>
+  <text x="245" y="58" font-size="10" fill="#2257c4">t=2</text>
+  <text x="120" y="100" font-size="14" fill="#241f18" font-weight="600">y = x&sup2;</text>
+</svg>
+
+<!-- ═══ 6. ESEMPIO GRU ═══ -->
+<h2>6. Esempio completo: la gru da cantiere (ESE01)</h2>
+<div class="card">
+<h3>Dati del problema</h3>
+<p>Il braccio della gru ruota con accelerazione angolare costante. Il carico si muove lungo il braccio.</p>
+<div class="formula">
+&theta;<sub>0</sub> = 0 rad, &omega;<sub>0</sub> = 0 rad/s, &omega;&#x0307; = 0.5 rad/s&sup2; (costante)<br>
+v<sub>&rho;</sub> = sin(2t) m/s, &rho;<sub>0</sub> = 5 m
+</div>
+
+<h3>Passo 1: Trovare &theta;(t) e &omega;(t)</h3>
+<p>Dato che &omega;&#x0307; e costante, usiamo le leggi del moto uniformemente accelerato:</p>
+<div class="formula">&omega;(t) = &omega;<sub>0</sub> + &omega;&#x0307;&middot;t = 0 + 0.5t = 0.5t rad/s<br>
+&theta;(t) = &theta;<sub>0</sub> + &omega;<sub>0</sub>&middot;t + &frac12;&omega;&#x0307;&middot;t&sup2; = 0 + 0 + &frac12;&middot;0.5&middot;t&sup2; = 0.25t&sup2; rad</div>
+
+<h3>Passo 2: Trovare &rho;(t)</h3>
+<p>Dato &rho;&#x0307; = v<sub>&rho;</sub> = sin(2t), integriamo per trovare &rho;(t):</p>
+<div class="formula">&rho;(t) = &rho;<sub>0</sub> + &int;<sub>0</sub><sup>t</sup> sin(2&tau;) d&tau; = 5 + [&minus;cos(2&tau;)/2]<sub>0</sub><sup>t</sup><br>
+= 5 &minus; cos(2t)/2 + cos(0)/2 = 5 &minus; cos(2t)/2 + 1/2<br>
+= <b>5.5 &minus; 0.5&middot;cos(2t)</b> m</div>
+<p>E deriviamo per l'accelerazione radiale:</p>
+<div class="formula">&rho;&#x0307;(t) = sin(2t) m/s<br>
+&rho;&#x0308;(t) = 2&middot;cos(2t) m/s&sup2;</div>
+
+<h3>Passo 3: Scrivere l'accelerazione</h3>
+<div class="formula">a<sub>&rho;</sub> = &rho;&#x0308; &minus; &rho;&omega;&sup2; = 2cos(2t) &minus; [5.5 &minus; 0.5cos(2t)]&middot;(0.5t)&sup2;<br>
+a<sub>&theta;</sub> = &rho;&omega;&#x0307; + 2&rho;&#x0307;&omega; = [5.5 &minus; 0.5cos(2t)]&middot;0.5 + 2&middot;sin(2t)&middot;0.5t</div>
+
+<h3>Passo 4: Valutare a t = 4 s</h3>
+<div class="formula">&omega;(4) = 0.5&middot;4 = 2 rad/s<br>
+&theta;(4) = 0.25&middot;16 = 4 rad<br>
+&rho;(4) = 5.5 &minus; 0.5&middot;cos(8) = 5.5 &minus; 0.5&middot;(&minus;0.1455) = 5.573 m<br>
+&rho;&#x0307;(4) = sin(8) = 0.9894 m/s<br>
+&rho;&#x0308;(4) = 2&middot;cos(8) = 2&middot;(&minus;0.1455) = &minus;0.291 m/s&sup2;<br><br>
+a<sub>&rho;</sub> = &minus;0.291 &minus; 5.573&middot;4 = &minus;0.291 &minus; 22.29 = <b>&minus;22.58 m/s&sup2;</b><br>
+a<sub>&theta;</sub> = 5.573&middot;0.5 + 2&middot;0.9894&middot;2 = 2.787 + 3.958 = <b>6.74 m/s&sup2;</b></div>
+<p>Il termine dominante e quello <b>centripeto</b> (&minus;22.29): dopo 4 secondi di rotazione con &omega; crescente, il punto e fortemente accelerato verso il centro.</p>
+</div>
+
+<svg viewBox="0 0 400 250" width="400">
+  <defs><marker id="g1" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#2257c4"/></marker></defs>
+  <!-- base gru -->
+  <rect x="170" y="200" width="60" height="40" fill="#d8cfba" stroke="#6b6255" stroke-width="1" rx="3"/>
+  <!-- pivot -->
+  <circle cx="200" cy="200" r="6" fill="#e0992a"/>
+  <!-- braccio -->
+  <line x1="200" y1="200" x2="360" y2="120" stroke="#241f18" stroke-width="4" stroke-linecap="round"/>
+  <!-- carico -->
+  <circle cx="320" cy="140" r="8" fill="#cf3a2c"/>
+  <text x="330" y="138" font-size="11" fill="#cf3a2c" font-weight="600">carico</text>
+  <!-- freccia omega -->
+  <path d="M 220 175 A 25 25 0 0 0 225 185" stroke="#0d8a6a" stroke-width="2" fill="none" marker-end="url(#g1)"/>
+  <text x="230" y="178" font-size="11" fill="#0d8a6a" font-weight="600">&omega;, &omega;&#x0307;</text>
+  <!-- freccia v_rho -->
+  <line x1="320" y1="140" x2="355" y2="123" stroke="#cf3a2c" stroke-width="2" marker-end="url(#g1)"/>
+  <text x="350" y="115" font-size="10" fill="#cf3a2c">v<sub>&rho;</sub></text>
+  <!-- rho -->
+  <text x="250" y="175" font-size="12" fill="#241f18">&rho;</text>
+  <text x="180" y="220" font-size="11" fill="#6b6255">O</text>
+</svg>
+
+<!-- ═══ 7. DISCO CHE ROTOLA ═══ -->
+<h2>7. Disco che rotola (puro rotolamento)</h2>
+<p>Un disco che rotola senza strisciare su un piano ha una proprieta fondamentale: il <b>punto di contatto ha velocita zero</b>. Questo perche in quell'istante il punto non scivola sul piano.</p>
+
+<div class="formula">
+Puro rotolamento: v<sub>contatto</sub> = 0<br>
+Conseguenza: v<sub>centro</sub> = &omega; &middot; R (orizzontale)<br>
+v<sub>cima</sub> = 2&omega; &middot; R (orizzontale, il doppio del centro!)
+</div>
+
+<svg viewBox="0 0 400 230" width="400">
+  <defs><marker id="d1" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#2257c4"/></marker></defs>
+  <!-- piano -->
+  <line x1="30" y1="190" x2="370" y2="190" stroke="#241f18" stroke-width="2"/>
+  <!-- disco -->
+  <circle cx="200" cy="130" r="60" fill="none" stroke="#241f18" stroke-width="2"/>
+  <!-- centro C -->
+  <circle cx="200" cy="130" r="4" fill="#2257c4"/>
+  <text x="208" y="128" font-size="11" fill="#2257c4" font-weight="600">C</text>
+  <!-- contatto -->
+  <circle cx="200" cy="190" r="4" fill="#cf3a2c"/>
+  <text x="208" y="205" font-size="11" fill="#cf3a2c" font-weight="600">v = 0</text>
+  <!-- cima D -->
+  <circle cx="200" cy="70" r="4" fill="#0d8a6a"/>
+  <text x="208" y="68" font-size="11" fill="#0d8a6a" font-weight="600">D</text>
+  <!-- velocita centro -->
+  <line x1="200" y1="130" x2="280" y2="130" stroke="#2257c4" stroke-width="2.5" marker-end="url(#d1)"/>
+  <text x="240" y="123" font-size="11" fill="#2257c4" font-weight="600">&omega;R</text>
+  <!-- velocita cima -->
+  <line x1="200" y1="70" x2="360" y2="70" stroke="#0d8a6a" stroke-width="2.5" marker-end="url(#d1)"/>
+  <text x="280" y="63" font-size="11" fill="#0d8a6a" font-weight="600">2&omega;R</text>
+  <!-- omega -->
+  <path d="M 220 105 A 25 25 0 0 0 218 115" stroke="#e0992a" stroke-width="2" fill="none"/>
+  <text x="228" y="112" font-size="11" fill="#e0992a" font-weight="600">&omega;</text>
+  <!-- R -->
+  <text x="185" y="163" font-size="12" fill="#241f18">R</text>
+</svg>
+
+<div class="box warn">
+<div class="box-label">Attenzione</div>
+<p>Il punto di contatto ha <b>v = 0</b> ma <b>a &ne; 0</b>! L'accelerazione del punto di contatto e diretta <b>verso l'alto</b> (verso il centro) con modulo &omega;&sup2;R. Non confondere velocita zero con accelerazione zero.</p>
+</div>
+
+<!-- ═══ 8. ERRORI COMUNI ═══ -->
+<h2>8. Errori comuni e consigli</h2>
+
+<div class="box danger">
+<div class="box-label">Non dimenticare il termine centripeto</div>
+<p>Il termine <b>&minus;&rho;&theta;&#x0307;&sup2;</b> e presente SEMPRE che il punto ruota (&theta;&#x0307; &ne; 0), anche se &rho; e costante. E diretto verso il centro e cresce rapidamente con &omega;.</p>
+</div>
+
+<div class="box danger">
+<div class="box-label">Coriolis: quando c'e e quando no</div>
+<p>Il termine di Coriolis <b>2&rho;&#x0307;&theta;&#x0307;</b> compare <b>solo quando</b> il punto si muove lungo il raggio (&rho;&#x0307; &ne; 0) <b>E contemporaneamente</b> ruota (&theta;&#x0307; &ne; 0). Se il punto e fermo lungo il raggio (&rho;&#x0307; = 0), Coriolis e zero anche se ruota.</p>
+</div>
+
+<div class="box warn">
+<div class="box-label">Attenzione all'integrazione di sin(2t)</div>
+<p>&int; sin(2t) dt = <b>&minus;cos(2t)/2</b>, non &minus;cos(2t). Il coefficiente 2 davanti a t genera un fattore 1/2 nell'integrale. Errore frequentissimo!</p>
+</div>
+
+<div class="box tip">
+<div class="box-label">Moto uniformemente accelerato angolare</div>
+<p>Se &omega;&#x0307; e costante, allora &omega;(t) = &omega;<sub>0</sub> + &omega;&#x0307;t e &theta;(t) = &theta;<sub>0</sub> + &omega;<sub>0</sub>t + &frac12;&omega;&#x0307;t&sup2;. Sono le <b>stesse formule</b> del moto rettilineo uniformemente accelerato, ma con &theta; al posto di x e &omega; al posto di v.</p>
+</div>
+
+<div class="box tip">
+<div class="box-label">Quando usare polari vs cartesiane</div>
+<p>Usa <b>polari</b> quando il punto si muove lungo un raggio che ruota (gru, radar, braccio robotico). Usa <b>cartesiane</b> quando il moto e rettilineo, parabolico, o non ha simmetria radiale.</p>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Statica e Azioni Interne — Guida Meccanica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Spline+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f4efe4;--paper2:#faf7ef;--card:#fffdf8;--ink:#241f18;--ink-soft:#6b6255;--line:#e4dccb;--line2:#d8cfba;--d-low:#2f9e63;--d-mid:#e0992a;--d-high:#cf3a2c;--accent:#0d8a6a;--shadow:0 1px 2px rgba(50,40,20,.05),0 12px 28px -14px rgba(70,55,25,.22)}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Spline Sans',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;padding:clamp(16px,4vw,48px);min-height:100vh;background-image:radial-gradient(circle at 88% 18%,rgba(13,138,106,.06),transparent 38%)}.wrap{max-width:860px;margin:0 auto}a.back{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;display:inline-block;margin-bottom:20px}a.back:hover{color:var(--accent)}h1{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(28px,6vw,48px);line-height:1;margin-bottom:8px}h1 .dot{display:inline-block;width:14px;height:14px;border-radius:4px;background:var(--accent);margin-right:10px}.sub{color:var(--ink-soft);margin-bottom:32px;font-size:15px}h2{font-family:'Fraunces',serif;font-weight:700;font-size:22px;margin:36px 0 14px;padding-top:12px;border-top:1px solid var(--line)}h3{font-family:'Fraunces',serif;font-weight:600;font-size:17px;margin:24px 0 10px}p{margin:0 0 12px;font-size:14.5px;color:var(--ink-soft);line-height:1.7}p b,p strong{color:var(--ink)}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:22px 24px;margin:16px 0}.formula{font-family:'IBM Plex Mono',monospace;font-size:13px;background:var(--paper2);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:12px 0;line-height:1.8;color:var(--d-high)}.box{border-radius:10px;padding:14px 16px;margin:14px 0;font-size:13.5px;line-height:1.65}.box.tip{background:rgba(47,158,99,.07);border:1px solid rgba(47,158,99,.22)}.box.warn{background:rgba(224,153,42,.07);border:1px solid rgba(224,153,42,.22)}.box.danger{background:rgba(207,58,44,.06);border:1px solid rgba(207,58,44,.2)}.box.info{background:rgba(34,87,196,.06);border:1px solid rgba(34,87,196,.2)}.box-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-bottom:6px}.box.tip .box-label{color:var(--d-low)}.box.warn .box-label{color:var(--d-mid)}.box.danger .box-label{color:var(--d-high)}.box.info .box-label{color:#2257c4}.box p{margin:0;color:var(--ink-soft)}.box p b{color:var(--ink)}.box ul{padding-left:18px;color:var(--ink-soft);margin:4px 0 0}.box ul li{margin-bottom:4px}svg{display:block;margin:16px auto;max-width:100%}svg text{font-family:'Spline Sans',sans-serif}.example{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:16px 0}.example h4{font-family:'Fraunces',serif;font-weight:600;font-size:15px;margin-bottom:10px}.example p{font-size:13px;margin:4px 0}.example .formula{font-size:12px;padding:10px 12px;margin:8px 0}.steps{counter-reset:s;margin:14px 0}.step{display:flex;gap:14px;margin-bottom:16px;align-items:flex-start}.step-n{counter-increment:s;width:30px;height:30px;border-radius:10px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:900;font-size:14px;color:#fff;background:var(--accent)}.step-n::before{content:counter(s)}.step-b{flex:1}.step-b strong{display:block;font-size:14.5px;font-weight:600;margin-bottom:4px;color:var(--ink)}.step-b p{margin:0;font-size:13.5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a href="index.html" class="back">&larr; Torna alla home</a>
+<h1><span class="dot"></span>Statica e Azioni Interne</h1>
+<p class="sub">Come calcolare le reazioni vincolari (Problema 2 del TDE) e tracciare i diagrammi di N, T, M. Le due cose piu richieste all'esame dopo la cinematica.</p>
+
+<h2>1. Condizioni di equilibrio</h2>
+<p>Un corpo e in equilibrio statico quando la risultante delle forze e la risultante dei momenti sono entrambe <b>zero</b>:</p>
+<div class="formula">&sum;F<sub>x</sub> = 0 &nbsp;&nbsp;&nbsp; &sum;F<sub>y</sub> = 0 &nbsp;&nbsp;&nbsp; &sum;M<sub>polo</sub> = 0</div>
+<p>Nel piano queste sono <b>3 equazioni scalari</b>. Per un sistema con N corpi, hai 3N equazioni disponibili.</p>
+
+<h2>2. Procedura per le reazioni vincolari</h2>
+<div class="steps">
+<div class="step"><div class="step-n"></div><div class="step-b"><strong>Disegna il Diagramma di Corpo Libero (DCL)</strong><p>Separa ogni corpo. Sostituisci ogni vincolo con le sue <b>reazioni incognite</b>. Disegna tutte le forze esterne (peso, forze applicate, molle). Alle cerniere interne metti azione e reazione (uguali e opposte).</p></div></div>
+<div class="step"><div class="step-n"></div><div class="step-b"><strong>Conta e verifica</strong><p>Conta le incognite (reazioni vincolari). Conta le equazioni (3 per corpo). Se sono uguali: <b>isostatico</b> (risolvibile). Se le incognite sono di piu: iperstatico. Se sono di meno: il sistema e labile (si muove!).</p></div></div>
+<div class="step"><div class="step-n"></div><div class="step-b"><strong>Scegli il polo per i momenti</strong><p>Scegli il punto in cui convergono <b>piu incognite possibili</b>: le loro braccia saranno zero e spariranno dall'equazione dei momenti. Esempio: se nel punto A ci sono H<sub>Ax</sub> e H<sub>Ay</sub>, fai i momenti rispetto ad A per eliminarle entrambe.</p></div></div>
+<div class="step"><div class="step-n"></div><div class="step-b"><strong>Scrivi e risolvi le equazioni</strong><p>Scrivi &sum;F<sub>x</sub>=0, &sum;F<sub>y</sub>=0, &sum;M<sub>polo</sub>=0. Risolvi il sistema lineare. Per sistemi multi-corpo, inizia dal corpo con meno incognite.</p></div></div>
+<div class="step"><div class="step-n"></div><div class="step-b"><strong>Verifica</strong><p>Usa un'equazione extra (momenti rispetto a un altro punto) per verificare che i risultati siano corretti.</p></div></div>
+</div>
+
+<div class="box tip">
+<div class="box-label">Trucco fondamentale</div>
+<p>Se hai un sistema con 2 corpi collegati da una cerniera interna, puoi scrivere 3 equazioni per il sistema intero + 1 equazione per un singolo corpo (&sum;M rispetto alla cerniera interna), per un totale di 4 equazioni con 4 incognite.</p>
+</div>
+
+<h2>3. Molla</h2>
+<p>La molla esercita una forza proporzionale alla sua deformazione:</p>
+<div class="formula">F<sub>molla</sub> = k &middot; (l &minus; l<sub>0</sub>)</div>
+<p>dove <b>l</b> e la lunghezza attuale e <b>l<sub>0</sub></b> e la lunghezza a riposo (indeformata). Se l &gt; l<sub>0</sub> la molla e in <b>trazione</b> (tira). Se l &lt; l<sub>0</sub> e in <b>compressione</b> (spinge).</p>
+
+<div class="box warn">
+<div class="box-label">Ricordati della lunghezza indeformata</div>
+<p>All'esame spesso ti chiedono di <b>trovare l<sub>0</sub></b> sapendo che il sistema e in equilibrio. In quel caso: calcola la forza della molla dall'equilibrio, poi usa F = k(l &minus; l<sub>0</sub>) per ricavare l<sub>0</sub> = l &minus; F/k.</p>
+</div>
+
+<h2>4. Esempio: asta con cerniera e carrello</h2>
+<div class="example">
+<h4>Sistema: asta orizzontale, cerniera in A, carrello in B, forza F verticale al centro</h4>
+<svg viewBox="0 0 400 180" width="400">
+  <defs><marker id="f1" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#cf3a2c"/></marker>
+  <marker id="f2" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#0d8a6a"/></marker></defs>
+  <!-- asta -->
+  <line x1="60" y1="80" x2="340" y2="80" stroke="#241f18" stroke-width="4" stroke-linecap="round"/>
+  <!-- cerniera A -->
+  <circle cx="60" cy="80" r="7" fill="none" stroke="#0d8a6a" stroke-width="2"/>
+  <line x1="50" y1="93" x2="70" y2="93" stroke="#0d8a6a" stroke-width="2"/>
+  <text x="50" y="115" font-size="12" fill="#0d8a6a" font-weight="600">A</text>
+  <!-- carrello B -->
+  <circle cx="340" cy="86" r="5" fill="none" stroke="#0d8a6a" stroke-width="1.5"/>
+  <line x1="330" y1="95" x2="350" y2="95" stroke="#0d8a6a" stroke-width="1.5"/>
+  <text x="335" y="115" font-size="12" fill="#0d8a6a" font-weight="600">B</text>
+  <!-- F al centro -->
+  <line x1="200" y1="30" x2="200" y2="75" stroke="#cf3a2c" stroke-width="2.5" marker-end="url(#f1)"/>
+  <text x="210" y="55" font-size="13" fill="#cf3a2c" font-weight="700">F</text>
+  <!-- reazioni -->
+  <line x1="60" y1="80" x2="60" y2="30" stroke="#0d8a6a" stroke-width="2" marker-end="url(#f2)" stroke-dasharray="4 3"/>
+  <text x="25" y="55" font-size="10" fill="#0d8a6a">H<sub>Ay</sub></text>
+  <line x1="60" y1="80" x2="110" y2="80" stroke="#0d8a6a" stroke-width="2" marker-end="url(#f2)" stroke-dasharray="4 3"/>
+  <text x="80" y="75" font-size="10" fill="#0d8a6a">H<sub>Ax</sub></text>
+  <line x1="340" y1="80" x2="340" y2="30" stroke="#0d8a6a" stroke-width="2" marker-end="url(#f2)" stroke-dasharray="4 3"/>
+  <text x="350" y="55" font-size="10" fill="#0d8a6a">N<sub>B</sub></text>
+  <!-- quote -->
+  <text x="120" y="100" font-size="10" fill="#6b6255">L/2</text>
+  <text x="260" y="100" font-size="10" fill="#6b6255">L/2</text>
+</svg>
+<p><b>Incognite:</b> H<sub>Ax</sub>, H<sub>Ay</sub>, N<sub>B</sub> = 3 incognite. <b>Equazioni:</b> 3 (1 corpo). Isostatico.</p>
+<div class="formula">&sum;F<sub>x</sub> = 0: H<sub>Ax</sub> = 0<br>
+&sum;M<sub>A</sub> = 0: &minus;F&middot;L/2 + N<sub>B</sub>&middot;L = 0 &rArr; N<sub>B</sub> = F/2<br>
+&sum;F<sub>y</sub> = 0: H<sub>Ay</sub> &minus; F + N<sub>B</sub> = 0 &rArr; H<sub>Ay</sub> = F &minus; F/2 = F/2</div>
+</div>
+
+<!-- ═══ AZIONI INTERNE ═══ -->
+<h2 id="azioni-interne">5. Azioni Interne: N, T, M</h2>
+<p>Le azioni interne descrivono le <b>forze e i momenti all'interno di un'asta</b>. Servono per capire come l'asta e sollecitata punto per punto.</p>
+
+<div class="card">
+<p><b>N (Sforzo Normale)</b>: la forza <b>lungo l'asse</b> dell'asta. Trazione (+) se "tira", compressione (&minus;) se "schiaccia".</p>
+<p><b>T (Taglio)</b>: la forza <b>perpendicolare</b> all'asse dell'asta. Tende a "tagliare" la sezione.</p>
+<p><b>M (Momento Flettente)</b>: il momento che tende a <b>piegare</b> l'asta. Positivo quando le fibre inferiori sono tese.</p>
+</div>
+
+<svg viewBox="0 0 400 180" width="400">
+  <defs><marker id="n1" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#cf3a2c"/></marker>
+  <marker id="n2" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#2257c4"/></marker>
+  <marker id="n3" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#7b4ad1"/></marker></defs>
+  <!-- asta -->
+  <rect x="50" y="70" width="300" height="20" fill="#faf7ef" stroke="#241f18" stroke-width="2" rx="3"/>
+  <!-- sezione -->
+  <line x1="200" y1="60" x2="200" y2="100" stroke="#e0992a" stroke-width="2.5" stroke-dasharray="5 3"/>
+  <text x="185" y="115" font-size="10" fill="#e0992a" font-weight="600">sezione</text>
+  <!-- N -->
+  <line x1="200" y1="80" x2="270" y2="80" stroke="#cf3a2c" stroke-width="2.5" marker-end="url(#n1)"/>
+  <text x="275" y="84" font-size="13" fill="#cf3a2c" font-weight="700">N</text>
+  <text x="275" y="97" font-size="9" fill="#cf3a2c">(lungo l'asse)</text>
+  <!-- T -->
+  <line x1="200" y1="80" x2="200" y2="40" stroke="#2257c4" stroke-width="2.5" marker-end="url(#n2)"/>
+  <text x="208" y="45" font-size="13" fill="#2257c4" font-weight="700">T</text>
+  <text x="208" y="35" font-size="9" fill="#2257c4">(perp. asse)</text>
+  <!-- M -->
+  <path d="M 220 65 A 20 20 0 1 0 220 95" stroke="#7b4ad1" stroke-width="2" fill="none" marker-end="url(#n3)"/>
+  <text x="242" y="83" font-size="13" fill="#7b4ad1" font-weight="700">M</text>
+  <!-- coordinata s -->
+  <line x1="50" y1="105" x2="350" y2="105" stroke="#6b6255" stroke-width="1" marker-end="url(#n1)"/>
+  <text x="345" y="120" font-size="11" fill="#6b6255">s</text>
+</svg>
+
+<h2>6. Procedura per le azioni interne</h2>
+<div class="steps">
+<div class="step"><div class="step-n"></div><div class="step-b"><strong>Calcola prima le reazioni vincolari</strong><p>Senza reazioni non puoi procedere. Usa la procedura della Parte 1.</p></div></div>
+<div class="step"><div class="step-n"></div><div class="step-b"><strong>Scegli un punto s sull'asta e "taglia"</strong><p>Seziona l'asta nel punto generico s. Scegli la parte con meno forze.</p></div></div>
+<div class="step"><div class="step-n"></div><div class="step-b"><strong>Introduci N, T, M sulla sezione</strong><p>Con le convenzioni dei segni standard: N uscente, T verso l'alto sulla faccia positiva.</p></div></div>
+<div class="step"><div class="step-n"></div><div class="step-b"><strong>Scrivi l'equilibrio della parte scelta</strong><p>&sum;F parallele all'asse &rarr; N. &sum;F perpendicolari &rarr; T. &sum;M rispetto alla sezione &rarr; M.</p></div></div>
+<div class="step"><div class="step-n"></div><div class="step-b"><strong>Traccia i diagrammi</strong><p>Ripeti per diversi tratti dell'asta (ogni tratto tra due forze). Traccia N(s), T(s), M(s).</p></div></div>
+</div>
+
+<h2>7. Regole rapide per i diagrammi</h2>
+<div class="card">
+<p><b>Tra due forze concentrate:</b> T e costante, M e lineare (una retta).</p>
+<p><b>Forza concentrata:</b> salto nel diagramma di T pari alla forza.</p>
+<p><b>Coppia concentrata:</b> salto nel diagramma di M pari alla coppia.</p>
+<p><b>Carico distribuito q:</b> dT/ds = q (T lineare), dM/ds = T (M parabolico).</p>
+<p><b>Dove T = 0:</b> M ha un massimo o minimo.</p>
+<p><b>Bielle</b> (aste con 2 cerniere e nessun carico): hanno <b>solo N</b> (T=0, M=0). La forza e diretta lungo l'asta.</p>
+</div>
+
+<div class="box tip">
+<div class="box-label">Relazione tra T e M</div>
+<p>Il momento M e l'"integrale" del taglio T. Dove T e positivo, M cresce. Dove T e negativo, M cala. Dove T = 0, M ha un estremo. Questo ti permette di <b>disegnare M a partire da T</b> senza calcoli.</p>
+</div>
+
+<h2>8. Errori comuni</h2>
+<div class="box danger">
+<div class="box-label">Separa i corpi alle cerniere interne!</div>
+<p>Se ci sono 2 aste collegate da una cerniera, devi <b>separare i due corpi</b> e mettere le reazioni interne (azione e reazione) sulla cerniera. Non trattare il sistema come un unico corpo!</p>
+</div>
+<div class="box warn">
+<div class="box-label">Il braccio del momento</div>
+<p>Il momento di una forza rispetto a un punto e M = F &times; d, dove d e la <b>distanza perpendicolare</b> dal punto alla retta d'azione della forza. Non e la distanza dal punto al punto di applicazione!</p>
+</div>
+<div class="box warn">
+<div class="box-label">Aste inclinate: proietta!</div>
+<p>Per un'asta inclinata, N e T sono definiti rispetto all'<b>asse dell'asta</b>, non rispetto a x e y. Devi proiettare le forze <b>lungo</b> l'asta (per N) e <b>perpendicolarmente</b> all'asta (per T).</p>
+</div>
+<div class="box tip">
+<div class="box-label">Scegli il polo giusto per i momenti</div>
+<p>Scegli il polo nel punto dove convergono il maggior numero di incognite: le elimini tutte dall'equazione dei momenti e risolvi subito per un'altra incognita.</p>
+</div>
+</div>
+</body>
+</html>

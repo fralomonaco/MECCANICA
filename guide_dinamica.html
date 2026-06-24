@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dinamica e Trasmissioni — Guida Meccanica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Spline+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f4efe4;--paper2:#faf7ef;--card:#fffdf8;--ink:#241f18;--ink-soft:#6b6255;--line:#e4dccb;--line2:#d8cfba;--d-low:#2f9e63;--d-mid:#e0992a;--d-high:#cf3a2c;--accent:#7b4ad1;--accent2:#c2410c;--shadow:0 1px 2px rgba(50,40,20,.05),0 12px 28px -14px rgba(70,55,25,.22)}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Spline Sans',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;padding:clamp(16px,4vw,48px);min-height:100vh;background-image:radial-gradient(circle at 12% 18%,rgba(123,74,209,.06),transparent 38%)}.wrap{max-width:860px;margin:0 auto}a.back{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;display:inline-block;margin-bottom:20px}a.back:hover{color:var(--accent)}h1{font-family:'Fraunces',serif;font-weight:900;font-size:clamp(28px,6vw,48px);line-height:1;margin-bottom:8px}h1 .dot{display:inline-block;width:14px;height:14px;border-radius:4px;background:var(--accent);margin-right:10px}.sub{color:var(--ink-soft);margin-bottom:32px;font-size:15px}h2{font-family:'Fraunces',serif;font-weight:700;font-size:22px;margin:36px 0 14px;padding-top:12px;border-top:1px solid var(--line)}h3{font-family:'Fraunces',serif;font-weight:600;font-size:17px;margin:24px 0 10px}p{margin:0 0 12px;font-size:14.5px;color:var(--ink-soft);line-height:1.7}p b,p strong{color:var(--ink)}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:22px 24px;margin:16px 0}.formula{font-family:'IBM Plex Mono',monospace;font-size:13px;background:var(--paper2);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:12px 0;line-height:1.8;color:var(--d-high)}.box{border-radius:10px;padding:14px 16px;margin:14px 0;font-size:13.5px;line-height:1.65}.box.tip{background:rgba(47,158,99,.07);border:1px solid rgba(47,158,99,.22)}.box.warn{background:rgba(224,153,42,.07);border:1px solid rgba(224,153,42,.22)}.box.danger{background:rgba(207,58,44,.06);border:1px solid rgba(207,58,44,.2)}.box.info{background:rgba(34,87,196,.06);border:1px solid rgba(34,87,196,.2)}.box-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-bottom:6px}.box.tip .box-label{color:var(--d-low)}.box.warn .box-label{color:var(--d-mid)}.box.danger .box-label{color:var(--d-high)}.box.info .box-label{color:#2257c4}.box p{margin:0;color:var(--ink-soft)}.box p b{color:var(--ink)}.box ul{padding-left:18px;color:var(--ink-soft);margin:4px 0 0}.box ul li{margin-bottom:4px}svg{display:block;margin:16px auto;max-width:100%}svg text{font-family:'Spline Sans',sans-serif}.example{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:16px 0}.example h4{font-family:'Fraunces',serif;font-weight:600;font-size:15px;margin-bottom:10px}.example p{font-size:13px;margin:4px 0}.example .formula{font-size:12px;padding:10px 12px;margin:8px 0}.steps{counter-reset:s;margin:14px 0}.step{display:flex;gap:14px;margin-bottom:16px;align-items:flex-start}.step-n{counter-increment:s;width:30px;height:30px;border-radius:10px;flex:none;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:900;font-size:14px;color:#fff;background:var(--accent)}.step-n::before{content:counter(s)}.step-b{flex:1}.step-b strong{display:block;font-size:14.5px;font-weight:600;margin-bottom:4px;color:var(--ink)}.step-b p{margin:0;font-size:13.5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a href="index.html" class="back">&larr; Torna alla home</a>
+<h1><span class="dot"></span>Dinamica e Trasmissioni</h1>
+<p class="sub">Equazioni cardinali, bilancio delle potenze, attrito, e trasmissioni con motori e rendimenti. Problema 1 e Problema 3 del TDE.</p>
+
+<!-- ═══ PARTE 1: EQUAZIONI CARDINALI ═══ -->
+<h2>1. Equazioni Cardinali della Dinamica</h2>
+<p>Le equazioni cardinali sono l'equivalente dinamico delle equazioni di equilibrio della statica, ma con le inerzie che compaiono a destra.</p>
+
+<h3>1.1 Prima equazione (risultante)</h3>
+<div class="formula">&sum;F&#x20D7;<sub>esterne</sub> = m &middot; a&#x20D7;<sub>G</sub></div>
+<p>La somma delle forze esterne e uguale alla massa per l'accelerazione del <b>baricentro G</b>. Questa e un'equazione vettoriale &rarr; 2 equazioni scalari (x e y).</p>
+
+<h3>1.2 Seconda equazione (momento)</h3>
+<div class="formula">Polo nel baricentro G: &sum;M<sub>G</sub> = J<sub>G</sub> &middot; &omega;&#x0307;<br><br>
+Polo in punto fisso O (es. cerniera a terra): &sum;M<sub>O</sub> = J<sub>O</sub> &middot; &omega;&#x0307;<br><br>
+dove J<sub>O</sub> = J<sub>G</sub> + m&middot;d&sup2; (Huygens-Steiner, d = distanza G&minus;O)</div>
+
+<div class="box danger">
+<div class="box-label">Polo non baricentrico e non fisso</div>
+<p>Se scegli un polo che non e ne il baricentro ne un punto fisso, la formula diventa piu complessa (compaiono termini con a<sub>G</sub>). <b>Evitalo</b>: usa sempre G o un punto fisso come polo.</p>
+</div>
+
+<h3>1.3 Energia cinetica</h3>
+<div class="formula">T = &frac12;m&middot;v<sub>G</sub>&sup2; + &frac12;J<sub>G</sub>&middot;&omega;&sup2;<br><br>
+Se il corpo ruota attorno a punto fisso O: T = &frac12;J<sub>O</sub>&middot;&omega;&sup2;</div>
+
+<!-- ═══ PARTE 2: BILANCIO POTENZE ═══ -->
+<h2>2. Bilancio delle Potenze</h2>
+<p>Il bilancio delle potenze e un metodo <b>energetico</b> alternativo alle equazioni cardinali. E particolarmente utile quando cerchi <b>una sola incognita</b> (coppia motrice, forza).</p>
+
+<div class="formula" style="font-size:15px;color:var(--accent)">&sum;P<sub>esterne</sub> = dT/dt</div>
+<p>La somma delle potenze di tutte le forze e coppie esterne e uguale alla derivata temporale dell'energia cinetica.</p>
+
+<h3>2.1 Come calcolare le potenze</h3>
+<div class="card">
+<p><b>Potenza di una forza:</b> P = F&#x20D7; &middot; v&#x20D7; = |F|&middot;|v|&middot;cos&theta; (dove &theta; e l'angolo tra F e v)</p>
+<p><b>Potenza di una coppia:</b> P = C &middot; &omega; (positiva se C e &omega; hanno lo stesso verso)</p>
+<p><b>Derivata energia cinetica:</b> dT/dt = m&middot;a&#x20D7;<sub>G</sub>&middot;v&#x20D7;<sub>G</sub> + J<sub>G</sub>&middot;&omega;&#x0307;&middot;&omega;</p>
+</div>
+
+<h3>2.2 Il grande vantaggio</h3>
+<div class="box tip">
+<div class="box-label">Le reazioni vincolari spariscono!</div>
+<p>Le reazioni vincolari <b>non lavorano</b> (potenza = 0) e quindi non compaiono nel bilancio:</p>
+<ul>
+<li><b>Cerniera a terra</b>: il punto e fisso, v = 0 &rArr; P = F&middot;0 = 0</li>
+<li><b>Carrello</b>: la forza e perpendicolare alla velocita &rArr; P = F&middot;v&middot;cos90&deg; = 0</li>
+<li><b>Cerniera interna</b>: azione e reazione uguali e opposte, stessa velocita &rArr; si cancellano</li>
+</ul>
+<p>Questo e il motivo per cui il bilancio delle potenze e cosi efficace: hai <b>meno incognite</b>!</p>
+</div>
+
+<h3>2.3 Quando usare quale metodo</h3>
+<div class="card">
+<p><b>Bilancio potenze</b>: quando cerchi <b>1 sola incognita</b> (coppia motrice, forza motrice). Le reazioni vincolari non ti servono e non compaiono.</p>
+<p><b>Equazioni cardinali</b>: quando ti servono le <b>reazioni vincolari</b>, o quando hai piu incognite. Scrivi 3 equazioni per corpo e risolvi il sistema.</p>
+<p><b>Combinazione tipica all'esame</b>: prima il bilancio potenze per trovare la forza/coppia motrice, poi le equazioni cardinali per le reazioni vincolari.</p>
+</div>
+
+<!-- ═══ PARTE 3: ATTRITO ═══ -->
+<h2>3. Attrito</h2>
+
+<h3>3.1 Statico vs dinamico</h3>
+<div class="formula">Attrito statico: |F<sub>attr</sub>| &le; f<sub>s</sub> &middot; N &nbsp;&nbsp;(DISEQUAZIONE, F e incognita)<br>
+Attrito dinamico: F<sub>attr</sub> = f<sub>d</sub> &middot; N &nbsp;&nbsp;(EQUAZIONE, F e nota, opposta alla velocita)<br>
+Sempre: f<sub>s</sub> &gt; f<sub>d</sub></div>
+
+<h3>3.2 Verifica di aderenza (ruote)</h3>
+<div class="steps">
+<div class="step"><div class="step-n"></div><div class="step-b"><strong>Ipotesi: puro rotolamento</strong><p>Assumi che la ruota <b>non slitti</b>. La forza tangenziale F<sub>t</sub> al contatto e incognita.</p></div></div>
+<div class="step"><div class="step-n"></div><div class="step-b"><strong>Calcola tutto con questa ipotesi</strong><p>Risolvi il problema trovando F<sub>t</sub> e la reazione normale N.</p></div></div>
+<div class="step"><div class="step-n"></div><div class="step-b"><strong>Verifica: |F<sub>t</sub>| &le; f<sub>s</sub>&middot;N ?</strong><p>Se <b>si</b>: l'ipotesi e corretta, la ruota non slitta. Se <b>no</b>: la ruota slitta, rifai il calcolo con F<sub>t</sub> = f<sub>d</sub>&middot;N.</p></div></div>
+</div>
+
+<h3>3.3 Resistenza al rotolamento</h3>
+<div class="formula">Momento resistente: M<sub>v</sub> = f<sub>v</sub> &middot; N<br>
+Si oppone alla rotazione della ruota<br>
+Equivale a una forza F<sub>v</sub> = f<sub>v</sub>&middot;N/R al contatto</div>
+
+<!-- ═══ PARTE 4: TRASMISSIONI ═══ -->
+<h2 id="trasmissioni">4. Trasmissioni</h2>
+
+<h3>4.1 Rapporto di trasmissione</h3>
+<div class="formula">&tau; = &omega;<sub>uscita</sub> / &omega;<sub>ingresso</sub></div>
+<p>Per pulegge collegate da fune (inestensibile): la velocita della fune e uguale su entrambi i lati &rarr; &omega;<sub>1</sub>&middot;R<sub>1</sub> = &omega;<sub>2</sub>&middot;R<sub>2</sub> &rarr; <b>&tau; = R<sub>1</sub>/R<sub>2</sub></b>.</p>
+<p>Se &tau; &lt; 1: <b>riduzione</b> (il carico gira piu lento ma con piu coppia). Se &tau; &gt; 1: <b>moltiplicazione</b>.</p>
+
+<h3>4.2 Rendimento: moto diretto vs retrogrado</h3>
+<p>Questa e la parte piu delicata. Il rendimento &eta; e sempre &le; 1 e rappresenta l'energia persa per attrito nella trasmissione.</p>
+
+<div class="card">
+<p><b>Moto diretto</b> (il carico <b>resiste</b>, il motore spinge): la potenza del motore deve essere MAGGIORE di quella utile.</p>
+<div class="formula">P<sub>motore</sub> &middot; &eta;<sub>D</sub> = P<sub>carico</sub> &nbsp;&rArr;&nbsp; C<sub>m</sub> = ... + C<sub>res</sub> / (&tau;&middot;&eta;<sub>D</sub>)</div>
+
+<p><b>Moto retrogrado</b> (il carico <b>aiuta</b> il moto, il motore frena): la potenza del carico arriva diminuita al motore.</p>
+<div class="formula">P<sub>carico</sub> &middot; &eta;<sub>R</sub> = P<sub>motore</sub> &nbsp;&rArr;&nbsp; C<sub>m</sub> = ... + C<sub>res</sub>&middot;&tau;&middot;&eta;<sub>R</sub></div>
+</div>
+
+<div class="box info">
+<div class="box-label">Come capire se e diretto o retrogrado</div>
+<p>Chiediti: <b>"Se spengo il motore, il sistema si muove da solo?"</b></p>
+<ul>
+<li>Se <b>no</b> (es. salita, sollevamento massa): il carico resiste &rarr; <b>moto diretto</b>, usa &eta;<sub>D</sub></li>
+<li>Se <b>si</b> (es. discesa, massa che cade): il carico aiuta &rarr; <b>moto retrogrado</b>, usa &eta;<sub>R</sub></li>
+</ul>
+</div>
+
+<h3>4.3 Inerzia equivalente ridotta al motore</h3>
+<div class="formula">J<sub>eq</sub> = J<sub>m</sub> + &tau;&sup2; &middot; (J<sub>puleggia</sub> + J<sub>volano</sub> + ...)<br>
+Per masse in traslazione: J<sub>massa</sub> = m &middot; (&tau;&middot;R)<sup>2</sup> = m &middot; (v/&omega;<sub>m</sub>)&sup2;</div>
+
+<div class="box warn">
+<div class="box-label">L'inerzia si riduce con &tau;&sup2;</div>
+<p>Attenzione: l'inerzia equivalente dipende da <b>&tau; al quadrato</b>, non da &tau;. Con &tau; = 1/20, un'inerzia J<sub>carico</sub> = 8 kg&middot;m&sup2; diventa J<sub>eq</sub> = (1/20)&sup2;&middot;8 = 0.02 kg&middot;m&sup2; vista dal motore.</p>
+</div>
+
+<h3>4.4 Bilancio potenze completo</h3>
+<div class="formula">C<sub>m</sub>&middot;&omega;<sub>m</sub> = J<sub>eq</sub>&middot;&omega;&#x0307;<sub>m</sub>&middot;&omega;<sub>m</sub> + P<sub>resistente</sub>/&eta;<sub>D</sub><br><br>
+A regime (&omega;&#x0307; = 0): C<sub>m</sub>&middot;&omega;<sub>m</sub> = P<sub>resistente</sub>/&eta;<sub>D</sub></div>
+
+<h3>4.5 Curva caratteristica del motore</h3>
+<div class="formula">C<sub>m</sub> = C<sub>m0</sub> + S &middot; (&omega;<sub>m</sub> &minus; &omega;<sub>s</sub>)</div>
+<p>dove <b>C<sub>m0</sub></b> e la coppia allo spunto (&omega;=0), <b>&omega;<sub>s</sub></b> e la velocita di sincronismo, <b>S</b> e la pendenza (negativa: piu veloce &rarr; meno coppia).</p>
+
+<svg viewBox="0 0 400 250" width="400">
+  <defs><marker id="t1" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#6b6255"/></marker></defs>
+  <!-- assi -->
+  <line x1="50" y1="200" x2="370" y2="200" stroke="#6b6255" stroke-width="1" marker-end="url(#t1)"/>
+  <line x1="50" y1="200" x2="50" y2="30" stroke="#6b6255" stroke-width="1" marker-end="url(#t1)"/>
+  <text x="360" y="218" font-size="11" fill="#6b6255">&omega;<sub>m</sub></text>
+  <text x="25" y="35" font-size="11" fill="#6b6255">C<sub>m</sub></text>
+  <!-- curva -->
+  <line x1="50" y1="60" x2="330" y2="195" stroke="#7b4ad1" stroke-width="3"/>
+  <!-- punti notevoli -->
+  <circle cx="50" cy="60" r="5" fill="#cf3a2c"/>
+  <text x="60" y="55" font-size="12" fill="#cf3a2c" font-weight="600">C<sub>m0</sub> (spunto)</text>
+  <circle cx="330" cy="195" r="5" fill="#2257c4"/>
+  <text x="280" y="220" font-size="12" fill="#2257c4" font-weight="600">&omega;<sub>s</sub></text>
+  <!-- pendenza -->
+  <text x="150" y="105" font-size="12" fill="#7b4ad1" font-weight="600">pendenza S &lt; 0</text>
+  <!-- regime -->
+  <line x1="180" y1="200" x2="180" y2="130" stroke="#0d8a6a" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <line x1="50" y1="130" x2="180" y2="130" stroke="#0d8a6a" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <circle cx="180" cy="130" r="5" fill="#0d8a6a"/>
+  <text x="185" y="128" font-size="11" fill="#0d8a6a" font-weight="600">regime</text>
+</svg>
+
+<h3>4.6 Esempio: veicolo in salita (ESE11)</h3>
+<div class="example">
+<h4>Dati</h4>
+<div class="formula">M=1500 kg, J<sub>R</sub>=2 kgm&sup2;, R=0.3 m, &alpha;=5&deg;<br>&tau;=1/5, &eta;<sub>D</sub>=0.8, &eta;<sub>R</sub>=0.7, J<sub>m</sub>=0.2 kgm&sup2;<br>F<sub>aero</sub>=800 N, f<sub>v</sub>=0.05</div>
+<h4>Forze resistenti</h4>
+<div class="formula">Peso lungo il piano: Mg&middot;sin&alpha; = 1500&middot;9.81&middot;sin5&deg; &asymp; 1283 N<br>
+Aerodinamica: F = 800 N<br>
+Resistenza rotolamento (2 assi): 2 &middot; f<sub>v</sub> &middot; N<sub>ruota</sub><br>
+N<sub>totale</sub> &asymp; Mg&middot;cos&alpha; &asymp; 14654 N &rArr; F<sub>v</sub> = 0.05&middot;14654 = 733 N</div>
+<h4>P<sub>res</sub> = (1283 + 800 + 733) &middot; v = 2816 &middot; v</h4>
+<p>E moto <b>diretto</b> (in salita il carico resiste).</p>
+<h4>A regime (&omega;&#x0307;=0)</h4>
+<div class="formula">C<sub>m</sub>&middot;&omega;<sub>m</sub> = P<sub>res</sub>/&eta;<sub>D</sub> = 2816&middot;v / 0.8<br>
+&omega;<sub>m</sub> = v/(&tau;&middot;R) = v/(0.2&middot;0.3) = v/0.06<br>
+C<sub>m</sub> &middot; v/0.06 = 2816v/0.8<br>
+C<sub>m</sub> = 2816 &middot; 0.06 / 0.8 = <b>211.2 Nm</b></div>
+</div>
+
+<h2>5. Errori comuni</h2>
+<div class="box danger">
+<div class="box-label">&eta; va sempre CONTRO di te</div>
+<p><b>Dividi per &eta;</b> quando il carico resiste (moto diretto: il motore deve dare di piu). <b>Moltiplica per &eta;</b> quando il carico aiuta (moto retrogrado: la potenza arriva diminuita). Il rendimento <b>dissipa</b> sempre energia.</p>
+</div>
+<div class="box danger">
+<div class="box-label">A regime NON vuol dire velocita zero</div>
+<p><b>A regime</b> significa <b>accelerazione zero</b> (&omega;&#x0307; = 0). Il sistema si muove a velocita costante. Non confondere con "fermo"!</p>
+</div>
+<div class="box warn">
+<div class="box-label">J<sub>G</sub> nel bilancio potenze, non J<sub>O</sub></div>
+<p>L'energia cinetica e &frac12;mv<sub>G</sub>&sup2; + &frac12;J<sub>G</sub>&omega;&sup2;. Puoi usare &frac12;J<sub>O</sub>&omega;&sup2; <b>solo</b> se O e un punto fisso (cerniera a terra) e sostituisci i due termini con uno solo.</p>
+</div>
+<div class="box warn">
+<div class="box-label">Non confondere &tau; con il rapporto dei raggi</div>
+<p>&tau; = &omega;<sub>uscita</sub>/&omega;<sub>ingresso</sub>. Per pulegge con fune: &tau; = R<sub>ingresso</sub>/R<sub>uscita</sub> (la puleggia piu grande gira piu lenta). Per ingranaggi: &tau; = z<sub>ingresso</sub>/z<sub>uscita</sub> dove z e il numero di denti.</p>
+</div>
+<div class="box tip">
+<div class="box-label">Diretto o retrogrado? Il test mentale</div>
+<p>Immagina di <b>togliere il motore</b>. Il sistema si muoverebbe da solo? Se si (es. la massa cade, il veicolo scende) &rarr; retrogrado. Se no (es. devi spingere in salita) &rarr; diretto.</p>
+</div>
+</div>
+</body>
+</html>
