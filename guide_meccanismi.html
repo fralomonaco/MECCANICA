@@ -29,8 +29,8 @@
 <div class="steps">
 <div class="step"><div class="step-n"></div><div class="step-b"><strong>Identifica il loop chiuso</strong><p>Scegli un percorso che tocchi tutte le aste e torni al punto di partenza. Es: O &rarr; A &rarr; B &rarr; O' &rarr; O.</p></div></div>
 <div class="step"><div class="step-n"></div><div class="step-b"><strong>Scrivi ogni vettore posizione</strong><p>Ogni asta di lunghezza L inclinata di un angolo &alpha; rispetto all'orizzontale contribuisce con:<br>
-<b>L&middot;cos(&alpha;) i&#x302; + L&middot;sin(&alpha;) j&#x302;</b></p></div></div>
-<div class="step"><div class="step-n"></div><div class="step-b"><strong>Somma e uguaglia a zero</strong><p>OA&#x20D7; + AB&#x20D7; + BO'&#x20D7; + O'O&#x20D7; = 0&#x20D7;</p></div></div>
+<b>L&middot;cos(&alpha;) î + L&middot;sin(&alpha;) ĵ</b></p></div></div>
+<div class="step"><div class="step-n"></div><div class="step-b"><strong>Somma e uguaglia a zero</strong><p>OA + AB + BO' + O'O = 0</p></div></div>
 <div class="step"><div class="step-n"></div><div class="step-b"><strong>Proietta su x e y</strong><p>Ottieni 2 equazioni scalari. Queste ti servono per trovare gli angoli incogniti.</p></div></div>
 </div>
 
@@ -60,19 +60,19 @@
 
 <h3>2.2 Derivazione per le velocita</h3>
 <p>Derivi le equazioni di chiusura rispetto al tempo. Le lunghezze L sono <b>costanti</b> (non si derivano), gli angoli &alpha; cambiano.</p>
-<div class="formula">d/dt [L&middot;cos(&alpha;)] = &minus;L&middot;sin(&alpha;)&middot;&alpha;&#x0307;<br>
-d/dt [L&middot;sin(&alpha;)] = L&middot;cos(&alpha;)&middot;&alpha;&#x0307;</div>
-<p>Ottieni un <b>sistema lineare</b> nelle velocita angolari incognite &alpha;&#x0307;<sub>2</sub>, &alpha;&#x0307;<sub>3</sub> (quella nota e &alpha;&#x0307;<sub>1</sub>, il dato del problema).</p>
+<div class="formula">d/dt [L&middot;cos(&alpha;)] = &minus;L&middot;sin(&alpha;)&middot;&alpha;̇<br>
+d/dt [L&middot;sin(&alpha;)] = L&middot;cos(&alpha;)&middot;&alpha;̇</div>
+<p>Ottieni un <b>sistema lineare</b> nelle velocita angolari incognite &alpha;̇<sub>2</sub>, &alpha;̇<sub>3</sub> (quella nota e &alpha;̇<sub>1</sub>, il dato del problema).</p>
 
 <h3>2.3 Derivazione per le accelerazioni</h3>
-<p>Derivi ancora. Compaiono termini con &alpha;&#x0307;&sup2; (gia <b>noti</b> dal passo precedente) e con &alpha;&#x0308; (<b>incogniti</b>).</p>
-<div class="formula">d/dt [&minus;L&middot;sin(&alpha;)&middot;&alpha;&#x0307;] = &minus;L&middot;cos(&alpha;)&middot;&alpha;&#x0307;&sup2; &minus; L&middot;sin(&alpha;)&middot;&alpha;&#x0308;<br>
-d/dt [L&middot;cos(&alpha;)&middot;&alpha;&#x0307;] = &minus;L&middot;sin(&alpha;)&middot;&alpha;&#x0307;&sup2; + L&middot;cos(&alpha;)&middot;&alpha;&#x0308;</div>
-<p>Di nuovo un sistema lineare, stavolta in &alpha;&#x0308;<sub>2</sub>, &alpha;&#x0308;<sub>3</sub>.</p>
+<p>Derivi ancora. Compaiono termini con &alpha;̇&sup2; (gia <b>noti</b> dal passo precedente) e con &alpha;̈ (<b>incogniti</b>).</p>
+<div class="formula">d/dt [&minus;L&middot;sin(&alpha;)&middot;&alpha;̇] = &minus;L&middot;cos(&alpha;)&middot;&alpha;̇&sup2; &minus; L&middot;sin(&alpha;)&middot;&alpha;̈<br>
+d/dt [L&middot;cos(&alpha;)&middot;&alpha;̇] = &minus;L&middot;sin(&alpha;)&middot;&alpha;̇&sup2; + L&middot;cos(&alpha;)&middot;&alpha;̈</div>
+<p>Di nuovo un sistema lineare, stavolta in &alpha;̈<sub>2</sub>, &alpha;̈<sub>3</sub>.</p>
 
 <div class="box warn">
 <div class="box-label">Attenzione alla derivazione</div>
-<p>d/dt[cos(&alpha;)] = &minus;sin(&alpha;)&middot;&alpha;&#x0307;, <b>NON</b> &minus;sin(&alpha;&#x0307;). L'argomento del seno e sempre &alpha;, non la sua derivata! Errore frequentissimo.</p>
+<p>d/dt[cos(&alpha;)] = &minus;sin(&alpha;)&middot;&alpha;̇, <b>NON</b> &minus;sin(&alpha;̇). L'argomento del seno e sempre &alpha;, non la sua derivata! Errore frequentissimo.</p>
 </div>
 
 <h2>3. Glifo Oscillante</h2>

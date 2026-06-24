@@ -62,13 +62,13 @@
 <p>Il teorema di Rivals e <b>lo strumento fondamentale</b> della cinematica del corpo rigido. Permette di calcolare la velocita e l'accelerazione di un punto B, conoscendo quelle di un punto A <b>sullo stesso corpo rigido</b>.</p>
 
 <h3>Formula per la velocita</h3>
-<div class="formula" style="font-size:15px;color:var(--accent)">v&#x20D7;<sub>B</sub> = v&#x20D7;<sub>A</sub> + &omega;&#x20D7; &times; (B &minus; A)</div>
+<div class="formula" style="font-size:15px;color:var(--accent)">v<sub>B</sub> = v<sub>A</sub> + &omega; &times; (B &minus; A)</div>
 <p>Dove:</p>
 <ul style="padding-left:20px;margin-bottom:14px;color:var(--ink-soft)">
-<li><b>v&#x20D7;<sub>A</sub></b> e la velocita del punto A (nota, tipicamente dal vincolo o dal dato del problema)</li>
-<li><b>&omega;&#x20D7;</b> e la velocita angolare del corpo (&omega; = &omega; k&#x302; nel piano)</li>
+<li><b>v<sub>A</sub></b> e la velocita del punto A (nota, tipicamente dal vincolo o dal dato del problema)</li>
+<li><b>&omega;</b> e la velocita angolare del corpo (&omega; = &omega; k̂ nel piano)</li>
 <li><b>(B &minus; A)</b> e il vettore posizione che va <b>da A verso B</b></li>
-<li><b>&omega;&#x20D7; &times; (B&minus;A)</b> e un vettore <b>perpendicolare</b> a (B&minus;A), di modulo &omega;&middot;|BA|</li>
+<li><b>&omega; &times; (B&minus;A)</b> e un vettore <b>perpendicolare</b> a (B&minus;A), di modulo &omega;&middot;|BA|</li>
 </ul>
 
 <svg viewBox="0 0 450 280" width="450">
@@ -81,14 +81,14 @@
   <circle cx="320" cy="90" r="6" fill="#cf3a2c"/><text x="328" y="88" font-size="13" fill="#cf3a2c" font-weight="700">B</text>
   <!-- vA -->
   <line x1="80" y1="200" x2="160" y2="200" stroke="#2257c4" stroke-width="2.5" marker-end="url(#r1)"/>
-  <text x="110" y="218" font-size="12" fill="#2257c4" font-weight="600">v&#x20D7;<sub>A</sub></text>
+  <text x="110" y="218" font-size="12" fill="#2257c4" font-weight="600">v<sub>A</sub></text>
   <!-- omega x (B-A) perpendicolare all'asta -->
   <line x1="320" y1="90" x2="280" y2="15" stroke="#0d8a6a" stroke-width="2.5" marker-end="url(#r3)"/>
   <text x="240" y="15" font-size="11" fill="#0d8a6a" font-weight="600">&omega; &times; (B&minus;A)</text>
   <text x="240" y="30" font-size="10" fill="#0d8a6a">&perp; all'asta!</text>
   <!-- vB = somma -->
   <line x1="320" y1="90" x2="360" y2="15" stroke="#cf3a2c" stroke-width="3" marker-end="url(#r2)"/>
-  <text x="365" y="18" font-size="13" fill="#cf3a2c" font-weight="700">v&#x20D7;<sub>B</sub></text>
+  <text x="365" y="18" font-size="13" fill="#cf3a2c" font-weight="700">v<sub>B</sub></text>
   <!-- B-A -->
   <text x="175" y="135" font-size="12" fill="#241f18">(B&minus;A)</text>
   <!-- omega -->
@@ -98,16 +98,16 @@
 </svg>
 
 <h3>Formula per l'accelerazione</h3>
-<div class="formula" style="font-size:14px;color:var(--accent)">a&#x20D7;<sub>B</sub> = a&#x20D7;<sub>A</sub> + &omega;&#x0307;&#x20D7; &times; (B&minus;A) + &omega;&#x20D7; &times; (&omega;&#x20D7; &times; (B&minus;A))</div>
+<div class="formula" style="font-size:14px;color:var(--accent)">a<sub>B</sub> = a<sub>A</sub> + &omega;̇ &times; (B&minus;A) + &omega; &times; (&omega; &times; (B&minus;A))</div>
 <div class="card">
-<p><b>&omega;&#x0307; &times; (B&minus;A)</b> = <b>accelerazione tangenziale</b>. E <b>perpendicolare</b> all'asta (come la velocita). Modulo: &omega;&#x0307;&middot;|BA|.</p>
+<p><b>&omega;̇ &times; (B&minus;A)</b> = <b>accelerazione tangenziale</b>. E <b>perpendicolare</b> all'asta (come la velocita). Modulo: &omega;̇&middot;|BA|.</p>
 <p><b>&omega; &times; (&omega; &times; (B&minus;A))</b> = <b>accelerazione centripeta</b>. E diretta <b>da B verso A</b> (verso il centro di rotazione). Modulo: &omega;&sup2;&middot;|BA|. Presente sempre che &omega; &ne; 0.</p>
 </div>
 
 <h2>3. Come calcolare &omega; &times; r in pratica</h2>
-<p>Nel piano, &omega; = &omega; k&#x302; e r = (r<sub>x</sub>, r<sub>y</sub>). Il prodotto vettoriale diventa:</p>
-<div class="formula">&omega; &times; r = &omega; k&#x302; &times; (r<sub>x</sub> i&#x302; + r<sub>y</sub> j&#x302;) = &omega;&middot;r<sub>x</sub> (k&#x302;&times;i&#x302;) + &omega;&middot;r<sub>y</sub> (k&#x302;&times;j&#x302;)<br>
-= &omega;&middot;r<sub>x</sub> j&#x302; &minus; &omega;&middot;r<sub>y</sub> i&#x302; = (<b>&minus;&omega;&middot;r<sub>y</sub></b>, <b>&omega;&middot;r<sub>x</sub></b>)</div>
+<p>Nel piano, &omega; = &omega; k̂ e r = (r<sub>x</sub>, r<sub>y</sub>). Il prodotto vettoriale diventa:</p>
+<div class="formula">&omega; &times; r = &omega; k̂ &times; (r<sub>x</sub> î + r<sub>y</sub> ĵ) = &omega;&middot;r<sub>x</sub> (k̂&times;î) + &omega;&middot;r<sub>y</sub> (k̂&times;ĵ)<br>
+= &omega;&middot;r<sub>x</sub> ĵ &minus; &omega;&middot;r<sub>y</sub> î = (<b>&minus;&omega;&middot;r<sub>y</sub></b>, <b>&omega;&middot;r<sub>x</sub></b>)</div>
 
 <div class="box tip">
 <div class="box-label">Regola pratica</div>
@@ -133,7 +133,7 @@
 
 <div class="formula">Puro rotolamento: v<sub>contatto</sub> = 0<br>
 v<sub>centro</sub> = &omega; &times; R (orizzontale, modulo &omega;R)<br>
-a<sub>centro</sub> = &omega;&#x0307; &times; R (orizzontale, modulo &omega;&#x0307;R)</div>
+a<sub>centro</sub> = &omega;̇ &times; R (orizzontale, modulo &omega;̇R)</div>
 
 <svg viewBox="0 0 420 240" width="420">
   <defs><marker id="d1" viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#2257c4"/></marker></defs>
@@ -155,9 +155,9 @@ a<sub>centro</sub> = &omega;&#x0307; &times; R (orizzontale, modulo &omega;&#x03
 
 <h2>5. Moti Relativi</h2>
 <p>Si usano quando un punto <b>scorre su un corpo che si muove</b> (es. glifo oscillante: un perno scorre in una guida rotante).</p>
-<div class="formula">v&#x20D7;<sub>assoluta</sub> = v&#x20D7;<sub>relativa</sub> + v&#x20D7;<sub>trascinamento</sub><br><br>
-a&#x20D7;<sub>assoluta</sub> = a&#x20D7;<sub>relativa</sub> + a&#x20D7;<sub>trascinamento</sub> + a&#x20D7;<sub>Coriolis</sub><br>
-dove a<sub>Coriolis</sub> = 2&omega;&#x20D7; &times; v&#x20D7;<sub>relativa</sub></div>
+<div class="formula">v<sub>assoluta</sub> = v<sub>relativa</sub> + v<sub>trascinamento</sub><br><br>
+a<sub>assoluta</sub> = a<sub>relativa</sub> + a<sub>trascinamento</sub> + a<sub>Coriolis</sub><br>
+dove a<sub>Coriolis</sub> = 2&omega; &times; v<sub>relativa</sub></div>
 <div class="card">
 <p><b>v<sub>relativa</sub></b>: la velocita del punto vista da chi sta sul corpo mobile (es. la velocita di scorrimento lungo la guida).</p>
 <p><b>v<sub>trascinamento</sub></b>: la velocita che il punto avrebbe se fosse incollato al corpo mobile. Si calcola come &omega; &times; r (dove r e la posizione del punto rispetto al centro del corpo mobile).</p>
@@ -166,13 +166,13 @@ dove a<sub>Coriolis</sub> = 2&omega;&#x20D7; &times; v&#x20D7;<sub>relativa</sub
 
 <h2>6. Chiusura Cinematica</h2>
 <p>Alternativa a Rivals per meccanismi con loop chiuso. L'idea: se percorro un giro completo lungo le aste del meccanismo, torno al punto di partenza. Quindi la somma dei vettori posizione e zero.</p>
-<div class="formula">OA&#x20D7; + AB&#x20D7; + BO&#x20D7; = 0&#x20D7;<br><br>
-Ogni asta: L&middot;cos(&alpha;) i&#x302; + L&middot;sin(&alpha;) j&#x302;<br><br>
+<div class="formula">OA + AB + BO = 0<br><br>
+Ogni asta: L&middot;cos(&alpha;) î + L&middot;sin(&alpha;) ĵ<br><br>
 Proietta su x: L<sub>1</sub>cos&alpha;<sub>1</sub> + L<sub>2</sub>cos&alpha;<sub>2</sub> + ... = 0<br>
 Proietta su y: L<sub>1</sub>sin&alpha;<sub>1</sub> + L<sub>2</sub>sin&alpha;<sub>2</sub> + ... = 0</div>
 <p>Per le velocita, <b>derivo</b> rispetto al tempo (le lunghezze L sono costanti):</p>
-<div class="formula">d/dt[L&middot;cos(&alpha;)] = &minus;L&middot;sin(&alpha;)&middot;&alpha;&#x0307;<br>
-d/dt[L&middot;sin(&alpha;)] = L&middot;cos(&alpha;)&middot;&alpha;&#x0307;</div>
+<div class="formula">d/dt[L&middot;cos(&alpha;)] = &minus;L&middot;sin(&alpha;)&middot;&alpha;̇<br>
+d/dt[L&middot;sin(&alpha;)] = L&middot;cos(&alpha;)&middot;&alpha;̇</div>
 
 <h2>7. Esempio completo: la scala che cade (ESE02)</h2>
 <div class="card">
@@ -218,13 +218,13 @@ a<sub>A</sub> = 0.3 m/s&sup2; (equiversa)</div>
 <div class="formula">GdL = 3&times;1 &minus; 1 (carrello A) &minus; 1 (carrello B) = 1 &#10004;</div>
 
 <h3>Soluzione con Rivals</h3>
-<p><b>Passo 1</b>: Identifica le velocita note. A si muove orizzontale: <b>v<sub>A</sub> = 5 i&#x302;</b>. B si muove verticale: <b>v<sub>B</sub> = v<sub>B</sub> j&#x302;</b> (incognita scalare).</p>
+<p><b>Passo 1</b>: Identifica le velocita note. A si muove orizzontale: <b>v<sub>A</sub> = 5 î</b>. B si muove verticale: <b>v<sub>B</sub> = v<sub>B</sub> ĵ</b> (incognita scalare).</p>
 <p><b>Passo 2</b>: Calcola il vettore (B &minus; A):</p>
-<div class="formula">(B&minus;A) = l&middot;(&minus;cos30&deg; i&#x302; + sin30&deg; j&#x302;) = 0.7&middot;(&minus;0.866 i&#x302; + 0.5 j&#x302;)<br>
-= &minus;0.606 i&#x302; + 0.35 j&#x302;</div>
+<div class="formula">(B&minus;A) = l&middot;(&minus;cos30&deg; î + sin30&deg; ĵ) = 0.7&middot;(&minus;0.866 î + 0.5 ĵ)<br>
+= &minus;0.606 î + 0.35 ĵ</div>
 <p><b>Passo 3</b>: Applica Rivals: v<sub>B</sub> = v<sub>A</sub> + &omega; &times; (B&minus;A)</p>
-<div class="formula">&omega; &times; (B&minus;A) = &omega; k&#x302; &times; (&minus;0.606 i&#x302; + 0.35 j&#x302;)<br>
-= &omega;&middot;(&minus;0.606 j&#x302; &minus; 0.35 i&#x302;) = &minus;0.35&omega; i&#x302; &minus; 0.606&omega; j&#x302;</div>
+<div class="formula">&omega; &times; (B&minus;A) = &omega; k̂ &times; (&minus;0.606 î + 0.35 ĵ)<br>
+= &omega;&middot;(&minus;0.606 ĵ &minus; 0.35 î) = &minus;0.35&omega; î &minus; 0.606&omega; ĵ</div>
 <p><b>Passo 4</b>: Proietta su x e y:</p>
 <div class="formula"><b>x:</b> 0 = 5 &minus; 0.35&omega; &rArr; &omega; = 5/0.35 = <b>14.29 rad/s</b><br><br>
 <b>y:</b> v<sub>B</sub> = 0 &minus; 0.606 &times; 14.29 = <b>&minus;8.66 m/s</b></div>
@@ -234,7 +234,7 @@ a<sub>A</sub> = 0.3 m/s&sup2; (equiversa)</div>
 <h2>8. Errori comuni</h2>
 <div class="box danger">
 <div class="box-label">&omega; &times; (&omega; &times; r) non e &omega;&sup2; &middot; r!</div>
-<p>Il termine centripeto &omega;&times;(&omega;&times;r) e diretto <b>verso il centro</b> (da B verso A), cioe nel verso <b>opposto</b> a r. Il suo modulo e &omega;&sup2;|r|, ma la direzione e &minus;r&#x302;, non +r&#x302;.</p>
+<p>Il termine centripeto &omega;&times;(&omega;&times;r) e diretto <b>verso il centro</b> (da B verso A), cioe nel verso <b>opposto</b> a r. Il suo modulo e &omega;&sup2;|r|, ma la direzione e &minus;r, non +r.</p>
 </div>
 <div class="box warn">
 <div class="box-label">(B&minus;A) va DA A VERSO B</div>

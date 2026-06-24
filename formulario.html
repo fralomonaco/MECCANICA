@@ -72,14 +72,14 @@ hr{border:none;border-top:1px solid var(--line);margin:16px 0}
 
 <h3>Notazioni</h3>
 <div class="f">
-Componenti: a&#x20D7; = (a<sub>x</sub>, a<sub>y</sub>, a<sub>z</sub>)<br>
-Complesso: a&#x20D7; = a<sub>x</sub> + j&middot;a<sub>y</sub><br>
-Polare: a&#x20D7; = |a| &ang; &theta;
+Componenti: a = (a<sub>x</sub>, a<sub>y</sub>, a<sub>z</sub>)<br>
+Complesso: a = a<sub>x</sub> + j&middot;a<sub>y</sub><br>
+Polare: a = |a| &ang; &theta;
 </div>
 
 <h3>Modulo e direzione</h3>
 <div class="f">
-|a&#x20D7;| = &radic;(a<sub>x</sub>&sup2; + a<sub>y</sub>&sup2;)<br>
+|a| = &radic;(a<sub>x</sub>&sup2; + a<sub>y</sub>&sup2;)<br>
 &theta; = atan2(a<sub>y</sub>, a<sub>x</sub>)
 </div>
 
@@ -90,19 +90,19 @@ a<sub>x</sub> = |a|&middot;cos&theta; &nbsp;&nbsp;&nbsp; a<sub>y</sub> = |a|&mid
 
 <h3>Somma</h3>
 <div class="f">
-a&#x20D7; + b&#x20D7; = (a<sub>x</sub>+b<sub>x</sub>, &nbsp;a<sub>y</sub>+b<sub>y</sub>)
+a + b = (a<sub>x</sub>+b<sub>x</sub>, &nbsp;a<sub>y</sub>+b<sub>y</sub>)
 </div>
 
 <h3>Prodotto scalare</h3>
 <div class="f">
-a&#x20D7; &middot; b&#x20D7; = a<sub>x</sub>b<sub>x</sub> + a<sub>y</sub>b<sub>y</sub> = |a||b|cos&theta;<br>
+a &middot; b = a<sub>x</sub>b<sub>x</sub> + a<sub>y</sub>b<sub>y</sub> = |a||b|cos&theta;<br>
 <span style="color:var(--ink-soft)">Risultato: scalare. Se = 0 &rArr; a &perp; b</span>
 </div>
 
 <h3>Prodotto vettoriale (nel piano)</h3>
 <div class="f">
-a&#x20D7; &times; b&#x20D7; = (a<sub>x</sub>b<sub>y</sub> &minus; a<sub>y</sub>b<sub>x</sub>) k&#x302;<br>
-|a&#x20D7; &times; b&#x20D7;| = |a||b|sin&theta;<br>
+a &times; b = (a<sub>x</sub>b<sub>y</sub> &minus; a<sub>y</sub>b<sub>x</sub>) k̂<br>
+|a &times; b| = |a||b|sin&theta;<br>
 <span style="color:var(--ink-soft)">Risultato: vettore &perp; al piano. NON commutativo: a&times;b = &minus;(b&times;a)</span>
 </div>
 
@@ -117,36 +117,36 @@ a&#x20D7; &times; b&#x20D7; = (a<sub>x</sub>b<sub>y</sub> &minus; a<sub>y</sub>b
 
 <h3>Coordinate cartesiane</h3>
 <div class="f">
-P&#x20D7;(t) = x(t) i&#x302; + y(t) j&#x302;<br>
-v&#x20D7; = x&#x0307; i&#x302; + y&#x0307; j&#x302;<br>
-a&#x20D7; = x&#x0308; i&#x302; + y&#x0308; j&#x302;
+P(t) = x(t) î + y(t) ĵ<br>
+v = ẋ î + ẏ ĵ<br>
+a = ẍ î + ÿ ĵ
 </div>
 
 <h3>Coordinate polari</h3>
 <div class="f big">
-P&#x20D7; = &rho; &middot; e&#x0302;<sub>&rho;</sub><br><br>
-v&#x20D7; = &rho;&#x0307; e&#x0302;<sub>&rho;</sub> + &rho;&theta;&#x0307; e&#x0302;<sub>&theta;</sub><br><br>
-a&#x20D7; = (&rho;&#x0308; &minus; &rho;&theta;&#x0307;&sup2;) e&#x0302;<sub>&rho;</sub> + (&rho;&theta;&#x0308; + 2&rho;&#x0307;&theta;&#x0307;) e&#x0302;<sub>&theta;</sub>
+P = &rho; &middot; e<sub>&rho;</sub><br><br>
+v = &rho;̇ e<sub>&rho;</sub> + &rho;&theta;̇ e<sub>&theta;</sub><br><br>
+a = (&rho;̈ &minus; &rho;&theta;̇&sup2;) e<sub>&rho;</sub> + (&rho;&theta;̈ + 2&rho;̇&theta;̇) e<sub>&theta;</sub>
 </div>
 
 <h3>Significato dei termini dell'accelerazione</h3>
 <div class="grid2">
-<div class="f" style="color:var(--ink)"><b>&rho;&#x0308;</b><br><span style="color:var(--ink-soft)">Radiale propria</span></div>
-<div class="f" style="color:var(--ink)"><b>&minus;&rho;&theta;&#x0307;&sup2;</b><br><span style="color:var(--ink-soft)">Centripeta (verso O)</span></div>
-<div class="f" style="color:var(--ink)"><b>&rho;&theta;&#x0308;</b><br><span style="color:var(--ink-soft)">Angolare</span></div>
-<div class="f" style="color:var(--ink)"><b>2&rho;&#x0307;&theta;&#x0307;</b><br><span style="color:var(--ink-soft)">Coriolis</span></div>
+<div class="f" style="color:var(--ink)"><b>&rho;̈</b><br><span style="color:var(--ink-soft)">Radiale propria</span></div>
+<div class="f" style="color:var(--ink)"><b>&minus;&rho;&theta;̇&sup2;</b><br><span style="color:var(--ink-soft)">Centripeta (verso O)</span></div>
+<div class="f" style="color:var(--ink)"><b>&rho;&theta;̈</b><br><span style="color:var(--ink-soft)">Angolare</span></div>
+<div class="f" style="color:var(--ink)"><b>2&rho;̇&theta;̇</b><br><span style="color:var(--ink-soft)">Coriolis</span></div>
 </div>
 
 <h3>Derivata dei versori polari</h3>
 <div class="f">
-de&#x0302;<sub>&rho;</sub>/dt = &theta;&#x0307; &middot; e&#x0302;<sub>&theta;</sub><br>
-de&#x0302;<sub>&theta;</sub>/dt = &minus;&theta;&#x0307; &middot; e&#x0302;<sub>&rho;</sub>
+de<sub>&rho;</sub>/dt = &theta;̇ &middot; e<sub>&theta;</sub><br>
+de<sub>&theta;</sub>/dt = &minus;&theta;̇ &middot; e<sub>&rho;</sub>
 </div>
 
 <h3>Moto angolare uniformemente accelerato</h3>
 <div class="f">
-&omega;(t) = &omega;<sub>0</sub> + &omega;&#x0307;&middot;t<br>
-&theta;(t) = &theta;<sub>0</sub> + &omega;<sub>0</sub>t + &frac12;&omega;&#x0307;t&sup2;
+&omega;(t) = &omega;<sub>0</sub> + &omega;̇&middot;t<br>
+&theta;(t) = &theta;<sub>0</sub> + &omega;<sub>0</sub>t + &frac12;&omega;̇t&sup2;
 </div>
 
 </div></div>
@@ -167,16 +167,16 @@ Incastro: &minus;3 &nbsp;|&nbsp; Manicotto: &minus;2 &nbsp;|&nbsp; Pattino: &min
 
 <h3>Teorema di Rivals</h3>
 <div class="f big">
-v&#x20D7;<sub>B</sub> = v&#x20D7;<sub>A</sub> + &omega;&#x20D7; &times; (B &minus; A)<br><br>
-a&#x20D7;<sub>B</sub> = a&#x20D7;<sub>A</sub> + &omega;&#x0307;&#x20D7; &times; (B&minus;A) + &omega;&#x20D7; &times; (&omega;&#x20D7; &times; (B&minus;A))
+v<sub>B</sub> = v<sub>A</sub> + &omega; &times; (B &minus; A)<br><br>
+a<sub>B</sub> = a<sub>A</sub> + &omega;̇ &times; (B&minus;A) + &omega; &times; (&omega; &times; (B&minus;A))
 </div>
 <p><b>&omega; &times; (B&minus;A)</b>: &perp; all'asta, modulo &omega;|BA|</p>
-<p><b>&omega;&#x0307; &times; (B&minus;A)</b>: tangenziale, &perp; all'asta, modulo &omega;&#x0307;|BA|</p>
+<p><b>&omega;̇ &times; (B&minus;A)</b>: tangenziale, &perp; all'asta, modulo &omega;̇|BA|</p>
 <p><b>&omega; &times; (&omega; &times; (B&minus;A))</b>: centripeta, da B verso A, modulo &omega;&sup2;|BA|</p>
 
 <h3>Prodotto vettoriale nel piano</h3>
 <div class="f">
-&omega;&#x20D7; &times; r&#x20D7; = &omega; k&#x302; &times; (r<sub>x</sub> i&#x302; + r<sub>y</sub> j&#x302;) = (&minus;&omega; r<sub>y</sub>, &nbsp;&omega; r<sub>x</sub>)<br>
+&omega; &times; r = &omega; k̂ &times; (r<sub>x</sub> î + r<sub>y</sub> ĵ) = (&minus;&omega; r<sub>y</sub>, &nbsp;&omega; r<sub>x</sub>)<br>
 <span style="color:var(--ink-soft)">Ruota r di 90&deg; antiorario e moltiplica per &omega;</span>
 </div>
 
@@ -185,13 +185,13 @@ a&#x20D7;<sub>B</sub> = a&#x20D7;<sub>A</sub> + &omega;&#x0307;&#x20D7; &times; 
 v<sub>contatto</sub> = 0<br>
 v<sub>centro</sub> = &omega; &times; R &nbsp;&nbsp;(modulo &omega;R, orizzontale)<br>
 v<sub>cima</sub> = 2&omega;R<br>
-a<sub>centro</sub> = &omega;&#x0307; R &nbsp;&nbsp;(orizzontale)
+a<sub>centro</sub> = &omega;̇ R &nbsp;&nbsp;(orizzontale)
 </div>
 
 <h3>Moti relativi</h3>
 <div class="f big">
-v&#x20D7;<sub>ass</sub> = v&#x20D7;<sub>rel</sub> + v&#x20D7;<sub>tras</sub><br><br>
-a&#x20D7;<sub>ass</sub> = a&#x20D7;<sub>rel</sub> + a&#x20D7;<sub>tras</sub> + 2&omega;&#x20D7; &times; v&#x20D7;<sub>rel</sub>
+v<sub>ass</sub> = v<sub>rel</sub> + v<sub>tras</sub><br><br>
+a<sub>ass</sub> = a<sub>rel</sub> + a<sub>tras</sub> + 2&omega; &times; v<sub>rel</sub>
 </div>
 <p class="note">Il termine 2&omega; &times; v<sub>rel</sub> e l'accelerazione di Coriolis.</p>
 
@@ -206,27 +206,27 @@ a&#x20D7;<sub>ass</sub> = a&#x20D7;<sub>rel</sub> + a&#x20D7;<sub>tras</sub> + 2
 
 <h3>Chiusura cinematica</h3>
 <div class="f">
-Loop: OA&#x20D7; + AB&#x20D7; + BO&#x20D7; = 0&#x20D7;<br><br>
-Ogni asta: L cos(&alpha;) i&#x302; + L sin(&alpha;) j&#x302;
+Loop: OA + AB + BO = 0<br><br>
+Ogni asta: L cos(&alpha;) î + L sin(&alpha;) ĵ
 </div>
 
 <h3>Derivata per velocita</h3>
 <div class="f">
-d/dt [L cos(&alpha;)] = &minus;L sin(&alpha;) &middot; &alpha;&#x0307;<br>
-d/dt [L sin(&alpha;)] = L cos(&alpha;) &middot; &alpha;&#x0307;<br>
+d/dt [L cos(&alpha;)] = &minus;L sin(&alpha;) &middot; &alpha;̇<br>
+d/dt [L sin(&alpha;)] = L cos(&alpha;) &middot; &alpha;̇<br>
 <span style="color:var(--ink-soft)">Le lunghezze L sono costanti!</span>
 </div>
 
 <h3>Derivata per accelerazione</h3>
 <div class="f">
-d&sup2;/dt&sup2; [L cos(&alpha;)] = &minus;L cos(&alpha;)&middot;&alpha;&#x0307;&sup2; &minus; L sin(&alpha;)&middot;&alpha;&#x0308;<br>
-d&sup2;/dt&sup2; [L sin(&alpha;)] = &minus;L sin(&alpha;)&middot;&alpha;&#x0307;&sup2; + L cos(&alpha;)&middot;&alpha;&#x0308;
+d&sup2;/dt&sup2; [L cos(&alpha;)] = &minus;L cos(&alpha;)&middot;&alpha;̇&sup2; &minus; L sin(&alpha;)&middot;&alpha;̈<br>
+d&sup2;/dt&sup2; [L sin(&alpha;)] = &minus;L sin(&alpha;)&middot;&alpha;̇&sup2; + L cos(&alpha;)&middot;&alpha;̈
 </div>
 
 <h3>Glifo oscillante</h3>
 <div class="f">
-v&#x20D7;<sub>ass</sub> = v&#x20D7;<sub>rel</sub> (lungo guida) + v&#x20D7;<sub>tras</sub> (&omega; &times; r, &perp; raggio)<br><br>
-a&#x20D7;<sub>ass</sub> = a&#x20D7;<sub>rel</sub> + a&#x20D7;<sub>tras</sub> + 2&omega;&#x20D7; &times; v&#x20D7;<sub>rel</sub>
+v<sub>ass</sub> = v<sub>rel</sub> (lungo guida) + v<sub>tras</sub> (&omega; &times; r, &perp; raggio)<br><br>
+a<sub>ass</sub> = a<sub>rel</sub> + a<sub>tras</sub> + 2&omega; &times; v<sub>rel</sub>
 </div>
 
 </div></div>
@@ -308,13 +308,13 @@ Bielle (2 cerniere, no carichi): solo N, T=0, M=0
 
 <h3>Prima equazione cardinale (forze)</h3>
 <div class="f big">
-&sum;F&#x20D7;<sub>ext</sub> = m &middot; a&#x20D7;<sub>G</sub>
+&sum;F<sub>ext</sub> = m &middot; a<sub>G</sub>
 </div>
 
 <h3>Seconda equazione cardinale (momenti)</h3>
 <div class="f big">
-Polo in G (baricentro): &sum;M<sub>G</sub> = J<sub>G</sub> &middot; &omega;&#x0307;<br><br>
-Polo in O (punto fisso): &sum;M<sub>O</sub> = J<sub>O</sub> &middot; &omega;&#x0307;
+Polo in G (baricentro): &sum;M<sub>G</sub> = J<sub>G</sub> &middot; &omega;̇<br><br>
+Polo in O (punto fisso): &sum;M<sub>O</sub> = J<sub>O</sub> &middot; &omega;̇
 </div>
 
 <h3>Teorema assi paralleli (Huygens-Steiner)</h3>
@@ -344,14 +344,14 @@ Se ruota attorno a punto fisso O: T = &frac12; J<sub>O</sub> &omega;&sup2;
 
 <h3>Potenze</h3>
 <div class="f">
-Forza: P = F&#x20D7; &middot; v&#x20D7; = |F|&middot;|v|&middot;cos&theta;<br>
+Forza: P = F &middot; v = |F|&middot;|v|&middot;cos&theta;<br>
 Coppia: P = C &middot; &omega;<br>
 Peso: P = &minus;m g v<sub>y</sub>
 </div>
 
 <h3>Derivata energia cinetica</h3>
 <div class="f">
-dT/dt = m &middot; a&#x20D7;<sub>G</sub> &middot; v&#x20D7;<sub>G</sub> + J<sub>G</sub> &middot; &omega;&#x0307; &middot; &omega;
+dT/dt = m &middot; a<sub>G</sub> &middot; v<sub>G</sub> + J<sub>G</sub> &middot; &omega;̇ &middot; &omega;
 </div>
 
 <h3>Potenze nulle (non compaiono!)</h3>
@@ -426,8 +426,8 @@ Per masse traslanti: J<sub>eq,m</sub> = m &middot; (v / &omega;<sub>m</sub>)&sup
 
 <h3>Bilancio completo con trasmissione</h3>
 <div class="f big">
-C<sub>m</sub>&middot;&omega;<sub>m</sub> = J<sub>eq</sub>&middot;&omega;&#x0307;<sub>m</sub>&middot;&omega;<sub>m</sub> + P<sub>res</sub> / &eta;<sub>D</sub><br><br>
-A regime (&omega;&#x0307; = 0):<br>
+C<sub>m</sub>&middot;&omega;<sub>m</sub> = J<sub>eq</sub>&middot;&omega;̇<sub>m</sub>&middot;&omega;<sub>m</sub> + P<sub>res</sub> / &eta;<sub>D</sub><br><br>
+A regime (&omega;̇ = 0):<br>
 C<sub>m</sub>&middot;&omega;<sub>m</sub> = P<sub>res</sub> / &eta;<sub>D</sub>
 </div>
 

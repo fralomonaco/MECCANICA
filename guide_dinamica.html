@@ -23,12 +23,12 @@
 <p>Le equazioni cardinali sono l'equivalente dinamico delle equazioni di equilibrio della statica, ma con le inerzie che compaiono a destra.</p>
 
 <h3>1.1 Prima equazione (risultante)</h3>
-<div class="formula">&sum;F&#x20D7;<sub>esterne</sub> = m &middot; a&#x20D7;<sub>G</sub></div>
+<div class="formula">&sum;F<sub>esterne</sub> = m &middot; a<sub>G</sub></div>
 <p>La somma delle forze esterne e uguale alla massa per l'accelerazione del <b>baricentro G</b>. Questa e un'equazione vettoriale &rarr; 2 equazioni scalari (x e y).</p>
 
 <h3>1.2 Seconda equazione (momento)</h3>
-<div class="formula">Polo nel baricentro G: &sum;M<sub>G</sub> = J<sub>G</sub> &middot; &omega;&#x0307;<br><br>
-Polo in punto fisso O (es. cerniera a terra): &sum;M<sub>O</sub> = J<sub>O</sub> &middot; &omega;&#x0307;<br><br>
+<div class="formula">Polo nel baricentro G: &sum;M<sub>G</sub> = J<sub>G</sub> &middot; &omega;̇<br><br>
+Polo in punto fisso O (es. cerniera a terra): &sum;M<sub>O</sub> = J<sub>O</sub> &middot; &omega;̇<br><br>
 dove J<sub>O</sub> = J<sub>G</sub> + m&middot;d&sup2; (Huygens-Steiner, d = distanza G&minus;O)</div>
 
 <div class="box danger">
@@ -49,9 +49,9 @@ Se il corpo ruota attorno a punto fisso O: T = &frac12;J<sub>O</sub>&middot;&ome
 
 <h3>2.1 Come calcolare le potenze</h3>
 <div class="card">
-<p><b>Potenza di una forza:</b> P = F&#x20D7; &middot; v&#x20D7; = |F|&middot;|v|&middot;cos&theta; (dove &theta; e l'angolo tra F e v)</p>
+<p><b>Potenza di una forza:</b> P = F &middot; v = |F|&middot;|v|&middot;cos&theta; (dove &theta; e l'angolo tra F e v)</p>
 <p><b>Potenza di una coppia:</b> P = C &middot; &omega; (positiva se C e &omega; hanno lo stesso verso)</p>
-<p><b>Derivata energia cinetica:</b> dT/dt = m&middot;a&#x20D7;<sub>G</sub>&middot;v&#x20D7;<sub>G</sub> + J<sub>G</sub>&middot;&omega;&#x0307;&middot;&omega;</p>
+<p><b>Derivata energia cinetica:</b> dT/dt = m&middot;a<sub>G</sub>&middot;v<sub>G</sub> + J<sub>G</sub>&middot;&omega;̇&middot;&omega;</p>
 </div>
 
 <h3>2.2 Il grande vantaggio</h3>
@@ -131,8 +131,8 @@ Per masse in traslazione: J<sub>massa</sub> = m &middot; (&tau;&middot;R)<sup>2<
 </div>
 
 <h3>4.4 Bilancio potenze completo</h3>
-<div class="formula">C<sub>m</sub>&middot;&omega;<sub>m</sub> = J<sub>eq</sub>&middot;&omega;&#x0307;<sub>m</sub>&middot;&omega;<sub>m</sub> + P<sub>resistente</sub>/&eta;<sub>D</sub><br><br>
-A regime (&omega;&#x0307; = 0): C<sub>m</sub>&middot;&omega;<sub>m</sub> = P<sub>resistente</sub>/&eta;<sub>D</sub></div>
+<div class="formula">C<sub>m</sub>&middot;&omega;<sub>m</sub> = J<sub>eq</sub>&middot;&omega;̇<sub>m</sub>&middot;&omega;<sub>m</sub> + P<sub>resistente</sub>/&eta;<sub>D</sub><br><br>
+A regime (&omega;̇ = 0): C<sub>m</sub>&middot;&omega;<sub>m</sub> = P<sub>resistente</sub>/&eta;<sub>D</sub></div>
 
 <h3>4.5 Curva caratteristica del motore</h3>
 <div class="formula">C<sub>m</sub> = C<sub>m0</sub> + S &middot; (&omega;<sub>m</sub> &minus; &omega;<sub>s</sub>)</div>
@@ -172,7 +172,7 @@ Resistenza rotolamento (2 assi): 2 &middot; f<sub>v</sub> &middot; N<sub>ruota</
 N<sub>totale</sub> &asymp; Mg&middot;cos&alpha; &asymp; 14654 N &rArr; F<sub>v</sub> = 0.05&middot;14654 = 733 N</div>
 <h4>P<sub>res</sub> = (1283 + 800 + 733) &middot; v = 2816 &middot; v</h4>
 <p>E moto <b>diretto</b> (in salita il carico resiste).</p>
-<h4>A regime (&omega;&#x0307;=0)</h4>
+<h4>A regime (&omega;̇=0)</h4>
 <div class="formula">C<sub>m</sub>&middot;&omega;<sub>m</sub> = P<sub>res</sub>/&eta;<sub>D</sub> = 2816&middot;v / 0.8<br>
 &omega;<sub>m</sub> = v/(&tau;&middot;R) = v/(0.2&middot;0.3) = v/0.06<br>
 C<sub>m</sub> &middot; v/0.06 = 2816v/0.8<br>
@@ -186,7 +186,7 @@ C<sub>m</sub> = 2816 &middot; 0.06 / 0.8 = <b>211.2 Nm</b></div>
 </div>
 <div class="box danger">
 <div class="box-label">A regime NON vuol dire velocita zero</div>
-<p><b>A regime</b> significa <b>accelerazione zero</b> (&omega;&#x0307; = 0). Il sistema si muove a velocita costante. Non confondere con "fermo"!</p>
+<p><b>A regime</b> significa <b>accelerazione zero</b> (&omega;̇ = 0). Il sistema si muove a velocita costante. Non confondere con "fermo"!</p>
 </div>
 <div class="box warn">
 <div class="box-label">J<sub>G</sub> nel bilancio potenze, non J<sub>O</sub></div>
